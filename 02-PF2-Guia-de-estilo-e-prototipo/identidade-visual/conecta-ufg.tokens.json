@@ -1,0 +1,471 @@
+{
+  "global": {
+    "raio": {
+      "grande": {
+        "value": "20",
+        "type": "borderRadius"
+      },
+      "medio": {
+        "value": "14",
+        "type": "borderRadius"
+      },
+      "pequeno": {
+        "value": "10",
+        "type": "borderRadius"
+      },
+      "folha": {
+        "value": "26",
+        "type": "borderRadius"
+      },
+      "heroi": {
+        "value": "28",
+        "type": "borderRadius"
+      },
+      "pilula": {
+        "value": "999",
+        "type": "borderRadius"
+      }
+    },
+    "espaco": {
+      "xs": {
+        "value": "4",
+        "type": "spacing"
+      },
+      "sm": {
+        "value": "6",
+        "type": "spacing"
+      },
+      "md": {
+        "value": "10",
+        "type": "spacing"
+      },
+      "lg": {
+        "value": "14",
+        "type": "spacing"
+      },
+      "xl": {
+        "value": "18",
+        "type": "spacing"
+      },
+      "2xl": {
+        "value": "22",
+        "type": "spacing"
+      },
+      "3xl": {
+        "value": "36",
+        "type": "spacing"
+      },
+      "4xl": {
+        "value": "48",
+        "type": "spacing"
+      }
+    },
+    "tipografia": {
+      "Herói": {
+        "Título": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "900",
+            "fontSize": "40",
+            "lineHeight": "105%",
+            "letterSpacing": "-3%"
+          },
+          "type": "typography"
+        },
+        "Número": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "900",
+            "fontSize": "42",
+            "lineHeight": "100%",
+            "letterSpacing": "-3%"
+          },
+          "type": "typography"
+        }
+      },
+      "Página": {
+        "Título": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "900",
+            "fontSize": "30",
+            "lineHeight": "115%",
+            "letterSpacing": "-2.5%"
+          },
+          "type": "typography"
+        }
+      },
+      "Folha": {
+        "Título": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "900",
+            "fontSize": "22",
+            "lineHeight": "120%",
+            "letterSpacing": "-2%"
+          },
+          "type": "typography"
+        }
+      },
+      "Seção": {
+        "Título": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "900",
+            "fontSize": "21",
+            "lineHeight": "120%",
+            "letterSpacing": "-2%"
+          },
+          "type": "typography"
+        }
+      },
+      "Cartão": {
+        "Título": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "800",
+            "fontSize": "17",
+            "lineHeight": "130%",
+            "letterSpacing": "-1%"
+          },
+          "type": "typography"
+        }
+      },
+      "Painel": {
+        "Número": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "900",
+            "fontSize": "36",
+            "lineHeight": "105%",
+            "letterSpacing": "-3%"
+          },
+          "type": "typography"
+        }
+      },
+      "Corpo": {
+        "Normal": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "400",
+            "fontSize": "15.5",
+            "lineHeight": "150%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        },
+        "Forte": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "800",
+            "fontSize": "15.5",
+            "lineHeight": "150%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        },
+        "Campo": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "400",
+            "fontSize": "16",
+            "lineHeight": "140%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        }
+      },
+      "Apoio": {
+        "Meta": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "400",
+            "fontSize": "14",
+            "lineHeight": "145%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        },
+        "Dado": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "700",
+            "fontSize": "13.5",
+            "lineHeight": "140%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        },
+        "Rótulo": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "800",
+            "fontSize": "13.5",
+            "lineHeight": "140%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        },
+        "Chip": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "800",
+            "fontSize": "12.5",
+            "lineHeight": "125%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        }
+      },
+      "Botão": {
+        "Rótulo": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "800",
+            "fontSize": "15",
+            "lineHeight": "120%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        },
+        "Pequeno": {
+          "value": {
+            "fontFamily": "Nunito",
+            "fontWeight": "800",
+            "fontSize": "13.5",
+            "lineHeight": "120%",
+            "letterSpacing": "0%"
+          },
+          "type": "typography"
+        }
+      }
+    },
+    "alvo": {
+      "minimo-toque": {
+        "value": "44",
+        "type": "sizing",
+        "description": "Altura mínima de qualquer alvo tocável, conforme a diretriz de acessibilidade do projeto."
+      }
+    }
+  },
+  "claro": {
+    "fundo": {
+      "pagina": {
+        "value": "#F2F3F9",
+        "type": "color"
+      },
+      "cartao": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "cartao-2": {
+        "value": "#E9EBF6",
+        "type": "color"
+      },
+      "linha": {
+        "value": "#DCDFEE",
+        "type": "color"
+      }
+    },
+    "tinta": {
+      "forte": {
+        "value": "#15173A",
+        "type": "color"
+      },
+      "media": {
+        "value": "#474B72",
+        "type": "color"
+      },
+      "fraca": {
+        "value": "#72769B",
+        "type": "color"
+      }
+    },
+    "marca": {
+      "base": {
+        "value": "#2A3CD4",
+        "type": "color"
+      },
+      "forte": {
+        "value": "#1D2CA8",
+        "type": "color"
+      },
+      "suave": {
+        "value": "#E2E6FF",
+        "type": "color"
+      },
+      "sobre": {
+        "value": "#FFFFFF",
+        "type": "color"
+      }
+    },
+    "heroi": {
+      "fundo": {
+        "value": "#2A3CD4",
+        "type": "color"
+      },
+      "texto": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "texto-2": {
+        "value": "#C9D0FF",
+        "type": "color"
+      }
+    },
+    "ipe": {
+      "base": {
+        "value": "#FFC21A",
+        "type": "color"
+      },
+      "suave": {
+        "value": "#FFF1C7",
+        "type": "color"
+      },
+      "tinta": {
+        "value": "#7A5500",
+        "type": "color"
+      }
+    },
+    "estado": {
+      "ok": {
+        "value": "#0C8657",
+        "type": "color"
+      },
+      "ok-suave": {
+        "value": "#DAF4E8",
+        "type": "color"
+      },
+      "aviso": {
+        "value": "#A85200",
+        "type": "color"
+      },
+      "aviso-suave": {
+        "value": "#FFE9D2",
+        "type": "color"
+      },
+      "erro": {
+        "value": "#CC2936",
+        "type": "color"
+      },
+      "erro-suave": {
+        "value": "#FDE3E5",
+        "type": "color"
+      }
+    }
+  },
+  "escuro": {
+    "fundo": {
+      "pagina": {
+        "value": "#0D0F21",
+        "type": "color"
+      },
+      "cartao": {
+        "value": "#171A34",
+        "type": "color"
+      },
+      "cartao-2": {
+        "value": "#21254A",
+        "type": "color"
+      },
+      "linha": {
+        "value": "#2B2F57",
+        "type": "color"
+      }
+    },
+    "tinta": {
+      "forte": {
+        "value": "#ECEDFF",
+        "type": "color"
+      },
+      "media": {
+        "value": "#B3B7DA",
+        "type": "color"
+      },
+      "fraca": {
+        "value": "#8488AE",
+        "type": "color"
+      }
+    },
+    "marca": {
+      "base": {
+        "value": "#8F9DFF",
+        "type": "color"
+      },
+      "forte": {
+        "value": "#AEB8FF",
+        "type": "color"
+      },
+      "suave": {
+        "value": "#252C6B",
+        "type": "color"
+      },
+      "sobre": {
+        "value": "#0D0F21",
+        "type": "color"
+      }
+    },
+    "heroi": {
+      "fundo": {
+        "value": "#232B78",
+        "type": "color"
+      },
+      "texto": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "texto-2": {
+        "value": "#B9C1FF",
+        "type": "color"
+      }
+    },
+    "ipe": {
+      "base": {
+        "value": "#FFCD45",
+        "type": "color"
+      },
+      "suave": {
+        "value": "#3A2E0B",
+        "type": "color"
+      },
+      "tinta": {
+        "value": "#FFD568",
+        "type": "color"
+      }
+    },
+    "estado": {
+      "ok": {
+        "value": "#4BD29A",
+        "type": "color"
+      },
+      "ok-suave": {
+        "value": "#0F2D22",
+        "type": "color"
+      },
+      "aviso": {
+        "value": "#FFA759",
+        "type": "color"
+      },
+      "aviso-suave": {
+        "value": "#3A2410",
+        "type": "color"
+      },
+      "erro": {
+        "value": "#FF7C86",
+        "type": "color"
+      },
+      "erro-suave": {
+        "value": "#3A1519",
+        "type": "color"
+      }
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": [
+      "global",
+      "claro",
+      "escuro"
+    ]
+  }
+}

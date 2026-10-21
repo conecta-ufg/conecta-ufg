@@ -1,0 +1,9 @@
+# temporários
+*.tmp
+~$*
+Thumbs.db
+.DS_Store
+
+# nada de credencial no repositório
+*.token
+.env

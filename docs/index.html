@@ -1,0 +1,2126 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Conecta UFG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&display=swap">
+<style>
+/* Layout: app de estudante. Barra branca no topo com abas em pílula, conteúdo central
+   de até 1100px, herói azul-cobalto com um ipê amarelo na página inicial, folha lateral
+   (desktop) ou folha inferior (celular) para os detalhes, e barra de abas embaixo no celular. */
+:root{
+  --fundo:#F2F3F9; --cartao:#FFFFFF; --cartao-2:#E9EBF6; --linha:#DCDFEE;
+  --tinta:#15173A; --tinta-2:#474B72; --tinta-3:#72769B;
+  --marca:#2A3CD4; --marca-forte:#1D2CA8; --marca-suave:#E2E6FF; --sobre-marca:#FFFFFF;
+  --heroi:#2A3CD4; --heroi-tx:#FFFFFF; --heroi-2:#C9D0FF;
+  --ipe:#FFC21A; --ipe-suave:#FFF1C7; --ipe-tinta:#7A5500;
+  --ok:#0C8657; --ok-suave:#DAF4E8;
+  --aviso:#A85200; --aviso-suave:#FFE9D2;
+  --erro:#CC2936; --erro-suave:#FDE3E5;
+  --veu:rgba(21,23,58,.45);
+  --texto:"Nunito","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --r:20px; --r-m:14px; --r-p:10px;
+  --sombra:0 1px 2px rgba(21,23,58,.05),0 6px 18px rgba(21,23,58,.07);
+  --sombra-forte:0 18px 50px rgba(21,23,58,.22);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --fundo:#0D0F21; --cartao:#171A34; --cartao-2:#21254A; --linha:#2B2F57;
+  --tinta:#ECEDFF; --tinta-2:#B3B7DA; --tinta-3:#8488AE;
+  --marca:#8F9DFF; --marca-forte:#AEB8FF; --marca-suave:#252C6B; --sobre-marca:#0D0F21;
+  --heroi:#232B78; --heroi-tx:#FFFFFF; --heroi-2:#B9C1FF;
+  --ipe:#FFCD45; --ipe-suave:#3A2E0B; --ipe-tinta:#FFD568;
+  --ok:#4BD29A; --ok-suave:#0F2D22;
+  --aviso:#FFA759; --aviso-suave:#3A2410;
+  --erro:#FF7C86; --erro-suave:#3A1519;
+  --veu:rgba(0,0,0,.6);
+  --sombra:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.3);
+  --sombra-forte:0 18px 50px rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --fundo:#0D0F21; --cartao:#171A34; --cartao-2:#21254A; --linha:#2B2F57;
+  --tinta:#ECEDFF; --tinta-2:#B3B7DA; --tinta-3:#8488AE;
+  --marca:#8F9DFF; --marca-forte:#AEB8FF; --marca-suave:#252C6B; --sobre-marca:#0D0F21;
+  --heroi:#232B78; --heroi-tx:#FFFFFF; --heroi-2:#B9C1FF;
+  --ipe:#FFCD45; --ipe-suave:#3A2E0B; --ipe-tinta:#FFD568;
+  --ok:#4BD29A; --ok-suave:#0F2D22;
+  --aviso:#FFA759; --aviso-suave:#3A2410;
+  --erro:#FF7C86; --erro-suave:#3A1519;
+  --veu:rgba(0,0,0,.6);
+  --sombra:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.3);
+  --sombra-forte:0 18px 50px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--fundo);color:var(--tinta);font-family:var(--texto);
+  font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+h1,h2,h3,h4,p,ul,ol,dl,figure{margin:0}
+ul{padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--marca)}
+:focus-visible{outline:3px solid var(--marca);outline-offset:2px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.pular{position:absolute;left:12px;top:-60px;z-index:99;background:var(--marca);color:var(--sobre-marca);
+  padding:10px 18px;border-radius:999px;font-weight:800;transition:top .15s}
+.pular:focus{top:12px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---------- barra do app ---------- */
+.barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--cartao);
+  border-bottom:1px solid var(--linha)}
+.barra-in{max-width:1140px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+.marca{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--tinta);flex:none;
+  background:none;border:0;cursor:pointer;padding:4px;border-radius:12px}
+.marca .selo{width:34px;height:34px;border-radius:11px;background:var(--marca);display:grid;place-items:center;
+  position:relative}
+.marca .selo::after{content:"";position:absolute;right:-3px;top:-3px;width:12px;height:12px;border-radius:50%;
+  background:var(--ipe);border:2.5px solid var(--cartao)}
+.marca b{font-size:19px;font-weight:900;letter-spacing:-.02em;line-height:1}
+.marca small{font-size:12px;font-weight:800;color:var(--marca);margin-left:2px}
+.abas{display:flex;gap:4px;flex-wrap:wrap}
+.abas a{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;text-decoration:none;
+  color:var(--tinta-2);font-weight:700;font-size:14.5px;transition:background .15s,color .15s;position:relative}
+.abas a:hover{background:var(--cartao-2);color:var(--tinta)}
+.abas a[aria-current="page"]{background:var(--marca-suave);color:var(--marca)}
+.barra-dir{margin-left:auto;display:flex;align-items:center;gap:8px}
+.papel{display:flex;background:var(--cartao-2);border-radius:999px;padding:3px}
+.papel button{border:0;background:none;padding:6px 12px;border-radius:999px;font-weight:800;font-size:13px;
+  color:var(--tinta-2);cursor:pointer;white-space:nowrap}
+.papel button[aria-pressed="true"]{background:var(--cartao);color:var(--tinta);box-shadow:var(--sombra)}
+.ico-btn{width:40px;height:40px;padding:0;display:grid;place-items:center;border-radius:50%;border:0;
+  background:var(--cartao-2);color:var(--tinta-2);cursor:pointer;position:relative;flex:none}
+.ico-btn:hover{color:var(--tinta);background:var(--linha)}
+.ico-btn .bolha{position:absolute;top:-2px;right:-2px;min-width:19px;height:19px;border-radius:999px;
+  background:var(--erro);color:#fff;font-size:11px;font-weight:900;display:grid;place-items:center;
+  padding:0 5px;border:2px solid var(--cartao)}
+.avatar-btn{width:40px;height:40px;border-radius:50%;border:0;background:var(--ipe);color:#3A2800;
+  font-weight:900;font-size:14px;cursor:pointer;flex:none}
+.avatar-btn[aria-current="page"]{box-shadow:0 0 0 3px var(--cartao),0 0 0 5px var(--marca)}
+
+.folha{max-width:1140px;margin:0 auto;padding:24px 20px 56px}
+.cab-pag{margin-bottom:22px}
+.cab-pag h1{font-size:30px;font-weight:900;letter-spacing:-.025em;line-height:1.15;text-wrap:balance}
+.cab-pag p{color:var(--tinta-2);margin-top:4px;font-size:15.5px;max-width:60ch}
+.rodape{margin-top:48px;font-size:12.5px;color:var(--tinta-3);text-align:center}
+
+/* ---------- herói ---------- */
+.heroi{background:var(--heroi);color:var(--heroi-tx);border-radius:28px;padding:30px 32px;position:relative;
+  overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+.heroi .ipe{position:absolute;right:-46px;top:-52px;width:240px;height:240px;opacity:.95;pointer-events:none}
+.heroi .dia{font-size:14px;font-weight:700;color:var(--heroi-2)}
+.heroi h1{font-size:40px;font-weight:900;letter-spacing:-.03em;line-height:1.05;margin-top:4px}
+.heroi p{font-size:17px;margin-top:10px;max-width:46ch;color:var(--heroi-tx);opacity:.92}
+.heroi p b{color:var(--ipe);font-weight:900}
+.heroi-acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;position:relative}
+.heroi-num{position:relative;background:rgba(255,255,255,.12);border-radius:20px;padding:16px 20px;
+  display:grid;gap:2px;min-width:150px;backdrop-filter:blur(2px)}
+.heroi-num strong{font-size:42px;font-weight:900;line-height:1;letter-spacing:-.03em}
+.heroi-num span{font-size:13.5px;font-weight:700;color:var(--heroi-2)}
+
+/* ---------- seções ---------- */
+.sec{margin-top:36px}
+.sec-topo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-topo h2{font-size:21px;font-weight:900;letter-spacing:-.02em}
+.sec-topo .ct{font-size:13px;font-weight:900;background:var(--cartao-2);color:var(--tinta-2);
+  border-radius:999px;padding:1px 9px}
+.sec-topo .lk{margin-left:auto;font-size:14px;font-weight:800;color:var(--marca);background:none;border:0;
+  cursor:pointer;padding:6px 8px;border-radius:999px;display:flex;align-items:center;gap:4px}
+.sec-topo .lk:hover{background:var(--marca-suave)}
+.rot{font-size:13.5px;font-weight:800;color:var(--tinta-2)}
+.lede{font-size:15.5px;color:var(--tinta-2);max-width:62ch}
+
+.grade{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* ---------- cartões ---------- */
+.cartao{background:var(--cartao);border:0;border-radius:var(--r);padding:18px;display:flex;flex-direction:column;
+  gap:9px;text-align:left;width:100%;font:inherit;color:inherit;box-shadow:var(--sombra);
+  transition:transform .15s,box-shadow .15s}
+button.cartao{cursor:pointer}
+button.cartao:hover{transform:translateY(-2px);box-shadow:var(--sombra),0 0 0 2px var(--marca)}
+.cartao h3{font-size:17px;font-weight:800;line-height:1.3;letter-spacing:-.01em;text-wrap:balance}
+.cartao .meta{font-size:14px;color:var(--tinta-2)}
+.cartao .pe{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;margin-top:auto;padding-top:10px}
+.linha-chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.dado{font-size:13.5px;color:var(--tinta-2);font-weight:700;display:inline-flex;align-items:center;gap:5px}
+.dado.forte{color:var(--tinta);font-weight:900}
+
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:800;padding:4px 10px;
+  border-radius:999px;color:var(--tinta-2);background:var(--cartao-2);white-space:nowrap;line-height:1.25}
+.chip.m{background:var(--marca-suave);color:var(--marca)}
+.chip.i{background:var(--ipe-suave);color:var(--ipe-tinta)}
+.chip.v{background:var(--ok-suave);color:var(--ok)}
+.chip.a{background:var(--aviso-suave);color:var(--aviso)}
+.chip.r{background:var(--erro-suave);color:var(--erro)}
+.chip .pt{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:999px;
+  font-size:15px;font-weight:800;border:0;cursor:pointer;background:var(--cartao-2);color:var(--tinta);
+  transition:background .15s,transform .1s;min-height:44px;text-decoration:none}
+.btn:hover{background:var(--linha)}
+.btn:active{transform:scale(.98)}
+.btn.pri{background:var(--marca);color:var(--sobre-marca)}
+.btn.pri:hover{background:var(--marca-forte)}
+.btn.claro{background:#FFFFFF;color:#1D2CA8}
+.btn.claro:hover{background:var(--ipe);color:#3A2800}
+.btn.vidro{background:rgba(255,255,255,.14);color:#FFFFFF}
+.btn.vidro:hover{background:rgba(255,255,255,.24)}
+.btn.fant{background:none;color:var(--tinta-2)}
+.btn.fant:hover{background:var(--cartao-2);color:var(--tinta)}
+.btn.peq{padding:7px 14px;font-size:13.5px;min-height:36px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.perigo{background:var(--erro-suave);color:var(--erro)}
+
+/* ---------- compatibilidade (anel) ---------- */
+.compat{display:inline-flex;align-items:center;gap:8px}
+.anel{position:relative;display:inline-grid;place-items:center;flex:none}
+.anel svg{position:absolute;inset:0}
+.anel circle{fill:none;stroke-width:4.5}
+.anel .trilho{stroke:var(--cartao-2)}
+.anel .prog{stroke:var(--marca);stroke-linecap:round}
+.anel.med .prog{stroke:var(--ipe)}
+.anel.bai .prog{stroke:var(--tinta-3)}
+.anel b{position:relative;font-size:11px;font-weight:900;letter-spacing:-.03em}
+.compat-tx{display:flex;flex-direction:column;line-height:1.2}
+.compat-tx b{font-size:14px;font-weight:900}
+.compat-tx small{font-size:12.5px;color:var(--tinta-3);font-weight:700}
+.req{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--linha)}
+.req:last-child{border-bottom:0}
+.req .mk{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900}
+.req.ok .mk{background:var(--ok-suave);color:var(--ok)}
+.req.nao .mk{background:var(--erro-suave);color:var(--erro)}
+.req .tx{font-size:14.5px;line-height:1.4}
+.req .tx b{font-weight:800}
+.req .st{display:block;font-size:13.5px;color:var(--tinta-2);margin-top:1px}
+
+/* ---------- busca e filtros ---------- */
+/* Busca do herói: fica visível já na tela inicial, porque procurar vaga é a
+   tarefa principal do estudante e ela não deve exigir navegar antes. */
+.busca-heroi{display:flex;align-items:center;gap:10px;background:var(--cartao);border-radius:999px;
+  padding:5px 6px 5px 18px;margin-top:18px;max-width:560px;position:relative;
+  box-shadow:0 10px 28px rgba(21,23,58,.22);border:2px solid transparent;transition:border-color .15s}
+.busca-heroi:focus-within{border-color:var(--ipe)}
+.busca-heroi input{flex:1;border:0;background:none;padding:11px 0;outline:none;font-size:16px;
+  min-width:0;color:var(--tinta)}
+.busca-heroi input::placeholder{color:var(--tinta-3)}
+.busca-heroi>svg{color:var(--tinta-3);flex:none}
+.heroi .busca-dica{font-size:13.5px;font-weight:700;color:var(--heroi-2);margin-top:9px;
+  min-height:20px;max-width:560px;opacity:1}
+.atalhos{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.atalhos button{background:rgba(255,255,255,.16);color:#FFFFFF;border:0;border-radius:999px;
+  padding:8px 15px;font-size:13.5px;font-weight:800;cursor:pointer;min-height:38px}
+.atalhos button:hover{background:rgba(255,255,255,.3)}
+.hub{display:grid;grid-template-columns:250px minmax(0,1fr);gap:22px;align-items:start}
+.busca{display:flex;align-items:center;gap:10px;background:var(--cartao);border-radius:999px;padding:0 8px 0 18px;
+  box-shadow:var(--sombra);border:2px solid transparent;transition:border-color .15s}
+.busca:focus-within{border-color:var(--marca)}
+.busca input{flex:1;border:0;background:none;padding:13px 0;outline:none;font-size:15.5px;min-width:0}
+.busca svg{color:var(--tinta-3);flex:none}
+.busca .ico-btn{width:32px;height:32px}
+.filtros{background:var(--cartao);border-radius:var(--r);padding:16px 16px;box-shadow:var(--sombra);
+  position:sticky;top:84px}
+.filtros-topo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:16px}
+.filtros-topo .tog{display:none}
+.fcorpo{display:flex;flex-direction:column;gap:16px;margin-top:14px}
+.fgrupo{display:flex;flex-direction:column;gap:4px;border:0;padding:0;margin:0}
+.fgrupo legend{padding:0;margin-bottom:6px}
+.fop{display:flex;align-items:center;gap:10px;font-size:14.5px;cursor:pointer;padding:6px 8px;border-radius:10px;
+  color:var(--tinta-2);min-height:36px;font-weight:600}
+.fop:hover{background:var(--cartao-2);color:var(--tinta)}
+.fop input{width:18px;height:18px;accent-color:var(--marca);cursor:pointer;flex:none;margin:0}
+.fop .n{margin-left:auto;font-size:12.5px;font-weight:800;color:var(--tinta-3)}
+.fop:has(input:checked){color:var(--tinta);font-weight:800;background:var(--marca-suave)}
+.resumo-busca{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:16px 0 12px}
+.resumo-busca strong{font-size:16px;font-weight:900}
+.resumo-busca span{font-size:13.5px;color:var(--tinta-3);font-weight:700}
+
+/* ---------- eventos ---------- */
+.ev{flex-direction:row;align-items:flex-start;gap:14px}
+.ev-data{flex:none;width:58px;border-radius:14px;background:var(--marca-suave);color:var(--marca);text-align:center;
+  padding:8px 0 7px;line-height:1}
+.ev-data b{display:block;font-size:24px;font-weight:900;letter-spacing:-.02em}
+.ev-data small{display:block;font-size:12px;font-weight:900;text-transform:uppercase;margin-top:3px;letter-spacing:.04em}
+.ev-corpo{min-width:0;display:flex;flex-direction:column;gap:7px;flex:1}
+
+/* ---------- lista ---------- */
+.lista{display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;background:var(--cartao);box-shadow:var(--sombra)}
+.item{display:flex;align-items:center;gap:14px;padding:15px 18px;border:0;border-bottom:1px solid var(--linha);
+  width:100%;background:none;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:background .15s}
+.item:last-child{border-bottom:0}
+.item:hover{background:var(--cartao-2)}
+.item .pr{min-width:0;flex:1}
+.item .tt{font-size:15.5px;font-weight:800;line-height:1.3;margin-bottom:2px}
+.item .sb{font-size:14px;color:var(--tinta-2)}
+.item .sb.fraco{color:var(--tinta-3);font-size:13px;margin-top:3px}
+.item .dr{display:flex;align-items:center;gap:10px;flex:none;color:var(--tinta-3)}
+.item-ic{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center}
+.nao-lida{width:9px;height:9px;border-radius:50%;background:var(--marca);flex:none}
+
+/* ---------- folha de detalhe ---------- */
+.veu{position:fixed;inset:0;background:var(--veu);z-index:50;animation:surge .18s ease-out}
+@keyframes surge{from{opacity:0}to{opacity:1}}
+.drawer{position:fixed;top:12px;right:12px;bottom:12px;width:min(560px,calc(100% - 24px));background:var(--cartao);
+  z-index:51;display:flex;flex-direction:column;box-shadow:var(--sombra-forte);border-radius:26px;overflow:hidden;
+  animation:desliza .24s cubic-bezier(.2,.8,.3,1)}
+@keyframes desliza{from{transform:translateX(40px);opacity:.3}to{transform:none;opacity:1}}
+.drawer-topo{padding:20px 22px 14px;display:flex;align-items:flex-start;gap:12px}
+.drawer-topo h2{font-size:22px;font-weight:900;line-height:1.2;letter-spacing:-.02em;text-wrap:balance}
+.drawer-topo .ante{font-size:13.5px;font-weight:800;color:var(--marca)}
+.drawer-corpo{padding:6px 22px 22px;overflow-y:auto;flex:1}
+.drawer-pe{padding:14px 22px calc(16px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--linha);
+  display:flex;gap:10px;align-items:center;background:var(--cartao)}
+.alca{display:none}
+.bloco{margin-bottom:22px}
+.bloco>.rot{display:block;margin-bottom:8px;font-size:15px;color:var(--tinta);font-weight:900}
+.bloco p{font-size:15px;color:var(--tinta-2);line-height:1.6}
+.caixa{background:var(--fundo);border-radius:var(--r-m);padding:4px 16px}
+.pares{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px}
+.par{background:var(--fundo);border-radius:var(--r-m);padding:11px 13px}
+.par dt{font-size:12.5px;color:var(--tinta-3);font-weight:800;margin-bottom:1px}
+.par dd{margin:0;font-size:17px;font-weight:900;letter-spacing:-.01em}
+.par dd small{font-size:12px;font-weight:700;color:var(--tinta-3)}
+.par dd.tx{font-size:14.5px;font-weight:800}
+.pessoa{display:flex;align-items:center;gap:12px;background:var(--fundo);border-radius:var(--r-m);padding:12px 14px}
+.pessoa .perfil-av{width:44px;height:44px;font-size:15px}
+.pessoa b{display:block;font-size:15.5px;font-weight:800}
+.pessoa span{font-size:13.5px;color:var(--tinta-2)}
+.fazer li{display:flex;gap:10px;font-size:15px;color:var(--tinta-2);padding:5px 0;line-height:1.5}
+.fazer li svg{color:var(--ok);flex:none;margin-top:3px}
+
+/* ---------- linha do tempo ---------- */
+.linha-t{display:flex;flex-direction:column;margin:4px 0}
+.etapa{display:grid;grid-template-columns:28px 1fr;gap:12px;position:relative;padding-bottom:20px}
+.etapa:last-child{padding-bottom:0}
+.etapa::before{content:"";position:absolute;left:13px;top:28px;bottom:2px;width:3px;border-radius:3px;background:var(--cartao-2)}
+.etapa:last-child::before{display:none}
+.etapa.feito::before{background:var(--marca)}
+.mrk{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--cartao-2);z-index:1;
+  font-size:13px;font-weight:900;color:var(--tinta-3)}
+.etapa.feito .mrk{background:var(--marca);color:var(--sobre-marca)}
+.etapa.agora .mrk{background:var(--ipe);color:#3A2800;box-shadow:0 0 0 5px var(--ipe-suave)}
+.etapa.agora .mrk::after{content:"";width:9px;height:9px;border-radius:50%;background:#3A2800}
+.etapa .nm{font-size:15.5px;font-weight:800;line-height:1.3;padding-top:3px}
+.etapa.futuro .nm{color:var(--tinta-3);font-weight:700}
+.etapa .qd{font-size:13px;color:var(--tinta-3);font-weight:700;margin-top:1px}
+.etapa .obs{font-size:14px;color:var(--tinta-2);margin-top:7px;background:var(--fundo);padding:10px 13px;border-radius:12px}
+.etapa.agora .obs{background:var(--ipe-suave);color:var(--tinta)}
+.agora-tag{display:inline-flex;align-items:center;font-size:12px;font-weight:900;color:var(--ipe-tinta);
+  background:var(--ipe-suave);border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:2px}
+
+/* ---------- formulário ---------- */
+.progresso{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:26px}
+.passo{background:none;border:0;padding:0;cursor:pointer;text-align:left;color:var(--tinta-3);font-size:13.5px;
+  font-weight:800;display:flex;flex-direction:column;gap:7px}
+.passo::before{content:"";height:6px;border-radius:6px;background:var(--cartao-2)}
+.passo.feito::before{background:var(--marca)}
+.passo.atual::before{background:var(--ipe)}
+.passo.atual{color:var(--tinta)}
+.passo.feito{color:var(--tinta-2)}
+.passo .nb{font-weight:900}
+.form-caixa{background:var(--cartao);border-radius:24px;padding:24px;box-shadow:var(--sombra)}
+.campo{margin-bottom:18px}
+.campo label{display:block;font-size:15px;font-weight:800;margin-bottom:5px}
+.campo label .opc{font-weight:600;color:var(--tinta-3)}
+.campo .aj{font-size:13.5px;color:var(--tinta-3);margin:-2px 0 7px;font-weight:600}
+.campo input[type=text],.campo input[type=number],.campo input[type=date],.campo select,.campo textarea{
+  width:100%;padding:12px 15px;border:2px solid var(--linha);border-radius:14px;background:var(--cartao);outline:none;
+  font-size:15.5px;transition:border-color .15s}
+.campo textarea{min-height:110px;resize:vertical;line-height:1.55}
+.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--marca)}
+.campo.erro input,.campo.erro select,.campo.erro textarea{border-color:var(--erro);background:var(--erro-suave)}
+.msg-erro{display:flex;align-items:flex-start;gap:6px;color:var(--erro);font-size:13.5px;font-weight:800;margin-top:6px}
+.msg-erro svg{flex:none;margin-top:2px}
+.dupla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.radios{display:flex;gap:8px;flex-wrap:wrap}
+.radio{display:flex;align-items:center;gap:8px;border:2px solid var(--linha);border-radius:999px;padding:9px 16px;
+  cursor:pointer;font-size:15px;font-weight:700;min-height:44px}
+.radio:hover{background:var(--cartao-2)}
+.radio input{accent-color:var(--marca);margin:0;width:17px;height:17px}
+.radio:has(input:checked){border-color:var(--marca);background:var(--marca-suave);color:var(--marca);font-weight:900}
+.form-pe{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+
+/* ---------- quadro de candidatos ---------- */
+.kanban-wrap{overflow-x:auto;padding-bottom:10px;margin:0 -4px}
+.kanban{display:grid;grid-template-columns:repeat(5,minmax(214px,1fr));gap:12px;align-items:start;padding:4px;min-width:1100px}
+.coluna{background:var(--cartao-2);border-radius:var(--r);padding:12px;min-height:170px;transition:background .15s,box-shadow .15s}
+.coluna.alvo{background:var(--marca-suave);box-shadow:inset 0 0 0 2px var(--marca)}
+.col-topo{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:2px 4px}
+.col-topo h3{font-size:14.5px;font-weight:900}
+.col-topo .n{margin-left:auto;font-size:12.5px;font-weight:900;color:var(--tinta-2);background:var(--cartao);border-radius:999px;padding:1px 9px}
+.col-topo .cor{width:10px;height:10px;border-radius:50%}
+.cand{background:var(--cartao);border-radius:var(--r-m);padding:12px;margin-bottom:9px;cursor:grab;display:block;
+  width:100%;text-align:left;box-shadow:var(--sombra)}
+.cand:hover{box-shadow:var(--sombra),0 0 0 2px var(--marca)}
+.cand.arrastando{opacity:.4}
+.cand .nm{font-size:15px;font-weight:800;line-height:1.3}
+.cand .cs{font-size:13px;color:var(--tinta-2)}
+.cand .ln{display:flex;align-items:center;gap:6px;margin-top:9px;flex-wrap:wrap}
+.cand-mov{display:flex;gap:5px;margin-top:10px}
+.cand-mov button{flex:1;padding:4px;border:0;background:var(--cartao-2);border-radius:999px;cursor:pointer;
+  color:var(--tinta-2);display:grid;place-items:center;min-height:32px}
+.cand-mov button:hover:not(:disabled){background:var(--marca-suave);color:var(--marca)}
+.cand-mov button:disabled{opacity:.3;cursor:not-allowed}
+.sel-op{padding:11px 15px;border:2px solid var(--linha);border-radius:14px;background:var(--cartao);max-width:100%;
+  font-size:15px;font-weight:700;margin-top:6px;width:min(560px,100%)}
+
+/* ---------- números do painel ---------- */
+.num{background:var(--cartao);border-radius:var(--r);padding:18px;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:2px}
+.num strong{font-size:36px;font-weight:900;line-height:1.05;letter-spacing:-.03em}
+.num .r1{font-size:14.5px;font-weight:800}
+.num .r2{font-size:13px;color:var(--tinta-3);font-weight:700}
+.num.destaque{background:var(--ipe);color:#3A2800}
+.num.destaque .r2{color:#6A4A00}
+
+/* ---------- estados ---------- */
+.vazio{background:var(--cartao);border-radius:var(--r);padding:40px 24px;text-align:center;box-shadow:var(--sombra)}
+.vazio .vz-ic{width:56px;height:56px;border-radius:18px;background:var(--marca-suave);color:var(--marca);
+  display:grid;place-items:center;margin:0 auto 12px}
+.vazio h3{font-size:18px;font-weight:900;margin-bottom:5px}
+.vazio p{font-size:15px;color:var(--tinta-2);max-width:42ch;margin:0 auto 16px}
+.esq{background:linear-gradient(90deg,var(--cartao-2) 25%,var(--linha) 37%,var(--cartao-2) 63%);background-size:400% 100%;
+  animation:brilha 1.3s ease-in-out infinite;border-radius:8px}
+@keyframes brilha{0%{background-position:100% 0}100%{background-position:0 0}}
+.alerta{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;border-radius:var(--r-m);font-size:14.5px;line-height:1.45}
+.alerta svg{flex:none;margin-top:1px}
+.alerta.r{background:var(--erro-suave);color:var(--erro)}
+.alerta.a{background:var(--ipe-suave);color:var(--ipe-tinta)}
+.alerta.m{background:var(--marca-suave);color:var(--marca)}
+.alerta.v{background:var(--ok-suave);color:var(--ok)}
+.alerta b{font-weight:900}
+
+/* ---------- modo de anotação de IHC ---------- */
+/* Camada separada, em coordenadas da página, para o marcador não precisar
+   entrar dentro de botões (HTML inválido) nem quebrar o Auto Layout. */
+.camada-anot{position:absolute;left:0;top:0;width:0;height:0;z-index:45}
+.marcador{position:absolute;width:27px;height:27px;border-radius:50%;border:2.5px solid #FFFFFF;
+  background:#B5106B;color:#FFFFFF;font-size:13px;font-weight:900;line-height:1;padding:0;
+  display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 7px rgba(0,0,0,.4);
+  font-family:var(--texto);transition:transform .12s}
+.marcador:hover,.marcador:focus-visible{transform:scale(1.15);z-index:2}
+.tem-anot{outline:2px dashed #B5106B;outline-offset:4px;border-radius:12px}
+.faixa-anot{background:#B5106B;color:#FFFFFF}
+.faixa-anot .faixa-in{max-width:1140px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;
+  gap:12px;flex-wrap:wrap;font-size:13.5px;font-weight:700}
+.faixa-anot b{font-weight:900}
+.faixa-anot button{margin-left:auto;background:rgba(255,255,255,.18);color:#FFFFFF;border:0;
+  border-radius:999px;padding:6px 14px;font-weight:800;font-size:13px;cursor:pointer;min-height:34px}
+.faixa-anot button:hover{background:rgba(255,255,255,.32)}
+.anot-cat{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:900;
+  padding:3px 10px;border-radius:999px;background:#FBE4F0;color:#8A0C52}
+:root[data-theme="dark"] .anot-cat{background:#3A0B23;color:#FFA8D4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .anot-cat{background:#3A0B23;color:#FFA8D4}}
+.anot-n{flex:none;width:30px;height:30px;border-radius:50%;background:#B5106B;color:#FFFFFF;
+  display:grid;place-items:center;font-weight:900;font-size:14px}
+.anot-item{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--linha)}
+.anot-item:last-child{border-bottom:0}
+
+/* ---------- toast ---------- */
+.torre{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:80;
+  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:min(460px,calc(100% - 32px))}
+.toast{display:flex;align-items:center;gap:10px;background:var(--tinta);color:var(--fundo);padding:12px 18px;
+  border-radius:999px;box-shadow:var(--sombra-forte);font-size:14.5px;font-weight:700;width:100%;
+  animation:sobe .22s cubic-bezier(.2,.8,.3,1);pointer-events:auto}
+@keyframes sobe{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+.toast svg{flex:none}
+.toast.ok svg{color:var(--ok)}
+.toast.erro{background:var(--erro);color:#FFFFFF}
+.toast .desf{margin-left:auto;background:none;border:0;color:var(--ipe);font-weight:900;cursor:pointer;font-size:14px;
+  padding:0 0 0 8px;flex:none}
+.toast.erro .desf{color:#FFFFFF}
+
+/* ---------- perfil ---------- */
+.perfil-topo{display:flex;gap:20px;align-items:center;background:var(--cartao);border-radius:24px;padding:22px;
+  box-shadow:var(--sombra)}
+.perfil-av{width:84px;height:84px;border-radius:50%;background:var(--ipe);color:#3A2800;display:grid;place-items:center;
+  font-size:28px;font-weight:900;flex:none}
+.perfil-av.azul{background:var(--marca-suave);color:var(--marca)}
+.perfil-topo h1{font-size:28px;font-weight:900;letter-spacing:-.025em;line-height:1.15}
+.perfil-topo .cur{font-size:16px;color:var(--tinta-2);font-weight:700;margin-top:2px}
+.perfil-topo .ins{font-size:14px;color:var(--tinta-3);margin-top:1px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.painel{background:var(--cartao);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sombra)}
+.exp{padding:0 0 16px 22px;position:relative;border-left:3px solid var(--cartao-2);margin-left:6px}
+.exp:last-child{padding-bottom:2px}
+.exp::before{content:"";position:absolute;left:-9px;top:3px;width:15px;height:15px;border-radius:50%;background:var(--cartao);
+  border:3px solid var(--marca)}
+.exp h4{font-size:16px;font-weight:800;line-height:1.35}
+.exp .og{font-size:14px;color:var(--tinta-2)}
+.exp .pd{font-size:13px;color:var(--tinta-3);font-weight:700;margin-top:1px}
+.exp p{font-size:14.5px;color:var(--tinta-2);margin-top:6px;line-height:1.55}
+.exp .chip{margin-bottom:6px}
+
+/* ---------- barra de abas (celular) ---------- */
+.mob-nav{display:none}
+@media (max-width:1060px){
+  .abas a{padding:8px 11px;font-size:14px}
+  .abas a span.lbl-longa{display:none}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .abas{display:none}
+  .mob-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--cartao);
+    border-top:1px solid var(--linha);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;color:var(--tinta-3);
+    text-decoration:none;font-size:11.5px;font-weight:800;border-radius:14px;position:relative;min-height:52px;justify-content:center}
+  .mob-nav a .ic{display:grid;place-items:center;width:54px;height:30px;border-radius:999px;transition:background .15s}
+  .mob-nav a[aria-current="page"]{color:var(--marca)}
+  .mob-nav a[aria-current="page"] .ic{background:var(--marca-suave)}
+  .folha{padding:18px 16px calc(96px + env(safe-area-inset-bottom,0px))}
+  .torre{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .hub{grid-template-columns:minmax(0,1fr)}
+  .filtros{position:static;padding:12px 14px}
+  .filtros-topo .tog{display:inline-flex;margin-left:auto}
+  .filtros:not(.aberto) .fcorpo{display:none}
+  .g2,.g3{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .barra-in{padding:8px 16px;flex-wrap:wrap;gap:8px}
+  .papel{order:5;width:100%}
+  .papel button{flex:1}
+  .heroi{grid-template-columns:minmax(0,1fr);padding:24px 20px;border-radius:24px}
+  .heroi h1{font-size:34px}
+  .heroi .ipe{width:150px;height:150px;right:-62px;top:-66px}
+  .heroi-num{min-width:0;display:flex;align-items:baseline;gap:10px;padding:12px 16px}
+  .heroi-num strong{font-size:30px}
+  .busca-heroi{max-width:none;padding-left:14px}
+  .busca-heroi input{font-size:15.5px}
+  .cab-pag h1{font-size:26px}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dupla{grid-template-columns:minmax(0,1fr)}
+  .perfil-topo{flex-direction:column;align-items:flex-start}
+  .form-caixa{padding:18px 16px}
+  .progresso .passo{font-size:12px}
+  .drawer{top:auto;left:0;right:0;bottom:0;width:100%;max-height:92%;border-radius:26px 26px 0 0;
+    animation:subir .26s cubic-bezier(.2,.8,.3,1)}
+  @keyframes subir{from{transform:translateY(60px);opacity:.4}to{transform:none;opacity:1}}
+  .alca{display:block;width:44px;height:5px;border-radius:5px;background:var(--linha);margin:10px auto 0}
+  .drawer-topo{padding-top:12px}
+  .item{padding:14px 16px}
+}
+</style>
+
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<div id="raiz"></div>
+<div class="torre" id="torre" role="status" aria-live="polite"></div>
+
+<script>
+/* Conecta UFG: protótipo acadêmico de IHC. Dados fictícios, sem vínculo com a UFG. */
+
+/* ---------- ícones ---------- */
+const P={
+  casa:'M3 9.5 10 3l7 6.5V17a1 1 0 0 1-1 1h-3v-5H7v5H4a1 1 0 0 1-1-1z',
+  vaga:'M4 6h12a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM7 6V4.5A1.5 1.5 0 0 1 8.5 3h3A1.5 1.5 0 0 1 13 4.5V6M3 10h14',
+  proj:'M3 5.5h5l1.5 2H17v8.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z',
+  even:'M4 5h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM7 3v4M13 3v4M3 9h14',
+  cand:'M6 3h8a1 1 0 0 1 1 1v13l-5-3-5 3V4a1 1 0 0 1 1-1z',
+  perf:'M10 10a3.2 3.2 0 1 0 0-6.4A3.2 3.2 0 0 0 10 10zM4 17c0-3.1 2.7-5 6-5s6 1.9 6 5',
+  sino:'M10 3a4.5 4.5 0 0 0-4.5 4.5c0 4-1.5 5-1.5 5h12s-1.5-1-1.5-5A4.5 4.5 0 0 0 10 3zM8.5 15.5a1.6 1.6 0 0 0 3 0',
+  pain:'M3 3.5h6v6H3zM11 3.5h6v4h-6zM11 9.5h6v7h-6zM3 11.5h6v5H3z',
+  gent:'M7.5 9.5a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6zM2.5 16.5c0-2.7 2.2-4.3 5-4.3s5 1.6 5 4.3M14 5.2a2.6 2.6 0 0 1 0 4.8M15.5 12.6c1.3.5 2.2 1.6 2.2 3.1',
+  lupa:'M9 15.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM14 14l3.5 3.5',
+  fech:'M5 5l10 10M15 5 5 15',
+  seta:'M7 4l6 6-6 6',
+  volt:'M13 4l-6 6 6 6',
+  baix:'M10 4v12M5 11l5 5 5-5',
+  cima:'M10 16V4M5 9l5-5 5 5',
+  chek:'M4 10.5 8 14.5 16 5.5',
+  aler:'M10 3.2 18 17H2zM10 8v4M10 14.6v.1',
+  info:'M10 17.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15zM10 9v5M10 6.4v.1',
+  fltr:'M3 5h14M6 10h8M8.5 15h3',
+  reli:'M10 17.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15zM10 6v4.3l2.8 1.7',
+  loca:'M10 18s6-5.1 6-9a6 6 0 1 0-12 0c0 3.9 6 9 6 9zM10 11.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4z',
+  mais:'M10 4v12M4 10h12',
+  menu:'M3 6h14M3 10h14M3 14h14',
+  link:'M8.5 11.5a3 3 0 0 0 4.3 0l2.4-2.4a3 3 0 1 0-4.3-4.3l-1.2 1.2M11.5 8.5a3 3 0 0 0-4.3 0l-2.4 2.4a3 3 0 1 0 4.3 4.3l1.2-1.2',
+  sol:'M10 13.6a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2zM10 1.5v2M10 16.5v2M3.5 10h-2M18.5 10h-2M5.4 5.4 4 4M16 16l-1.4-1.4M5.4 14.6 4 16M16 4l-1.4 1.4',
+  lua:'M16 12.3A7 7 0 0 1 7.7 4 7.2 7.2 0 1 0 16 12.3z',
+  grad:'M10 3.5 18.5 8 10 12.5 1.5 8zM5.5 10v4.2c0 1.2 2 2.3 4.5 2.3s4.5-1.1 4.5-2.3V10'
+};
+function ico(n,s){s=s||17;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 20 20" fill="none" '+
+  'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '+
+  'aria-hidden="true"><path d="'+P[n]+'"/></svg>';}
+
+/* ---------- institutos ---------- */
+const INST={INF:'Instituto de Informática',IME:'Instituto de Matemática e Estatística',
+  ICB:'Instituto de Ciências Biológicas',IF:'Instituto de Física',
+  EEC:'Escola de Engenharia Civil e Ambiental',FEN:'Faculdade de Enfermagem',
+  FCS:'Faculdade de Ciências Sociais',FCT:'Faculdade de Ciências e Tecnologia'};
+
+/* ---------- projetos ---------- */
+const PROJETOS=[
+ {id:'p1',nome:'Aprendizado de Máquina para Diagnóstico por Imagem',sigla:'LAMDI',
+  inst:'INF',lider:'d1',grupo:'Grupo de Inteligência Computacional',
+  area:'Inteligência Artificial',membros:14,desde:'2023',
+  resumo:'Redes neurais convolucionais aplicadas a exames de imagem do Hospital das Clínicas, com foco em triagem assistida.',
+  linhas:['Visão computacional','Aprendizado profundo','Saúde digital']},
+ {id:'p2',nome:'Observatório de Dados Abertos de Goiás',sigla:'ODAGO',
+  inst:'INF',lider:'d2',grupo:'Grupo de Ciência de Dados',
+  area:'Ciência de Dados',membros:9,desde:'2024',
+  resumo:'Coleta, limpeza e publicação de indicadores públicos municipais, com painéis abertos para a sociedade civil.',
+  linhas:['Ciência de dados','Visualização','Dados abertos']},
+ {id:'p3',nome:'Acessibilidade Digital em Portais Públicos',sigla:'ACESSO',
+  inst:'INF',lider:'d3',grupo:'Grupo de Interação Humano-Computador',
+  area:'IHC e Acessibilidade',membros:11,desde:'2022',
+  resumo:'Avaliação de conformidade e reprojeto participativo de portais de serviço público com usuários com deficiência.',
+  linhas:['IHC','Acessibilidade','Design participativo']},
+ {id:'p4',nome:'Modelagem Estatística de Evasão no Ensino Superior',sigla:'MEES',
+  inst:'IME',lider:'d4',grupo:'Grupo de Estatística Aplicada',
+  area:'Estatística',membros:7,desde:'2024',
+  resumo:'Modelos de sobrevivência aplicados a coortes de ingressantes para identificar fatores associados à evasão.',
+  linhas:['Estatística aplicada','Educação','Modelos de sobrevivência']},
+ {id:'p5',nome:'Sensoriamento de Qualidade do Ar no Cerrado',sigla:'AR-CERRADO',
+  inst:'EEC',lider:'d5',grupo:'Grupo de Engenharia Ambiental',
+  area:'Engenharia Ambiental',membros:12,desde:'2023',
+  resumo:'Rede de sensores de baixo custo para material particulado, com validação em campo durante o período de queimadas.',
+  linhas:['Internet das coisas','Meio ambiente','Instrumentação']},
+ {id:'p6',nome:'Divulgação Científica em Escolas Públicas',sigla:'CIÊNCIA VIVA',
+  inst:'IF',lider:'d5',grupo:'Grupo de Ensino de Física',
+  area:'Extensão e Ensino',membros:18,desde:'2021',
+  resumo:'Oficinas itinerantes de física experimental em escolas da rede estadual da região metropolitana de Goiânia.',
+  linhas:['Extensão','Ensino de ciências','Formação de professores']}
+];
+
+/* ---------- docentes ---------- */
+const DOCENTES=[
+ {id:'d1',nome:'João Silva',trat:'Prof. Dr.',inst:'INF',area:'Inteligência Artificial',
+  lattes:'lattes.cnpq.br/0000000000000001',
+  bio:'Doutor em Ciência da Computação. Coordena o Grupo de Inteligência Computacional e orienta trabalhos em visão computacional aplicada à saúde.',
+  orientandos:6},
+ {id:'d2',nome:'Marina Costa',trat:'Profa. Dra.',inst:'INF',area:'Ciência de Dados',
+  lattes:'lattes.cnpq.br/0000000000000002',
+  bio:'Doutora em Engenharia de Sistemas. Trabalha com dados abertos governamentais e visualização de informação.',orientandos:4},
+ {id:'d3',nome:'Helena Braga',trat:'Profa. Dra.',inst:'INF',area:'IHC e Acessibilidade',
+  lattes:'lattes.cnpq.br/0000000000000003',
+  bio:'Doutora em Informática. Pesquisa avaliação de comunicabilidade e design participativo com usuários com deficiência.',
+  orientandos:5},
+ {id:'d4',nome:'Ricardo Menezes',trat:'Prof. Dr.',inst:'IME',area:'Estatística Aplicada',
+  lattes:'lattes.cnpq.br/0000000000000004',
+  bio:'Doutor em Estatística. Atua com modelos de sobrevivência e análise de dados educacionais.',orientandos:3},
+ {id:'d5',nome:'Beatriz Alencar',trat:'Profa. Dra.',inst:'EEC',area:'Engenharia Ambiental',
+  lattes:'lattes.cnpq.br/0000000000000005',
+  bio:'Doutora em Engenharia Ambiental. Coordena projetos de monitoramento ambiental e extensão universitária.',
+  orientandos:7}
+];
+
+/* ---------- estudantes ---------- */
+const ESTUDANTES=[
+ {id:'e1',nome:'Ana Oliveira',curso:'Ciência da Computação',inst:'INF',periodo:5,mg:8.7,
+  lattes:'lattes.cnpq.br/1000000000000001',disp:'20h semanais, tardes livres',
+  interesses:['Inteligência Artificial','Ciência de Dados','Sistemas Inteligentes'],
+  habil:['Python','PyTorch','SQL','Análise de dados','Git'],
+  form:[{t:'Bacharelado em Ciência da Computação',o:'Instituto de Informática, UFG',p:'2023 até hoje'}],
+  hist:[{tp:'Monitoria',t:'Monitoria de Estrutura de Dados',o:'INF/UFG',p:'2025.1',
+    d:'Atendimento semanal a 40 estudantes e preparação de listas de exercícios.'},
+   {tp:'Extensão',t:'Oficinas de programação para escolas públicas',o:'PROEC/UFG',p:'2024.2',
+    d:'Introdução a lógica de programação para turmas do ensino médio.'}],
+  pub:[]},
+ {id:'e2',nome:'Bruno Carvalho',curso:'Ciência da Computação',inst:'INF',periodo:7,mg:9.1,
+  interesses:['Visão Computacional','Aprendizado Profundo'],
+  habil:['Python','OpenCV','C++','PyTorch'],disp:'30h semanais'},
+ {id:'e3',nome:'Carla Prado',curso:'Engenharia de Software',inst:'INF',periodo:4,mg:8.2,
+  interesses:['IHC','Acessibilidade','Design de Interação'],
+  habil:['Figma','React','Pesquisa com usuários'],disp:'16h semanais'},
+ {id:'e4',nome:'Diego Martins',curso:'Estatística',inst:'IME',periodo:6,mg:7.9,
+  interesses:['Ciência de Dados','Estatística','Modelagem'],
+  habil:['R','Python','Estatística inferencial'],disp:'20h semanais'},
+ {id:'e5',nome:'Elisa Tavares',curso:'Ciência da Computação',inst:'INF',periodo:3,mg:9.4,
+  interesses:['Inteligência Artificial','Ciência de Dados'],
+  habil:['Python','Pandas','Matemática discreta'],disp:'12h semanais'},
+ {id:'e6',nome:'Felipe Nunes',curso:'Engenharia Ambiental',inst:'EEC',periodo:8,mg:8.5,
+  interesses:['Sensoriamento','Meio Ambiente','Internet das Coisas'],
+  habil:['Arduino','Python','Análise ambiental'],disp:'20h semanais'},
+ {id:'e7',nome:'Gabriela Rocha',curso:'Sistemas de Informação',inst:'INF',periodo:6,mg:8.0,
+  interesses:['Ciência de Dados','Dados Abertos','Visualização'],
+  habil:['SQL','Power BI','Python'],disp:'20h semanais'},
+ {id:'e8',nome:'Henrique Dias',curso:'Física',inst:'IF',periodo:5,mg:7.6,
+  interesses:['Ensino de Ciências','Extensão'],
+  habil:['Física experimental','Didática','Oficinas'],disp:'12h semanais'}
+];
+
+/* ---------- oportunidades ---------- */
+const OPORTUNIDADES=[
+ {id:'o1',tit:'Iniciação Científica em Visão Computacional Aplicada a Exames de Imagem',
+  tipo:'Iniciação Científica',prog:'PIBIC',proj:'p1',orient:'d1',inst:'INF',
+  bolsa:true,valor:700,ch:20,vagas:2,prazo:'2026-10-18',status:'aberta',
+  cursos:['Ciência da Computação','Engenharia de Software'],perMin:4,mgMin:7.5,
+  conhec:['Python','Aprendizado de máquina','Álgebra linear'],
+  areas:['Inteligência Artificial','Visão Computacional'],
+  desc:'O bolsista participará do treinamento e avaliação de modelos de segmentação em exames de tomografia, com acompanhamento semanal do grupo de pesquisa. Espera-se a submissão de um resumo ao Congresso de Pesquisa, Ensino e Extensão da UFG ao final do ciclo.',
+  ativ:['Preparar e anotar conjuntos de imagens','Treinar e avaliar modelos de segmentação',
+    'Participar das reuniões semanais do grupo','Redigir relatório parcial e final']},
+ {id:'o2',tit:'Monitoria de Estrutura de Dados',tipo:'Monitoria',prog:'Monitoria',proj:null,
+  orient:'d2',inst:'INF',bolsa:true,valor:500,ch:12,vagas:3,prazo:'2026-10-05',status:'encerrando',
+  cursos:['Ciência da Computação','Engenharia de Software','Sistemas de Informação'],
+  perMin:3,mgMin:8,conhec:['Estrutura de dados','C','Didática'],
+  areas:['Ensino','Algoritmos'],
+  desc:'A monitoria atende estudantes do terceiro período em horários fixos no laboratório do Instituto de Informática. O monitor auxilia na resolução de listas e acompanha as aulas práticas.',
+  ativ:['Plantão de dúvidas duas vezes por semana','Apoio nas aulas de laboratório',
+    'Preparação de listas de exercícios comentadas']},
+ {id:'o3',tit:'Extensão: Acessibilidade em Portais de Serviço Público',
+  tipo:'Extensão',prog:'PROBEC',proj:'p3',orient:'d3',inst:'INF',
+  bolsa:true,valor:700,ch:20,vagas:2,prazo:'2026-11-08',status:'aberta',
+  cursos:['Ciência da Computação','Engenharia de Software','Design'],
+  perMin:3,mgMin:7,conhec:['IHC','Acessibilidade','Pesquisa com usuários'],
+  areas:['IHC','Acessibilidade','Design de Interação'],
+  desc:'A ação de extensão avalia portais de serviço público junto a usuários com deficiência e devolve às prefeituras um relatório com recomendações. Inclui sessões de teste com participantes reais.',
+  ativ:['Conduzir sessões de avaliação com usuários','Aplicar inspeção de conformidade',
+    'Produzir relatório de recomendações','Apresentar resultados aos órgãos parceiros']},
+ {id:'o4',tit:'Iniciação Científica em Dados Abertos Municipais',
+  tipo:'Iniciação Científica',prog:'PIVIC',proj:'p2',orient:'d2',inst:'INF',
+  bolsa:false,valor:0,ch:12,vagas:1,prazo:'2026-10-25',status:'aberta',
+  cursos:['Ciência da Computação','Sistemas de Informação','Estatística'],
+  perMin:3,mgMin:7,conhec:['Python','SQL','Visualização de dados'],
+  areas:['Ciência de Dados','Dados Abertos'],
+  desc:'Vaga voluntária de iniciação científica no Observatório de Dados Abertos de Goiás. O estudante trabalha na coleta e padronização de indicadores municipais e na construção de painéis públicos.',
+  ativ:['Coletar e padronizar bases municipais','Construir painéis de indicadores',
+    'Documentar a metodologia de coleta']},
+ {id:'o5',tit:'TCC Orientado: Modelos de Sobrevivência para Evasão Universitária',
+  tipo:'TCC',prog:'TCC',proj:'p4',orient:'d4',inst:'IME',
+  bolsa:false,valor:0,ch:10,vagas:1,prazo:'2026-12-12',status:'aberta',
+  cursos:['Estatística','Matemática'],perMin:7,mgMin:7.5,
+  conhec:['R','Estatística inferencial','Modelos de sobrevivência'],
+  areas:['Estatística','Educação'],
+  desc:'Orientação de trabalho de conclusão de curso com dados reais anonimizados de coortes de ingressantes. Há possibilidade de continuidade em mestrado.',
+  ativ:['Revisão de literatura sobre evasão','Ajuste de modelos de sobrevivência',
+    'Redação do trabalho de conclusão']},
+ {id:'o6',tit:'Iniciação Científica em Sensores de Qualidade do Ar',
+  tipo:'Iniciação Científica',prog:'PIBIC',proj:'p5',orient:'d5',inst:'EEC',
+  bolsa:true,valor:700,ch:20,vagas:2,prazo:'2026-11-20',status:'aberta',
+  cursos:['Engenharia Ambiental','Engenharia Elétrica','Ciência da Computação'],
+  perMin:4,mgMin:7,conhec:['Arduino','Python','Instrumentação'],
+  areas:['Internet das Coisas','Meio Ambiente','Sensoriamento'],
+  desc:'Montagem, calibração e validação em campo de sensores de material particulado instalados na região metropolitana de Goiânia.',
+  ativ:['Montar e calibrar sensores','Realizar coletas em campo',
+    'Analisar séries temporais de concentração']},
+ {id:'o7',tit:'Extensão: Oficinas de Física Experimental em Escolas',
+  tipo:'Extensão',prog:'PROBEC',proj:'p6',orient:'d5',inst:'IF',
+  bolsa:true,valor:700,ch:16,vagas:4,prazo:'2026-10-02',status:'encerrando',
+  cursos:['Física','Química','Pedagogia'],perMin:3,mgMin:6.5,
+  conhec:['Física experimental','Didática'],areas:['Extensão','Ensino de Ciências'],
+  desc:'Oficinas itinerantes em escolas da rede estadual, com montagem de experimentos de baixo custo e acompanhamento dos professores da escola parceira.',
+  ativ:['Planejar e montar experimentos','Conduzir oficinas nas escolas',
+    'Registrar e avaliar as atividades']},
+ {id:'o8',tit:'Monitoria de Cálculo I',tipo:'Monitoria',prog:'Monitoria',proj:null,
+  orient:'d4',inst:'IME',bolsa:false,valor:0,ch:10,vagas:2,prazo:'2026-10-30',status:'aberta',
+  cursos:['Matemática','Estatística','Física','Engenharia Ambiental'],
+  perMin:2,mgMin:7.5,conhec:['Cálculo diferencial e integral','Didática'],
+  areas:['Ensino','Matemática'],
+  desc:'Monitoria voluntária com plantão de dúvidas para turmas de Cálculo I dos cursos de exatas.',
+  ativ:['Plantão de dúvidas semanal','Resolução comentada de listas']},
+ {id:'o9',tit:'Iniciação Científica em Interação Humano-Computador',
+  tipo:'Iniciação Científica',prog:'PIBIC',proj:'p3',orient:'d3',inst:'INF',
+  bolsa:true,valor:700,ch:20,vagas:1,prazo:'2026-11-14',status:'aberta',
+  cursos:['Ciência da Computação','Engenharia de Software','Design'],
+  perMin:4,mgMin:8,conhec:['IHC','Métodos de avaliação','Escrita acadêmica'],
+  areas:['IHC','Design de Interação','Acessibilidade'],
+  desc:'Estudo comparativo de métodos de avaliação de comunicabilidade em interfaces de serviço público, com coleta em laboratório e em campo.',
+  ativ:['Aplicar métodos de avaliação','Analisar rupturas de comunicação',
+    'Redigir artigo para submissão']},
+ {id:'o10',tit:'Extensão: Letramento em Dados para Gestores Municipais',
+  tipo:'Extensão',prog:'PROVEC',proj:'p2',orient:'d2',inst:'INF',
+  bolsa:false,valor:0,ch:8,vagas:3,prazo:'2026-09-20',status:'encerrada',
+  cursos:['Sistemas de Informação','Estatística','Ciência da Computação'],
+  perMin:4,mgMin:7,conhec:['Análise de dados','Comunicação'],
+  areas:['Extensão','Ciência de Dados'],
+  desc:'Curso de curta duração para servidores de prefeituras da região, sobre leitura e uso de indicadores públicos.',
+  ativ:['Preparar material didático','Ministrar módulos do curso']}
+];
+
+/* ---------- eventos ---------- */
+/* Programas oficiais da UFG. PIBIC, PIVIC e PIBITI são modalidades do PIP-UFG,
+   o Programa de Iniciação à Pesquisa; PROBEC e PROVEC são da Pró-Reitoria de
+   Extensão e Cultura. */
+const PROGRAMAS={
+  PIBIC:'Programa Institucional de Bolsas de Iniciação Científica, modalidade do PIP-UFG',
+  PIVIC:'Programa Institucional Voluntário de Iniciação Científica, modalidade do PIP-UFG',
+  PIBITI:'Programa Institucional de Bolsas de Iniciação em Desenvolvimento Tecnológico e Inovação, modalidade do PIP-UFG',
+  PROBEC:'Programa de Bolsas de Extensão e Cultura, da Pró-Reitoria de Extensão e Cultura',
+  PROVEC:'Programa de Voluntário de Extensão e Cultura, da Pró-Reitoria de Extensão e Cultura',
+  Monitoria:'Programa de Monitoria da graduação',
+  TCC:'Trabalho de conclusão de curso, com orientação registrada na unidade'};
+
+const EVENTOS=[
+ {id:'v1',tit:'Seminário: Modelos de Difusão para Imagens Médicas',tipo:'Seminário',
+  data:'2026-10-03',hora:'14:00',local:'Auditório do INF, Campus Samambaia',inst:'INF',
+  resp:'Grupo de Inteligência Computacional',vagas:60,inscritos:41,online:false,
+  desc:'Apresentação dos resultados recentes do grupo em geração e segmentação de imagens, aberta a estudantes de graduação.'},
+ {id:'v2',tit:'Defesa de Mestrado: Acessibilidade em Aplicativos Governamentais',tipo:'Defesa',
+  data:'2026-10-07',hora:'09:00',local:'Sala 210, INF',inst:'INF',
+  resp:'Programa de Pós-Graduação em Ciência da Computação',vagas:40,inscritos:12,online:true,
+  desc:'Defesa pública com transmissão online. Banca composta por três avaliadores externos.'},
+ {id:'v3',tit:'Workshop de Escrita Científica para Iniciação Científica',tipo:'Workshop',
+  data:'2026-10-11',hora:'08:30',local:'Laboratório 3, Biblioteca Central',inst:'INF',
+  resp:'Pró-Reitoria de Pesquisa e Inovação',vagas:30,inscritos:30,online:false,
+  desc:'Oficina prática de redação de resumos e relatórios para bolsistas PIBIC e PIVIC.'},
+ {id:'v4',tit:'Palestra: Dados Abertos e Controle Social',tipo:'Palestra',
+  data:'2026-10-16',hora:'19:00',local:'Transmissão online',inst:'INF',
+  resp:'Observatório de Dados Abertos de Goiás',vagas:200,inscritos:87,online:true,
+  desc:'Discussão sobre o uso de dados públicos por organizações da sociedade civil.'},
+ {id:'v5',tit:'Congresso de Pesquisa, Ensino e Extensão',tipo:'Congresso',
+  data:'2026-10-27',hora:'08:00',local:'Centro de Eventos, Campus Samambaia',inst:'INF',
+  resp:'Universidade Federal de Goiás',vagas:1200,inscritos:640,online:false,
+  desc:'Evento anual com apresentação de trabalhos de iniciação científica, extensão e monitoria de todas as unidades.'},
+ {id:'v6',tit:'Minicurso: Introdução ao PyTorch',tipo:'Workshop',
+  data:'2026-11-05',hora:'14:00',local:'Laboratório 5, INF',inst:'INF',
+  resp:'Grupo de Inteligência Computacional',vagas:25,inscritos:19,online:false,
+  desc:'Minicurso prático de quatro horas para estudantes com conhecimento prévio de Python.'},
+ {id:'v7',tit:'Seminário de Engenharia Ambiental: Queimadas no Cerrado',tipo:'Seminário',
+  data:'2026-11-12',hora:'10:00',local:'Auditório da Escola de Engenharia',inst:'EEC',
+  resp:'Grupo de Engenharia Ambiental',vagas:80,inscritos:23,online:false,
+  desc:'Resultados da rede de sensores de qualidade do ar durante o período seco.'},
+ {id:'v8',tit:'Mostra de Extensão Universitária',tipo:'Extensão',
+  data:'2026-11-22',hora:'09:00',local:'Praça Universitária, Campus Colemar',inst:'IF',
+  resp:'Pró-Reitoria de Extensão e Cultura',vagas:500,inscritos:210,online:false,
+  desc:'Exposição aberta ao público com as ações de extensão em andamento na universidade.'}
+];
+
+/* ---------- candidaturas (estado inicial) ---------- */
+const ETAPAS=['Enviada','Em análise','Entrevista','Resultado'];
+const CANDIDATURAS=[
+ {id:'c1',op:'o1',est:'e1',em:'2026-09-14',etapa:2,res:null,
+  hist:[{e:0,d:'2026-09-14',o:'Candidatura enviada com o perfil Conecta.'},
+        {e:1,d:'2026-09-17',o:'Perfil em avaliação pelo orientador.'},
+        {e:2,d:'2026-09-24',o:'Entrevista agendada para 02/10 às 15h, sala 204 do INF.'}]},
+ {id:'c2',op:'o3',est:'e1',em:'2026-09-19',etapa:1,res:null,
+  hist:[{e:0,d:'2026-09-19',o:'Candidatura enviada com o perfil Conecta.'},
+        {e:1,d:'2026-09-22',o:'Perfil em avaliação pela orientadora.'}]},
+ {id:'c3',op:'o4',est:'e1',em:'2026-09-26',etapa:0,res:null,
+  hist:[{e:0,d:'2026-09-26',o:'Candidatura enviada com o perfil Conecta.'}]},
+ {id:'c4',op:'o10',est:'e1',em:'2026-08-28',etapa:3,res:'nao',
+  hist:[{e:0,d:'2026-08-28',o:'Candidatura enviada com o perfil Conecta.'},
+        {e:1,d:'2026-09-01',o:'Perfil em avaliação.'},
+        {e:3,d:'2026-09-15',o:'Não selecionada nesta chamada. As três vagas foram preenchidas por estudantes de períodos mais avançados.'}]},
+ {id:'c5',op:'o1',est:'e2',em:'2026-09-15',etapa:2,res:null,hist:[]},
+ {id:'c6',op:'o1',est:'e5',em:'2026-09-16',etapa:1,res:null,hist:[]},
+ {id:'c7',op:'o1',est:'e4',em:'2026-09-18',etapa:0,res:null,hist:[]},
+ {id:'c8',op:'o1',est:'e7',em:'2026-09-20',etapa:0,res:null,hist:[]},
+ {id:'c9',op:'o1',est:'e3',em:'2026-09-21',etapa:3,res:'nao',hist:[]},
+ {id:'c10',op:'o9',est:'e3',em:'2026-09-23',etapa:1,res:null,hist:[]}
+];
+
+const NOTIFICACOES=[
+ {id:'n1',lida:false,quando:'há 2 dias',tipo:'entrevista',
+  tit:'Entrevista agendada',
+  tx:'Prof. João Silva marcou sua entrevista para Iniciação Científica em Visão Computacional: 02/10 às 15h, sala 204 do INF.',ir:'c1'},
+ {id:'n2',lida:false,quando:'há 5 dias',tipo:'analise',
+  tit:'Candidatura em análise',
+  tx:'Sua candidatura para Extensão em Acessibilidade passou para a etapa de análise.',ir:'c2'},
+ {id:'n3',lida:false,quando:'há 6 dias',tipo:'prazo',
+  tit:'Prazo encerrando',
+  tx:'Monitoria de Estrutura de Dados encerra as inscrições em 05/10. Você ainda não se candidatou.',ir:'o2'},
+ {id:'n4',lida:true,quando:'há 12 dias',tipo:'resultado',
+  tit:'Resultado publicado',
+  tx:'Letramento em Dados para Gestores Municipais: você não foi selecionada nesta chamada.',ir:'c4'}
+];
+
+/* ============================================================
+   Anotações de IHC sobre a interface
+   ------------------------------------------------------------
+   cat: a origem da anotação. sel: o seletor do elemento anotado.
+   i: qual ocorrência do seletor, quando há mais de uma.
+   rota/papel/drawer: onde o marcador aparece.
+   ============================================================ */
+const ANOTACOES=[
+ /* ---------- tela inicial ---------- */
+ {n:1,cat:'Princípio (Silva e Barbosa)',nome:'Visibilidade e reconhecimento',
+  rota:'inicio',sel:'.busca-heroi',
+  tx:'A busca fica na primeira tela, e não escondida dentro da aba Vagas. O estudante reconhece a ação assim que entra, em vez de precisar lembrar onde ela mora. Foi a correção que fechou a distância entre a meta "achar vaga" e o controle que realiza essa meta.'},
+ {n:2,cat:'Princípio (Silva e Barbosa)',nome:'Antecipação das necessidades do usuário',
+  rota:'inicio',sel:'.atalhos',
+  tx:'Três buscas prontas para quem ainda não sabe o que digitar. O sistema oferece o caminho antes de o usuário pedir, que é o que a antecipação propõe.'},
+ {n:3,cat:'Critério de usabilidade',nome:'Eficácia e retorno imediato',
+  rota:'inicio',sel:'.busca-dica',
+  tx:'A contagem muda enquanto se digita, antes de trocar de tela. O usuário sabe se vale a pena seguir. A linha é marcada com aria-live, então o leitor de tela também anuncia o resultado.'},
+ {n:4,cat:'Gestalt',nome:'Proximidade',
+  rota:'inicio',sel:'.cartao',i:0,
+  tx:'Dentro do cartão, título, programa e orientador ficam colados porque descrevem a mesma coisa. Os números da vaga (bolsa, carga, vagas) descem para o rodapé, afastados por espaço em branco. A distância separa o que é de natureza diferente, sem precisar de linha divisória.'},
+ {n:5,cat:'Gestalt',nome:'Similaridade',
+  rota:'inicio',sel:'.linha-chips',i:1,
+  tx:'Todo rótulo de estado usa a mesma pílula, com o mesmo raio e o mesmo peso. O que muda é só a cor. Assim o usuário aprende uma forma e a reconhece em qualquer tela.'},
+ {n:6,cat:'Gestalt',nome:'Fecho',
+  rota:'inicio',sel:'.cartao',i:2,
+  tx:'Cada cartão é percebido como uma unidade fechada por sombra e canto arredondado, sem moldura desenhada. A borda é sugerida, e o olho completa.'},
+ {n:7,cat:'Gestalt',nome:'Simetria',
+  rota:'inicio',sel:'.grade.g3',i:1,
+  tx:'As colunas têm a mesma largura, o mesmo espaçamento e os elementos alinhados na mesma altura. A grade regular reduz o esforço de varredura.'},
+ {n:8,cat:'Gestalt',nome:'Continuidade',
+  rota:'inicio',sel:'.lista',i:0,
+  tx:'As inscrições ficam numa lista contínua, separadas por uma linha fina e com todos os elementos alinhados no mesmo eixo vertical. O olho percorre a coluna sem interrupção.'},
+ {n:9,cat:'Princípio (Silva e Barbosa)',nome:'Correspondência com as expectativas dos usuários',
+  rota:'inicio',sel:'.heroi',
+  tx:'A tela abre com o nome da pessoa, a data e o que está pendente, como qualquer painel acadêmico que ela já usa. O vocabulário é o da universidade: vaga, inscrição, orientador, entrevista.'},
+ {n:10,cat:'Acessibilidade',nome:'Caminho para quem usa teclado',
+  rota:'inicio',sel:'.barra',
+  tx:'O primeiro elemento focável da página é o link "Pular para o conteúdo", que fica invisível até receber foco. Toda a barra é navegável por Tab, o foco é visível com contorno de 3px e a seção atual é marcada com aria-current.'},
+
+ /* ---------- vagas ---------- */
+ {n:11,cat:'Princípio (Silva e Barbosa)',nome:'Simplicidade nas estruturas das tarefas',
+  rota:'oportunidades',sel:'.filtros',
+  tx:'Os filtros ficam abertos, agrupados por critério e com a contagem de resultados ao lado de cada opção. O usuário não precisa abrir menu nem adivinhar quantas vagas restam depois de marcar.'},
+ {n:12,cat:'Princípio (Silva e Barbosa)',nome:'Promoção da eficiência do usuário',
+  rota:'oportunidades',sel:'.resumo-busca',
+  tx:'A contagem e a ordenação ficam no topo da lista. As vagas mais compatíveis aparecem primeiro, então a decisão vem antes da rolagem.'},
+ {n:13,cat:'Princípio (Silva e Barbosa)',nome:'Equilíbrio entre controle e liberdade do usuário',
+  rota:'oportunidades',sel:'.busca',
+  tx:'O termo buscado continua visível no campo e pode ser apagado com um clique no X. Nada é filtrado sem que o usuário veja o que está filtrando.'},
+ {n:14,cat:'Affordance',nome:'Convite ao uso',
+  rota:'oportunidades',sel:'.fop',i:0,
+  tx:'A caixa de marcação, o cursor de mão e o realce ao passar o mouse dizem que o item é clicável antes do clique. A affordance é percebida: a forma anuncia a ação possível.'},
+ {n:15,cat:'Critério de usabilidade',nome:'Facilidade de aprendizado',
+  rota:'oportunidades',sel:'.hub',
+  tx:'Busca à direita, filtros à esquerda, resultados no meio. É o arranjo que o usuário já conhece de qualquer loja ou buscador, então não há o que aprender.'},
+
+ /* ---------- folha de detalhe da vaga ---------- */
+ {n:16,cat:'Princípio (Silva e Barbosa)',nome:'Conteúdo relevante e expressão adequada',
+  drawer:'op',sel:'.req',i:0,
+  tx:'Cada requisito aparece em uma linha, marcado como atendido ou não atendido, com o motivo escrito. Em vez de um percentual fechado, o estudante recebe a justificativa e sabe exatamente o que falta.'},
+ {n:17,cat:'Critério de usabilidade',nome:'Segurança no uso',
+  drawer:'conf',sel:'.caixa',i:0,
+  tx:'Antes de enviar, a tela lista exatamente o que o orientador vai receber e o que fica privado. O usuário confirma com conhecimento do que está entregando.'},
+
+ /* ---------- minhas inscrições ---------- */
+ {n:18,cat:'Gestalt',nome:'Continuidade',
+  drawer:'cand',sel:'.linha-t',
+  tx:'As etapas da candidatura são ligadas por um traço vertical contínuo, que muda de cor no ponto já percorrido. A linha transforma quatro caixas soltas em um percurso só.'},
+ {n:19,cat:'Princípio (Silva e Barbosa)',nome:'Visibilidade e reconhecimento',
+  drawer:'cand',sel:'.etapa.agora',
+  tx:'A etapa atual é destacada por cor, anel e o rótulo "Agora". O estado da candidatura é visível sem precisar interpretar nada.'},
+
+ /* ---------- perfil ---------- */
+ {n:20,cat:'Princípio (Silva e Barbosa)',nome:'Correspondência com as expectativas dos usuários',
+  rota:'perfil',sel:'.tags',i:0,
+  tx:'O índice de desempenho aparece como média global, que é o termo que a UFG usa, e não como IRA ou CR. Falar a língua da instituição evita que o estudante precise traduzir.'},
+
+ /* ---------- formulário de nova vaga ---------- */
+ {n:21,cat:'Princípio (Silva e Barbosa)',nome:'Projeto para erros',
+  papel:'docente',rota:'novaop',sel:'.campo',i:0,
+  tx:'A validação acontece por campo, com mensagem específica junto ao campo que falhou, dizendo o que corrigir. O erro não bloqueia a digitação nem aparece só no fim do formulário.'},
+ {n:22,cat:'Princípio (Silva e Barbosa)',nome:'Simplicidade nas estruturas das tarefas',
+  papel:'docente',rota:'novaop',sel:'.progresso',
+  tx:'Publicar uma vaga tem catorze campos. Dividir em quatro passos com barra de progresso reduz a carga de cada tela e mostra onde o docente está e quanto falta.'},
+
+ /* ---------- quadro de candidatos ---------- */
+ {n:23,cat:'Gestalt',nome:'Destino comum',
+  papel:'docente',rota:'candidatos',sel:'.coluna',i:1,
+  tx:'Os cartões de uma mesma coluna são lidos como um grupo porque compartilham o mesmo destino: a etapa da seleção. Arrastar um cartão para outra coluna muda o grupo a que ele pertence.'},
+ {n:24,cat:'Princípio (Silva e Barbosa)',nome:'Consistência e padronização',
+  papel:'docente',rota:'candidatos',sel:'.cand',i:0,
+  tx:'O cartão do candidato repete a estrutura do cartão de vaga: identificação em cima, dados no meio, compatibilidade à direita. Quem aprendeu um, lê o outro.'},
+ {n:26,cat:'Acessibilidade',nome:'Contraste e preferência de tema',
+  rota:'inicio',sel:'.barra-dir',
+  tx:'A interface tem tema claro e escuro, os dois com contraste conferido para texto normal. O tema segue a preferência declarada no sistema operacional, e quem quiser pode trocar manualmente no botão. Nenhuma informação é passada só por cor: todo estado tem rótulo escrito junto.'},
+ {n:27,cat:'Acessibilidade',nome:'Alvo de toque e foco visível',
+  rota:'perfil',sel:'.btn',i:0,
+  tx:'Todo botão tem no mínimo 44 pixels de altura, que é o alvo confortável para o dedo no celular. Quem navega por teclado vê o foco com contorno de 3 pixels e afastamento, sem depender de cor para saber onde está.'},
+ {n:28,cat:'Acessibilidade',nome:'Folha lateral anunciada ao leitor de tela',
+  drawer:'op',sel:'.drawer-topo',
+  tx:'A folha é marcada como diálogo modal, recebe o foco ao abrir, prende a tabulação dentro dela enquanto estiver aberta e fecha com Esc. Quem usa leitor de tela sabe que entrou em uma camada nova e consegue sair dela.'},
+ {n:29,cat:'Critério de usabilidade',nome:'Facilidade de recordação',
+  rota:'candidaturas',sel:'.lista',i:0,
+  tx:'A inscrição guarda a etapa em que parou, a data de envio e a da última atualização. Quem volta depois de duas semanas retoma sem precisar reconstruir o que aconteceu.'},
+ {n:25,cat:'Princípio (Silva e Barbosa)',nome:'Equilíbrio entre controle e liberdade do usuário',
+  papel:'docente',rota:'candidatos',sel:'.cand-mov',i:0,
+  tx:'O cartão se move arrastando ou por botões de seta, que funcionam no teclado. Todo movimento gera um aviso com a opção Desfazer. Nenhuma ação do quadro é definitiva.'}
+];
+
+const CATS=['Gestalt','Princípio (Silva e Barbosa)','Affordance','Critério de usabilidade','Acessibilidade'];
+
+/* ---------- utilitários ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const doc=id=>DOCENTES.find(d=>d.id===id);
+const est=id=>ESTUDANTES.find(e=>e.id===id);
+const prj=id=>PROJETOS.find(p=>p.id===id);
+const opo=id=>OPORTUNIDADES.find(o=>o.id===id);
+/* Uma única regra de busca, usada na tela inicial e na tela de vagas, para que o
+   mesmo termo devolva sempre o mesmo resultado nos dois lugares. */
+function casaBusca(o,q){
+  if(!q)return true;
+  return (o.tit+' '+o.desc+' '+o.areas.join(' ')+' '+o.conhec.join(' ')+' '+o.prog+' '+o.tipo+' '+
+    doc(o.orient).nome+' '+INST[o.inst]).toLowerCase().includes(q);
+}
+const HOJE=new Date('2026-09-29T12:00:00');
+function dt(iso){const [a,m,d]=iso.split('-');return d+'/'+m+'/'+a;}
+function dtCurto(iso){const [a,m,d]=iso.split('-');return d+'/'+m;}
+function diasAte(iso){return Math.round((new Date(iso+'T12:00:00')-HOJE)/864e5);}
+function iniciais(n){return n.split(' ').filter(p=>p.length>2).slice(0,2)
+  .map(p=>p[0]).join('').toUpperCase();}
+function moeda(v){return 'R$ '+v.toLocaleString('pt-BR');}
+function plural(n,s,p){return n+' '+(n===1?s:p);}
+
+/* Compatibilidade: transparente e auditável: cada requisito vira uma linha
+   com atendido/não atendido, e o percentual é a média ponderada deles. */
+function compat(o,e){
+  const itens=[];
+  const cursoOk=o.cursos.includes(e.curso);
+  itens.push({ok:cursoOk,peso:3,rot:'Curso',
+    det:cursoOk?e.curso:'A vaga aceita '+o.cursos.join(', ')+'. Seu curso é '+e.curso+'.'});
+  const perOk=e.periodo>=o.perMin;
+  itens.push({ok:perOk,peso:2,rot:'Período mínimo: '+o.perMin+'º',
+    det:'Você está no '+e.periodo+'º período.'});
+  const mgOk=e.mg>=o.mgMin;
+  itens.push({ok:mgOk,peso:2,rot:'Média global mínima: '+fmt1(o.mgMin),
+    det:'Sua média global é '+fmt1(e.mg)+'.'});
+  const meus=(e.interesses||[]).map(s=>s.toLowerCase());
+  const casam=o.areas.filter(a=>meus.some(m=>m.includes(a.toLowerCase())||a.toLowerCase().includes(m)));
+  const areaOk=casam.length>0;
+  itens.push({ok:areaOk,peso:3,rot:'Áreas de interesse',
+    det:areaOk?'Coincide com '+casam.join(', ')+'.':'Nenhuma das suas áreas coincide com '+o.areas.join(', ')+'.'});
+  const hab=(e.habil||[]).map(s=>s.toLowerCase());
+  const temC=o.conhec.filter(c=>hab.some(h=>h.includes(c.toLowerCase())||c.toLowerCase().includes(h)));
+  const conhecOk=temC.length>=Math.ceil(o.conhec.length/2);
+  itens.push({ok:conhecOk,peso:2,rot:'Conhecimentos desejados',
+    det:temC.length?'Você declara '+temC.join(', ')+'.':'Você não declarou nenhum dos conhecimentos pedidos.'});
+  const tot=itens.reduce((s,i)=>s+i.peso,0);
+  const pt=itens.reduce((s,i)=>s+(i.ok?i.peso:0),0);
+  const pc=Math.round(pt/tot*100);
+  const bloq=itens.filter(i=>!i.ok&&i.peso>=2&&(i.rot==='Curso'||i.rot.indexOf('Média global')===0));
+  return {pc,itens,eleg:bloq.length===0,bloq};
+}
+function nivel(pc){return pc>=75?'':pc>=50?'med':'bai';}
+
+/* Estado da aplicação, com persistência simulada em memória. */
+const S={
+  papel:'estudante', rota:'inicio', eu:'e1',
+  drawer:null, menu:false, tema:null,
+  q:'', filtros:{tipo:[],bolsa:[],inst:[],status:[]},
+  cands:JSON.parse(JSON.stringify(CANDIDATURAS)),
+  notifs:JSON.parse(JSON.stringify(NOTIFICACOES)),
+  ops:JSON.parse(JSON.stringify(OPORTUNIDADES)),
+  inscritoEm:[], salvos:[],
+  carregando:false, toasts:[], tid:0, anotar:false,
+  form:{passo:0,dados:{},erros:{},tocado:{}},
+  quadroOp:'o1', desfazer:null
+};
+
+S.fAberto=false;
+const INST_CURTO={INF:'Informática',IME:'Matemática e Estatística',ICB:'Ciências Biológicas',IF:'Física',
+  EEC:'Engenharia Civil e Ambiental',FEN:'Enfermagem',FCS:'Ciências Sociais',FCT:'Ciências e Tecnologia'};
+const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+function fmt1(v){return (+v).toFixed(1).replace('.',',');}
+function hojeTxt(){const t=HOJE.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});return t[0].toUpperCase()+t.slice(1);}
+function primeiro(n){return n.split(' ')[0];}
+/* Resposta imediata ao que foi digitado, antes de trocar de tela: o estudante vê
+   se vale a pena seguir sem perder o lugar onde está. */
+function dicaBusca(q){
+  q=(q||'').trim();
+  if(!q)return 'Procure por área, professor, programa ou palavra-chave. Aperte Enter para abrir a lista.';
+  const c=S.ops.filter(o=>o.status!=='encerrada'&&casaBusca(o,q.toLowerCase())).length;
+  return c? (c===1?'1 vaga aberta combina':c+' vagas abertas combinam')+' com “'+q+'”. Aperte Enter para ver.'
+          : 'Nenhuma vaga aberta com “'+q+'”. Tente um termo mais geral.';
+}
+
+/* ============================================================
+   Peças reutilizáveis
+   ============================================================ */
+function chipStatus(o){
+  const d=diasAte(o.prazo);
+  if(o.status==='encerrada') return '<span class="chip">Encerrada</span>';
+  if(o.status==='encerrando'||d<=7) return '<span class="chip a"><span class="pt"></span>'+
+    (d<=0?'Fecha hoje':d===1?'Fecha amanhã':'Faltam '+d+' dias')+'</span>';
+  return '<span class="chip v"><span class="pt"></span>Aberta</span>';
+}
+function chipTipo(t){
+  const m={'Iniciação Científica':'m','Extensão':'i','Monitoria':'','TCC':''};
+  return '<span class="chip '+(m[t]||'')+'">'+esc(t)+'</span>';
+}
+function anel(pc,s){
+  s=s||40;const r=(s-5)/2,c=2*Math.PI*r,h=s/2;
+  return '<span class="anel '+nivel(pc)+'" style="width:'+s+'px;height:'+s+'px" aria-hidden="true">'+
+    '<svg viewBox="0 0 '+s+' '+s+'" width="'+s+'" height="'+s+'">'+
+    '<circle class="trilho" cx="'+h+'" cy="'+h+'" r="'+r+'"/>'+
+    '<circle class="prog" cx="'+h+'" cy="'+h+'" r="'+r+'" stroke-dasharray="'+(c*pc/100).toFixed(1)+' '+c.toFixed(1)+'" '+
+      'transform="rotate(-90 '+h+' '+h+')"/></svg><b>'+pc+'</b></span>';
+}
+function barraCompat(pc,longo){
+  return '<span class="compat">'+anel(pc)+'<span class="compat-tx"><b>'+pc+'%</b>'+
+    '<small>'+(longo?'compatível com seu perfil':'compatível')+'</small></span></span>';
+}
+function cardOp(o,jaCand){
+  const c=compat(o,est(S.eu)), d=doc(o.orient);
+  return '<button class="cartao" data-ac="abrirOp" data-id="'+o.id+'">'+
+    '<div class="linha-chips">'+chipTipo(o.tipo)+chipStatus(o)+
+      (jaCand?'<span class="chip v">'+ico('chek',13)+' Inscrita</span>':'')+'</div>'+
+    '<h3>'+esc(o.tit)+'</h3>'+
+    '<div class="meta">'+esc(o.prog)+' · '+esc(d.trat+' '+d.nome)+' · '+esc(INST_CURTO[o.inst])+'</div>'+
+    '<div class="pe">'+
+      '<span class="dado forte">'+(o.bolsa?moeda(o.valor)+'/mês':'Voluntária')+'</span>'+
+      '<span class="dado">'+o.ch+'h por semana</span>'+
+      '<span class="dado">'+plural(o.vagas,'vaga','vagas')+'</span>'+
+      '<span style="margin-left:auto">'+barraCompat(c.pc)+'</span>'+
+    '</div></button>';
+}
+function dataBloco(iso){const [a,m,d]=iso.split('-');
+  return '<span class="ev-data"><b>'+d+'</b><small>'+MES[+m-1]+'</small></span>';}
+function cardEvento(v){
+  const insc=S.inscritoEm.includes(v.id), lot=v.inscritos>=v.vagas&&!insc;
+  return '<button class="cartao ev" data-ac="abrirEv" data-id="'+v.id+'">'+dataBloco(v.data)+
+    '<span class="ev-corpo">'+
+    '<span class="linha-chips"><span class="chip m">'+esc(v.tipo)+'</span>'+
+      (v.online?'<span class="chip">Online</span>':'')+
+      (lot?'<span class="chip a">Lotado</span>':'')+
+      (insc?'<span class="chip v">'+ico('chek',13)+' Vou</span>':'')+'</span>'+
+    '<h3>'+esc(v.tit)+'</h3>'+
+    '<span class="meta">'+v.hora+' · '+esc(v.local)+'</span>'+
+    '<span class="dado">'+v.inscritos+' de '+v.vagas+' vagas preenchidas</span>'+
+    '</span></button>';
+}
+function vazio(icone,tit,tx,btn){
+  return '<div class="vazio"><div class="vz-ic">'+ico(icone,26)+'</div><h3>'+esc(tit)+'</h3><p>'+esc(tx)+'</p>'+(btn||'')+'</div>';
+}
+function esqueleto(n){
+  let h='';for(let i=0;i<n;i++)h+='<div class="cartao" aria-hidden="true">'+
+    '<div class="esq" style="height:22px;width:40%"></div>'+
+    '<div class="esq" style="height:20px;width:92%"></div>'+
+    '<div class="esq" style="height:16px;width:64%"></div>'+
+    '<div class="esq" style="height:16px;width:46%;margin-top:10px"></div></div>';
+  return h;
+}
+function cab(t,s){return '<div class="cab-pag"><h1>'+esc(t)+'</h1>'+(s?'<p>'+esc(s)+'</p>':'')+'</div>';}
+function secTopo(t,n,link,rotulo){
+  return '<div class="sec-topo"><h2>'+t+'</h2>'+(n!=null?'<span class="ct">'+n+'</span>':'')+
+    (link?'<button class="lk" data-ac="ir" data-r="'+link+'">'+rotulo+' '+ico('seta',14)+'</button>':'')+'</div>';
+}
+const IPE='<svg class="ipe" viewBox="0 0 240 240" aria-hidden="true">'+
+  [0,72,144,216,288].map(a=>'<ellipse cx="120" cy="72" rx="34" ry="50" fill="var(--ipe)" transform="rotate('+a+' 120 120)"/>').join('')+
+  '<circle cx="120" cy="120" r="22" fill="#E59A00"/>'+
+  [20,92,164,236,308].map(a=>'<line x1="120" y1="120" x2="120" y2="96" stroke="#9A5B00" stroke-width="3" stroke-linecap="round" transform="rotate('+a+' 120 120)"/>').join('')+
+  '</svg>';
+
+/* ============================================================
+   Telas do estudante
+   ============================================================ */
+function telaInicio(){
+  const e=est(S.eu);
+  const meus=S.cands.filter(c=>c.est===S.eu);
+  const idsMeus=meus.map(c=>c.op);
+  const abertas=S.ops.filter(o=>o.status!=='encerrada');
+  const rec=abertas.map(o=>({o,c:compat(o,e)}))
+    .filter(x=>!idsMeus.includes(x.o.id))
+    .sort((a,b)=>b.c.pc-a.c.pc).slice(0,3);
+  const ativas=meus.filter(c=>c.res!=='nao');
+  const entrev=ativas.filter(c=>c.etapa===2).length;
+  const prox=EVENTOS.filter(v=>diasAte(v.data)>=0).slice(0,3);
+  const dia=hojeTxt();
+
+  const resumo=(entrev?'Você tem <b>'+plural(entrev,'entrevista marcada','entrevistas marcadas')+'</b> e ':'Você tem ')+
+    plural(ativas.length,'inscrição andando','inscrições andando')+'. Separamos '+rec.length+' vagas com a sua cara.';
+
+  return '<section class="heroi">'+IPE+
+    '<div style="position:relative;min-width:0"><div class="dia">'+esc(dia)+'</div>'+
+    '<h1>Oi, '+esc(primeiro(e.nome))+'!</h1><p>'+resumo+'</p>'+
+    '<div class="busca-heroi">'+ico('lupa',20)+
+      '<label class="sr" for="bqi">Buscar vaga de pesquisa, extensão, monitoria ou TCC</label>'+
+      '<input id="bqi" type="text" data-ac="buscaInicio" autocomplete="off" aria-describedby="bdica" '+
+        'placeholder="Busque por área, professor ou programa" value="'+esc(S.q)+'">'+
+      '<button class="btn pri peq" data-ac="irBusca">Buscar</button></div>'+
+    '<p class="busca-dica" id="bdica" aria-live="polite">'+esc(dicaBusca(S.q))+'</p>'+
+    '<div class="atalhos">'+
+      '<button data-ac="atalho" data-c="tipo" data-v="Iniciação Científica">Iniciação científica</button>'+
+      '<button data-ac="atalho" data-c="bolsa" data-v="Bolsista">Com bolsa</button>'+
+      '<button data-ac="atalho" data-c="status" data-v="Fechando em breve">Fechando em breve</button></div>'+
+    '<div class="heroi-acoes">'+
+      '<button class="btn vidro" data-ac="ir" data-r="candidaturas">Minhas inscrições</button></div></div>'+
+    '<div class="heroi-num"><strong>'+abertas.length+'</strong><span>vagas abertas agora</span></div>'+
+  '</section>'+
+
+  (ativas.length?'<div class="sec">'+secTopo('Suas inscrições',ativas.length,'candidaturas','Ver todas')+
+    '<div class="lista">'+ativas.slice(0,3).map(c=>{
+      const o=opo(c.op),d=doc(o.orient);
+      return '<button class="item" data-ac="abrirCand" data-id="'+c.id+'">'+
+        '<div class="pr"><div class="tt">'+esc(o.tit)+'</div>'+
+        '<div class="sb">'+esc(d.trat+' '+d.nome)+' · enviada em '+dtCurto(c.em)+'</div></div>'+
+        '<div class="dr"><span class="chip '+(c.etapa===2?'i':'m')+'">'+ETAPAS[c.etapa]+'</span>'+ico('seta',16)+'</div></button>';
+    }).join('')+'</div></div>':'')+
+
+  '<div class="sec">'+secTopo('Combinam com você',null,'oportunidades','Todas as vagas')+
+    '<div class="grade g3">'+rec.map(x=>cardOp(x.o,false)).join('')+'</div></div>'+
+
+  '<div class="sec">'+secTopo('Na agenda',null,'eventos','Ver agenda')+
+    '<div class="grade g3">'+prox.map(cardEvento).join('')+'</div></div>'+
+
+  '<div class="sec">'+secTopo('Grupos de pesquisa',null,'projetos','Ver todos')+
+    '<div class="grade g2">'+PROJETOS.slice(0,2).map(cardProjeto).join('')+'</div></div>';
+}
+
+function cardProjeto(p){
+  const d=doc(p.lider);
+  const vagas=S.ops.filter(o=>o.proj===p.id&&o.status!=='encerrada').length;
+  return '<button class="cartao" data-ac="abrirProj" data-id="'+p.id+'">'+
+    '<div class="linha-chips"><span class="chip m">'+esc(p.sigla)+'</span><span class="chip">'+esc(p.area)+'</span>'+
+      (vagas?'<span class="chip v">'+plural(vagas,'vaga aberta','vagas abertas')+'</span>':'')+'</div>'+
+    '<h3>'+esc(p.nome)+'</h3>'+
+    '<div class="meta">'+esc(p.resumo)+'</div>'+
+    '<div class="pe"><span class="dado">'+esc(d.trat+' '+d.nome)+'</span>'+
+    '<span class="dado" style="margin-left:auto">'+plural(p.membros,'pessoa','pessoas')+' · desde '+p.desde+'</span></div></button>';
+}
+
+function statusDe(o){return o.status==='encerrada'?'Encerrada':o.status==='encerrando'?'Fechando em breve':'Abertas';}
+function telaOportunidades(){
+  const e=est(S.eu), F=S.filtros;
+  const q=S.q.trim().toLowerCase();
+  let lista=S.ops.filter(o=>{
+    if(F.tipo.length&&!F.tipo.includes(o.tipo))return false;
+    if(F.bolsa.length&&!F.bolsa.includes(o.bolsa?'Bolsista':'Voluntário'))return false;
+    if(F.inst.length&&!F.inst.includes(o.inst))return false;
+    if(F.status.length&&!F.status.includes(statusDe(o)))return false;
+    if(!casaBusca(o,q))return false;
+    return true;
+  });
+  lista=lista.map(o=>({o,c:compat(o,e)})).sort((a,b)=>b.c.pc-a.c.pc);
+  const idsMeus=S.cands.filter(c=>c.est===S.eu).map(c=>c.op);
+  const nFiltros=F.tipo.length+F.bolsa.length+F.inst.length+F.status.length;
+  const conta=(campo,val)=>S.ops.filter(o=>{
+    if(campo==='tipo')return o.tipo===val;
+    if(campo==='bolsa')return (o.bolsa?'Bolsista':'Voluntário')===val;
+    if(campo==='inst')return o.inst===val;
+    return statusDe(o)===val;
+  }).length;
+  const grupo=(rot,campo,vals,rots)=>'<fieldset class="fgrupo"><legend class="rot">'+rot+'</legend>'+
+    vals.map((v,i)=>'<label class="fop"><input type="checkbox" id="f-'+campo+'-'+i+'" data-ac="filtro" data-c="'+campo+'" '+
+      'value="'+esc(v)+'"'+(F[campo].includes(v)?' checked':'')+'>'+
+      '<span>'+esc(rots?rots[i]:v)+'</span><span class="n">'+conta(campo,v)+'</span></label>').join('')+'</fieldset>';
+
+  return cab('Vagas','Iniciação científica, extensão, monitoria e TCC. As que mais combinam com você aparecem primeiro.')+
+    '<div class="hub">'+
+    '<aside class="filtros'+(S.fAberto?' aberto':'')+'" aria-label="Filtros">'+
+      '<div class="filtros-topo">'+ico('fltr',18)+'<span>Filtros</span>'+
+        (nFiltros?'<span class="chip m">'+nFiltros+'</span>':'')+
+        '<button class="btn fant peq tog" data-ac="togFiltros" aria-expanded="'+S.fAberto+'">'+
+          (S.fAberto?'Esconder':'Mostrar')+'</button></div>'+
+      '<div class="fcorpo">'+
+      grupo('Tipo','tipo',['Iniciação Científica','Extensão','Monitoria','TCC'])+
+      grupo('Bolsa','bolsa',['Bolsista','Voluntário'],['Com bolsa','Voluntária'])+
+      grupo('Unidade','inst',['INF','IME','EEC','IF'],['Informática','Matemática e Estatística','Engenharia Civil e Ambiental','Física'])+
+      grupo('Inscrições','status',['Abertas','Fechando em breve','Encerrada'],['Abertas','Fechando em breve','Encerradas'])+
+      (nFiltros?'<button class="btn peq" data-ac="limparF">Limpar filtros</button>':'')+
+      '</div></aside>'+
+    '<div style="min-width:0">'+
+      '<div class="busca">'+ico('lupa',19)+
+        '<label class="sr" for="bq">Buscar vaga</label>'+
+        '<input id="bq" type="text" placeholder="Busque por área, professor ou assunto" value="'+esc(S.q)+'" data-ac="busca" autocomplete="off">'+
+        (S.q?'<button class="ico-btn" data-ac="limparQ" aria-label="Limpar busca">'+ico('fech',15)+'</button>':'')+'</div>'+
+      '<div class="resumo-busca"><strong>'+
+        (S.carregando?'Buscando…':plural(lista.length,'vaga','vagas'))+'</strong>'+
+        (nFiltros||q?'<span>de '+S.ops.length+' publicadas</span>':'')+
+        '<span style="margin-left:auto">Mais compatíveis primeiro</span></div>'+
+      (S.carregando?'<div class="grade g2">'+esqueleto(4)+'</div>':
+       lista.length?'<div class="grade g2">'+lista.map(x=>cardOp(x.o,idsMeus.includes(x.o.id))).join('')+'</div>':
+       vazio('lupa','Nada por aqui','Nenhuma vaga bate com essa busca. Tire um filtro ou tente uma palavra mais geral.',
+         '<button class="btn pri" data-ac="limparTudo">Limpar busca e filtros</button>'))+
+    '</div></div>';
+}
+
+function telaCandidaturas(){
+  const meus=S.cands.filter(c=>c.est===S.eu).sort((a,b)=>b.em.localeCompare(a.em));
+  if(!meus.length) return cab('Minhas inscrições')+vazio('cand','Nenhuma inscrição ainda',
+    'Quando você se candidatar a uma vaga, ela aparece aqui com cada etapa.',
+    '<button class="btn pri" data-ac="ir" data-r="oportunidades">Ver vagas</button>');
+  const andam=meus.filter(c=>c.res!=='nao'), fech=meus.filter(c=>c.res==='nao');
+  const bloco=(tit,arr)=>!arr.length?'':'<div class="sec" style="margin-top:22px">'+secTopo(tit,arr.length)+
+    '<div class="lista">'+arr.map(c=>{
+      const o=opo(c.op),d=doc(o.orient),ult=c.hist.length?c.hist[c.hist.length-1]:null;
+      return '<button class="item" data-ac="abrirCand" data-id="'+c.id+'">'+
+        '<div class="pr"><div class="tt">'+esc(o.tit)+'</div>'+
+        '<div class="sb">'+esc(d.trat+' '+d.nome)+' · '+esc(INST_CURTO[o.inst])+'</div>'+
+        '<div class="sb fraco">Enviada em '+dt(c.em)+(ult?' · atualizada em '+dt(ult.d):'')+'</div></div>'+
+        '<div class="dr">'+(c.res==='nao'?'<span class="chip r">Não selecionada</span>':
+           '<span class="chip '+(c.etapa===2?'i':'m')+'">'+ETAPAS[c.etapa]+'</span>')+ico('seta',16)+'</div></button>';
+    }).join('')+'</div></div>';
+  return cab('Minhas inscrições','Toque numa inscrição para ver em que etapa ela está.')+
+    bloco('Em andamento',andam)+bloco('Encerradas',fech);
+}
+
+function telaPerfil(){
+  const e=est(S.eu);
+  const sec=(t,corpo)=>'<div class="sec">'+secTopo(t)+'<div class="painel">'+corpo+'</div></div>';
+  return '<div class="perfil-topo">'+
+    '<div class="perfil-av" aria-hidden="true">'+iniciais(e.nome)+'</div>'+
+    '<div style="min-width:0;flex:1"><h1>'+esc(e.nome)+'</h1>'+
+      '<div class="cur">'+esc(e.curso)+' · '+e.periodo+'º período</div>'+
+      '<div class="ins">'+esc(INST[e.inst])+'</div>'+
+      '<div class="tags"><span class="chip m" title="Média global: média das notas ponderada pela carga horária de cada disciplina, como a UFG calcula.">Média global '+fmt1(e.mg)+'</span>'+
+        '<span class="chip v">'+ico('chek',13)+' Lattes verificado</span>'+
+        '<span class="chip">'+esc(e.disp)+'</span></div></div>'+
+    '<button class="btn" data-ac="editarPerfil">Editar perfil</button></div>'+
+  sec('Interesses de pesquisa','<div class="tags" style="margin-top:0">'+
+    e.interesses.map(i=>'<span class="chip m">'+esc(i)+'</span>').join('')+'</div>'+
+    '<p style="font-size:14px;color:var(--tinta-3);margin-top:10px">Usamos esses interesses para calcular a compatibilidade com cada vaga.</p>')+
+  sec('Formação','<div>'+e.form.map(f=>'<div class="exp"><h4>'+esc(f.t)+'</h4>'+
+    '<div class="og">'+esc(f.o)+'</div><div class="pd">'+esc(f.p)+'</div></div>').join('')+'</div>')+
+  sec('Trajetória','<div>'+e.hist.map(x=>'<div class="exp">'+
+    '<span class="chip i">'+esc(x.tp)+'</span>'+
+    '<h4>'+esc(x.t)+'</h4><div class="og">'+esc(x.o)+'</div>'+
+    '<div class="pd">'+esc(x.p)+'</div><p>'+esc(x.d)+'</p></div>').join('')+'</div>')+
+  sec('Habilidades','<div class="tags" style="margin-top:0">'+e.habil.map(h=>'<span class="chip">'+esc(h)+'</span>').join('')+'</div>')+
+  '<div class="sec">'+secTopo('Publicações')+(e.pub&&e.pub.length?'':
+    vazio('proj','Nenhuma publicação ainda','Seus resumos e artigos aparecem aqui. Dá para puxar direto do Lattes.',
+      '<button class="btn pri" data-ac="importarLattes">Importar do Lattes</button>'))+'</div>';
+}
+
+function telaEventos(){
+  const fut=EVENTOS.filter(v=>diasAte(v.data)>=0);
+  return cab('Agenda','Seminários, defesas, workshops e extensão abertos para a graduação.')+
+    '<div class="grade g3">'+fut.map(cardEvento).join('')+'</div>';
+}
+
+function telaProjetos(){
+  return cab('Projetos','Grupos de pesquisa e extensão com espaço para estudantes de graduação.')+
+    '<div class="grade g2">'+PROJETOS.map(cardProjeto).join('')+'</div>';
+}
+
+function telaNotificacoes(){
+  const ns=S.notifs;
+  const naoLidas=ns.filter(n=>!n.lida).length;
+  const cor={entrevista:['i','ipe'],analise:['m','marca'],prazo:['a','aviso'],resultado:['','tinta-2']};
+  return '<div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:22px">'+
+    '<div class="cab-pag" style="margin:0;flex:1"><h1>Avisos</h1><p>'+
+      (naoLidas?plural(naoLidas,'aviso novo','avisos novos'):'Você está em dia.')+'</p></div>'+
+    (naoLidas?'<button class="btn peq" data-ac="lerTodas">Marcar tudo como lido</button>':'')+'</div>'+
+    '<div class="lista">'+ns.map(n=>{
+      const ic={entrevista:'even',analise:'reli',prazo:'aler',resultado:'info'}[n.tipo];
+      const k=cor[n.tipo];
+      return '<button class="item" data-ac="abrirNotif" data-id="'+n.id+'">'+
+        '<span class="item-ic" style="background:var(--'+(k[1]==='tinta-2'?'cartao-2':k[1]==='ipe'?'ipe-suave':k[1]+'-suave')+');'+
+          'color:var(--'+(k[1]==='ipe'?'ipe-tinta':k[1])+')">'+ico(ic,19)+'</span>'+
+        '<div class="pr"><div class="tt">'+esc(n.tit)+'</div>'+
+          '<div class="sb">'+esc(n.tx)+'</div><div class="sb fraco">'+esc(n.quando)+'</div></div>'+
+        '<div class="dr">'+(n.lida?'':'<span class="nao-lida" aria-label="Não lido"></span>')+ico('seta',16)+'</div></button>';
+    }).join('')+'</div>';
+}
+
+/* ============================================================
+   Telas do orientador
+   ============================================================ */
+function telaPainel(){
+  const minhas=S.ops.filter(o=>o.orient==='d1');
+  const abertas=minhas.filter(o=>o.status!=='encerrada');
+  const cands=S.cands.filter(c=>minhas.some(o=>o.id===c.op));
+  const entrev=cands.filter(c=>c.etapa===2&&!c.res);
+  const sel=cands.filter(c=>c.etapa===3&&c.res==='sim');
+  const novas=cands.filter(c=>c.etapa===0&&!c.res);
+  const num=(v,r1,r2,cls)=>'<div class="num'+(cls?' '+cls:'')+'"><strong>'+v+'</strong>'+
+    '<span class="r1">'+r1+'</span><span class="r2">'+r2+'</span></div>';
+  return '<section class="heroi">'+IPE+
+    '<div style="position:relative;min-width:0"><div class="dia">'+
+      esc(hojeTxt())+'</div>'+
+    '<h1>Olá, professor João!</h1><p>'+
+      (novas.length?'<b>'+plural(novas.length,'candidatura nova','candidaturas novas')+'</b> esperando triagem':'Nenhuma candidatura nova')+
+      ' e '+plural(entrev.length,'entrevista em andamento','entrevistas em andamento')+'.</p>'+
+    '<div class="heroi-acoes"><button class="btn claro" data-ac="novaOp">'+ico('mais',17)+' Nova vaga</button>'+
+    '<button class="btn vidro" data-ac="ir" data-r="candidatos">Abrir quadro</button></div></div>'+
+  '</section>'+
+  '<div class="grade g4" style="margin-top:16px">'+
+    num(novas.length,'Para triar','inscritos sem análise','destaque')+
+    num(abertas.length,'Vagas abertas','publicadas por você')+
+    num(entrev.length,'Entrevistas','em andamento')+
+    num(sel.length+'/'+abertas.reduce((s,o)=>s+o.vagas,0),'Vagas preenchidas','nas vagas abertas')+
+  '</div>'+
+  (novas.length?'<div class="sec">'+secTopo('Esperando triagem',novas.length,'candidatos','Abrir quadro')+
+    '<div class="lista">'+novas.map(c=>{
+      const e=est(c.est),o=opo(c.op),k=compat(o,e);
+      return '<button class="item" data-ac="abrirEst" data-id="'+c.est+'" data-op="'+c.op+'">'+
+        '<span class="perfil-av azul" style="width:42px;height:42px;font-size:14px">'+iniciais(e.nome)+'</span>'+
+        '<div class="pr"><div class="tt">'+esc(e.nome)+'</div>'+
+        '<div class="sb">'+esc(e.curso)+' · '+e.periodo+'º período · média global '+fmt1(e.mg)+'</div></div>'+
+        '<div class="dr">'+barraCompat(k.pc)+'</div></button>';
+    }).join('')+'</div></div>':'')+
+  '<div class="sec">'+secTopo('Suas vagas',minhas.length,'minhasops','Ver todas')+
+    '<div class="lista">'+minhas.map(o=>{
+      const n=S.cands.filter(c=>c.op===o.id).length;
+      return '<button class="item" data-ac="quadroDe" data-id="'+o.id+'">'+
+        '<div class="pr"><div class="tt">'+esc(o.tit)+'</div>'+
+        '<div class="sb">'+esc(o.prog)+' · '+plural(o.vagas,'vaga','vagas')+' · inscrições até '+dt(o.prazo)+'</div></div>'+
+        '<div class="dr">'+chipStatus(o)+'<span class="dado">'+plural(n,'inscrito','inscritos')+'</span>'+ico('seta',16)+'</div></button>';
+    }).join('')+'</div></div>';
+}
+
+const CORES_COL=['var(--tinta-3)','var(--marca)','var(--ipe)','var(--ok)','var(--erro)'];
+function telaQuadro(){
+  const op=opo(S.quadroOp);
+  const minhas=S.ops.filter(o=>o.orient==='d1');
+  const cands=S.cands.filter(c=>c.op===S.quadroOp);
+  return cab('Candidatos','Arraste os cards entre as colunas ou use as setas. Dá para desfazer qualquer movimento.')+
+    '<div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px">'+
+    '<div style="min-width:0;flex:1"><label class="rot" for="selOp">Vaga</label><br>'+
+    '<select id="selOp" class="sel-op" data-ac="trocaQuadro">'+
+      minhas.map(o=>'<option value="'+o.id+'"'+(o.id===S.quadroOp?' selected':'')+'>'+esc(o.tit)+'</option>').join('')+'</select></div>'+
+    '<div class="linha-chips">'+chipStatus(op)+'<span class="chip">'+plural(op.vagas,'vaga','vagas')+'</span></div></div>'+
+  '<div class="kanban-wrap"><div class="kanban">'+COLS.map((nome,i)=>{
+    const lista=cands.filter(c=>colDe(c)===i);
+    return '<div class="coluna" data-col="'+i+'" role="region" aria-label="'+nome+', '+plural(lista.length,'candidato','candidatos')+'">'+
+      '<div class="col-topo"><span class="cor" style="background:'+CORES_COL[i]+'"></span><h3>'+nome+'</h3><span class="n">'+lista.length+'</span></div>'+
+      lista.map(c=>{
+        const e=est(c.est),k=compat(op,e);
+        return '<div class="cand" draggable="true" data-cid="'+c.id+'">'+
+          '<div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1;min-width:0">'+
+          '<div class="nm">'+esc(e.nome)+'</div>'+
+          '<div class="cs">'+esc(e.curso)+' · '+e.periodo+'º · MG '+fmt1(e.mg)+'</div></div>'+anel(k.pc,38)+
+          '<span class="sr">'+k.pc+'% compatível</span></div>'+
+          '<div class="ln">'+e.interesses.slice(0,2).map(x=>'<span class="chip" style="font-size:11.5px">'+esc(x)+'</span>').join('')+'</div>'+
+          '<div class="cand-mov">'+
+            '<button data-ac="mover" data-cid="'+c.id+'" data-para="'+(i-1)+'"'+(i===0?' disabled':'')+
+              ' aria-label="Mover '+esc(e.nome)+' para '+(COLS[i-1]||'')+'">'+ico('volt',15)+'</button>'+
+            '<button data-ac="verCand" data-cid="'+c.id+'" aria-label="Ver perfil de '+esc(e.nome)+'" style="flex:2;font-size:12.5px;font-weight:800;white-space:nowrap">Ver perfil</button>'+
+            '<button data-ac="mover" data-cid="'+c.id+'" data-para="'+(i+1)+'"'+(i>=4?' disabled':'')+
+              ' aria-label="Mover '+esc(e.nome)+' para '+(COLS[i+1]||'')+'">'+ico('seta',15)+'</button>'+
+          '</div></div>';
+      }).join('')+
+      (lista.length?'':'<p style="font-size:13.5px;color:var(--tinta-3);text-align:center;padding:18px 4px;font-weight:700">Ninguém aqui</p>')+
+    '</div>';
+  }).join('')+'</div></div>';
+}
+
+function telaMinhasOps(){
+  const minhas=S.ops.filter(o=>o.orient==='d1');
+  return '<div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:22px">'+
+    '<div class="cab-pag" style="margin:0;flex:1"><h1>Minhas vagas</h1><p>'+plural(minhas.length,'vaga publicada','vagas publicadas')+'.</p></div>'+
+    '<button class="btn pri" data-ac="novaOp">'+ico('mais',17)+' Nova vaga</button></div>'+
+    '<div class="grade g2">'+minhas.map(o=>{
+      const n=S.cands.filter(c=>c.op===o.id).length;
+      return '<button class="cartao" data-ac="quadroDe" data-id="'+o.id+'">'+
+        '<div class="linha-chips">'+chipTipo(o.tipo)+chipStatus(o)+'</div>'+
+        '<h3>'+esc(o.tit)+'</h3>'+
+        '<div class="meta">'+esc(o.prog)+' · '+(o.bolsa?moeda(o.valor)+'/mês':'Voluntária')+'</div>'+
+        '<div class="pe"><span class="dado forte">'+plural(n,'inscrito','inscritos')+'</span>'+
+        '<span class="dado" style="margin-left:auto">até '+dt(o.prazo)+'</span></div></button>';
+    }).join('')+'</div>';
+}
+
+function telaPerfilDocente(){
+  const d=doc('d1');
+  const meus=PROJETOS.filter(p=>p.lider==='d1');
+  return '<div class="perfil-topo">'+
+    '<div class="perfil-av azul" aria-hidden="true">'+iniciais(d.nome)+'</div>'+
+    '<div style="flex:1;min-width:0"><h1>'+esc(d.trat+' '+d.nome)+'</h1>'+
+      '<div class="cur">'+esc(d.area)+'</div><div class="ins">'+esc(INST[d.inst])+'</div>'+
+      '<div class="tags"><span class="chip v">'+ico('chek',13)+' Lattes verificado</span>'+
+        '<span class="chip m">'+plural(d.orientandos,'orientando','orientandos')+'</span></div></div>'+
+    '<button class="btn" data-ac="editarPerfil">Editar perfil</button></div>'+
+    '<div class="sec">'+secTopo('Sobre')+'<div class="painel"><p style="font-size:15.5px;color:var(--tinta-2);max-width:66ch">'+esc(d.bio)+'</p></div></div>'+
+    '<div class="sec">'+secTopo('Projetos que coordena',meus.length)+
+      '<div class="lista">'+meus.map(p=>'<button class="item" data-ac="abrirProj" data-id="'+p.id+'">'+
+        '<div class="pr"><div class="tt">'+esc(p.nome)+'</div>'+
+        '<div class="sb">'+esc(p.grupo)+' · desde '+p.desde+'</div></div>'+
+        '<div class="dr"><span class="dado">'+plural(p.membros,'pessoa','pessoas')+'</span>'+ico('seta',16)+'</div></button>').join('')+'</div></div>';
+}
+
+/* ============================================================
+   Formulário de nova vaga (4 etapas, validação por campo)
+   ============================================================ */
+const PASSOS=['Sobre a vaga','Requisitos','Condições','Revisão'];
+const REGRAS={
+  tit:{rot:'Título da vaga',req:true,
+    val:v=>!v||!v.trim()?'Dê um título para a vaga.':
+      v.trim().length<12?'Título curto demais. Use pelo menos 12 caracteres para descrever a atividade.':null},
+  tipo:{rot:'Tipo',req:true,val:v=>!v?'Escolha o tipo da vaga.':null},
+  proj:{rot:'Projeto',req:false,val:()=>null},
+  desc:{rot:'O que o estudante vai fazer',req:true,
+    val:v=>!v||!v.trim()?'Descreva as atividades da vaga.':
+      v.trim().length<40?'Escreva pelo menos 40 caracteres. Assim o estudante entende no que está se inscrevendo.':null},
+  cursos:{rot:'Cursos aceitos',req:true,val:v=>!v||!v.trim()?'Informe pelo menos um curso.':null},
+  perMin:{rot:'Período mínimo',req:true,
+    val:v=>v===''||v==null?'Informe o período mínimo.':(+v<1||+v>12)?'Use um período entre 1 e 12.':null},
+  mgMin:{rot:'Média global mínima',req:true,
+    val:v=>v===''||v==null?'Informe a média global mínima.':(+v<0||+v>10)?'Use um valor entre 0 e 10.':null},
+  conhec:{rot:'Conhecimentos desejados',req:false,val:()=>null},
+  bolsa:{rot:'Bolsa',req:true,val:v=>!v?'Diga se a vaga tem bolsa ou é voluntária.':null},
+  valor:{rot:'Valor da bolsa',req:false,
+    val:(v,d)=>d.bolsa!=='sim'?null:(v===''||v==null)?'Informe o valor mensal da bolsa.':
+      (+v<=0)?'O valor precisa ser maior que zero.':null},
+  ch:{rot:'Horas por semana',req:true,
+    val:v=>v===''||v==null?'Informe a carga horária semanal.':(+v<4||+v>30)?'Use de 4 a 30 horas por semana.':null},
+  vagas:{rot:'Quantidade de vagas',req:true,
+    val:v=>v===''||v==null?'Informe quantas vagas existem.':(+v<1||+v>20)?'Use de 1 a 20 vagas.':null},
+  prazo:{rot:'Inscrições até',req:true,
+    val:v=>!v?'Escolha a data final das inscrições.':
+      (new Date(v+'T12:00:00')<=HOJE)?'Escolha uma data depois de hoje (29/09/2026).':null}
+};
+const CAMPOS_PASSO=[['tit','tipo','proj','desc'],['cursos','perMin','mgMin','conhec'],['bolsa','valor','ch','vagas','prazo'],[]];
+
+function erroDe(k){const F=S.form,r=REGRAS[k];if(!r||!F.tocado[k])return null;return r.val(F.dados[k],F.dados);}
+function passoValido(i){return CAMPOS_PASSO[i].every(k=>!REGRAS[k].val(S.form.dados[k],S.form.dados));}
+function campo(k,corpo,aj){
+  const e=erroDe(k);
+  return '<div class="campo'+(e?' erro':'')+'">'+
+    '<label for="f_'+k+'">'+esc(REGRAS[k].rot)+(REGRAS[k].req?'':' <span class="opc">(opcional)</span>')+'</label>'+
+    (aj?'<p class="aj" id="aj_'+k+'">'+esc(aj)+'</p>':'')+
+    corpo.replace('%ARIA%','aria-invalid="'+(e?'true':'false')+'"'+(e?' aria-describedby="er_'+k+'"':aj?' aria-describedby="aj_'+k+'"':''))+
+    (e?'<p class="msg-erro" id="er_'+k+'">'+ico('aler',15)+'<span>'+esc(e)+'</span></p>':'')+'</div>';
+}
+function telaNovaOp(){
+  const F=S.form, D=F.dados, p=F.passo;
+  const inp=(k,tipo,extra)=>'<input id="f_'+k+'" type="'+tipo+'" data-ac="fcampo" data-k="'+k+'" '+
+    'value="'+esc(D[k]==null?'':D[k])+'" %ARIA% '+(extra||'')+'>';
+  let corpo='';
+  if(p===0){
+    corpo=campo('tit',inp('tit','text','placeholder="Ex.: Iniciação Científica em Visão Computacional"'),'É a primeira coisa que o estudante lê.')+
+      campo('tipo','<select id="f_tipo" data-ac="fcampo" data-k="tipo" %ARIA%><option value="">Escolha…</option>'+
+        ['Iniciação Científica','Extensão','Monitoria','TCC'].map(t=>'<option'+(D.tipo===t?' selected':'')+'>'+t+'</option>').join('')+'</select>')+
+      campo('proj','<select id="f_proj" data-ac="fcampo" data-k="proj" %ARIA%><option value="">Sem projeto vinculado</option>'+
+        PROJETOS.filter(x=>x.lider==='d1').map(x=>'<option value="'+x.id+'"'+(D.proj===x.id?' selected':'')+'>'+esc(x.nome)+'</option>').join('')+'</select>',
+        'Ajuda o estudante a entender o contexto.')+
+      campo('desc','<textarea id="f_desc" data-ac="fcampo" data-k="desc" %ARIA% placeholder="Atividades, frequência e o que se espera no fim.">'+esc(D.desc||'')+'</textarea>',
+        'Mínimo de 40 caracteres. Você escreveu '+((D.desc||'').trim().length)+'.');
+  } else if(p===1){
+    corpo=campo('cursos',inp('cursos','text','placeholder="Ciência da Computação, Engenharia de Software"'),'Separe por vírgula.')+
+      '<div class="dupla">'+campo('perMin',inp('perMin','number','min="1" max="12" step="1" placeholder="4"'))+
+      campo('mgMin',inp('mgMin','number','min="0" max="10" step="0.1" placeholder="7,5"'),
+        'De 0 a 10. Na UFG a média global pondera cada nota pela carga horária da disciplina.')+'</div>'+
+      campo('conhec',inp('conhec','text','placeholder="Python, Aprendizado de máquina, Álgebra linear"'),
+        'Separe por vírgula. Não impede a inscrição, só entra no cálculo de compatibilidade.');
+  } else if(p===2){
+    corpo=campo('bolsa','<div class="radios" role="radiogroup" %ARIA%>'+
+        '<label class="radio"><input type="radio" id="f_bolsa" name="bolsa" data-ac="fcampo" data-k="bolsa" value="sim"'+(D.bolsa==='sim'?' checked':'')+'> Com bolsa</label>'+
+        '<label class="radio"><input type="radio" id="f_bolsa_n" name="bolsa" data-ac="fcampo" data-k="bolsa" value="nao"'+(D.bolsa==='nao'?' checked':'')+'> Voluntária</label></div>')+
+      (D.bolsa==='sim'?campo('valor',inp('valor','number','min="1" step="50" placeholder="700"'),'Valor mensal em reais.'):'')+
+      '<div class="dupla">'+campo('ch',inp('ch','number','min="4" max="30" step="1" placeholder="20"'),'De 4 a 30 horas.')+
+      campo('vagas',inp('vagas','number','min="1" max="20" step="1" placeholder="2"'))+'</div>'+
+      campo('prazo',inp('prazo','date','min="2026-09-30"'),'A partir de amanhã.');
+  } else {
+    const falta=[0,1,2].filter(i=>!passoValido(i));
+    corpo=(falta.length?'<div class="alerta r" style="margin-bottom:18px">'+ico('aler',18)+
+      '<div><b>Faltam alguns campos.</b> Volte para '+falta.map(i=>PASSOS[i]).join(' e ')+' e complete o que está marcado.</div></div>':
+      '<div class="alerta v" style="margin-bottom:18px">'+ico('chek',18)+
+      '<div><b>Tudo certo.</b> Confira como a vaga vai aparecer. Depois de publicada, os estudantes elegíveis já conseguem ver.</div></div>')+
+      '<span class="rot">Como o card vai aparecer</span>'+
+      '<div style="max-width:400px;margin:10px 0 24px;background:var(--fundo);padding:12px;border-radius:24px">'+
+        '<div class="cartao"><div class="linha-chips">'+(D.tipo?chipTipo(D.tipo):'<span class="chip">Sem tipo</span>')+
+          '<span class="chip v"><span class="pt"></span>Aberta</span></div>'+
+        '<h3>'+esc(D.tit||'Sem título')+'</h3>'+
+        '<div class="meta">Prof. Dr. João Silva · Informática</div>'+
+        '<div class="pe"><span class="dado forte">'+
+          (D.bolsa==='sim'?(D.valor?moeda(+D.valor)+'/mês':'Bolsa sem valor'):D.bolsa==='nao'?'Voluntária':'Bolsa não definida')+'</span>'+
+          '<span class="dado">'+(D.ch||'?')+'h por semana</span>'+
+          '<span class="dado">'+(D.vagas?plural(+D.vagas,'vaga','vagas'):'? vagas')+'</span></div></div></div>'+
+      '<span class="rot">Resumo</span>'+
+      '<dl class="pares" style="margin-top:10px">'+
+        ['tit','tipo','cursos','perMin','mgMin','ch','vagas','prazo'].map(k=>{
+          let v=D[k];
+          if(k==='prazo'&&v)v=dt(v);
+          if(k==='perMin'&&v)v=v+'º';
+          if(k==='mgMin'&&v!==''&&v!=null)v=fmt1(v);
+          const f2=!v&&v!==0;
+          return '<div class="par"><dt>'+esc(REGRAS[k].rot)+'</dt><dd class="'+(['tit','tipo','cursos'].includes(k)?'tx':'')+'"'+
+            (f2?' style="color:var(--erro)"':'')+'>'+esc(f2?'Falta preencher':v)+'</dd></div>';
+        }).join('')+'</dl>';
+  }
+  return cab('Nova vaga','Quatro passos e ela já aparece para os estudantes.')+
+    '<div style="max-width:720px">'+
+    '<div class="progresso" role="tablist" aria-label="Etapas">'+
+      PASSOS.map((nome,i)=>'<button class="passo '+(i===p?'atual':(i<p&&passoValido(i))?'feito':'')+'" '+
+        'data-ac="irPasso" data-p="'+i+'" role="tab" aria-selected="'+(i===p)+'"><span><span class="nb">'+(i+1)+'.</span> '+nome+'</span></button>').join('')+'</div>'+
+    '<div class="form-caixa">'+corpo+'</div>'+
+    '<div class="form-pe">'+
+      (p>0?'<button class="btn" data-ac="voltarPasso">'+ico('volt',16)+' Voltar</button>':'<button class="btn" data-ac="cancelarOp">Cancelar</button>')+
+      '<div style="margin-left:auto">'+
+      (p<3?'<button class="btn pri" data-ac="avancarPasso">Continuar '+ico('seta',16)+'</button>':
+        '<button class="btn pri" data-ac="publicar">'+ico('chek',16)+' Publicar vaga</button>')+
+      '</div></div></div>';
+}
+
+/* ============================================================
+   Folhas de detalhe
+   ============================================================ */
+function par(r,v,tx){return '<div class="par"><dt>'+r+'</dt><dd'+(tx?' class="tx"':'')+'>'+v+'</dd></div>';}
+function drawerOp(id){
+  const o=opo(id), e=est(S.eu), d=doc(o.orient), p=o.proj?prj(o.proj):null;
+  const k=compat(o,e);
+  const ja=S.cands.find(c=>c.est===S.eu&&c.op===id);
+  const dias=diasAte(o.prazo);
+  return {
+    topo:'<div style="flex:1;min-width:0"><div class="linha-chips" style="margin-bottom:9px">'+chipTipo(o.tipo)+
+      '<span class="chip">'+esc(o.prog)+'</span>'+chipStatus(o)+'</div><h2>'+esc(o.tit)+'</h2></div>',
+    corpo:
+      '<dl class="pares" style="margin-bottom:18px">'+
+        par('Bolsa',o.bolsa?moeda(o.valor)+'<small>/mês</small>':'Voluntária')+
+        par('Carga',o.ch+'h<small>/semana</small>')+par('Vagas',o.vagas)+par('Até',dtCurto(o.prazo))+'</dl>'+
+      '<p style="font-size:13.5px;color:var(--tinta-3);margin:-8px 0 18px;font-weight:600">'+
+        esc(PROGRAMAS[o.prog]||o.prog)+'.</p>'+
+      (o.status==='encerrada'?'<div class="alerta m" style="margin-bottom:20px">'+ico('info',18)+
+        '<div>As inscrições fecharam em '+dt(o.prazo)+'.</div></div>':
+       dias<=7?'<div class="alerta a" style="margin-bottom:20px">'+ico('reli',18)+
+        '<div><b>'+(dias<=1?'Últimas horas.':'Faltam '+dias+' dias.')+'</b> As inscrições vão até '+dt(o.prazo)+'.</div></div>':'')+
+      '<div class="bloco"><span class="rot">Você combina com esta vaga?</span>'+
+        '<div class="caixa"><div style="padding:12px 0 6px">'+barraCompat(k.pc,true)+'</div>'+
+        k.itens.map(i=>'<div class="req '+(i.ok?'ok':'nao')+'"><span class="mk" aria-hidden="true">'+(i.ok?'✓':'✕')+'</span>'+
+          '<span class="tx"><b>'+esc(i.rot)+'</b><span class="sr">'+(i.ok?': atende.':': não atende.')+'</span>'+
+          '<span class="st">'+esc(i.det)+'</span></span></div>').join('')+'</div>'+
+        (k.eleg?'':'<div class="alerta a" style="margin-top:10px">'+ico('aler',18)+
+          '<div><b>Um requisito obrigatório ficou de fora.</b> Você ainda pode se inscrever, e o professor vai ver esse ponto em destaque.</div></div>')+
+      '</div>'+
+      '<div class="bloco"><span class="rot">Quem orienta</span>'+
+        '<div class="pessoa"><span class="perfil-av azul" aria-hidden="true">'+iniciais(d.nome)+'</span>'+
+        '<div style="min-width:0"><b>'+esc(d.trat+' '+d.nome)+'</b><span>'+esc(d.area)+' · '+esc(INST[o.inst])+'</span></div></div>'+
+        (p?'<p style="margin-top:9px;font-size:14px">Faz parte do projeto <b>'+esc(p.nome)+'</b>, do '+esc(p.grupo)+'.</p>':'')+'</div>'+
+      '<div class="bloco"><span class="rot">Sobre a vaga</span><p>'+esc(o.desc)+'</p></div>'+
+      '<div class="bloco"><span class="rot">O que você vai fazer</span><ul class="fazer">'+
+        o.ativ.map(a=>'<li>'+ico('chek',16)+'<span>'+esc(a)+'</span></li>').join('')+'</ul></div>'+
+      '<div class="bloco"><span class="rot">Áreas e conhecimentos</span><div class="tags" style="margin-top:0">'+
+        o.areas.map(a=>'<span class="chip m">'+esc(a)+'</span>').join('')+o.conhec.map(c=>'<span class="chip">'+esc(c)+'</span>').join('')+'</div></div>',
+    pe: ja?'<div class="alerta v" style="flex:1;padding:10px 14px">'+ico('chek',17)+
+        '<div>Inscrita em '+dtCurto(ja.em)+'. Etapa: <b>'+ETAPAS[ja.etapa]+'</b></div></div>'+
+        '<button class="btn" data-ac="abrirCand" data-id="'+ja.id+'">Acompanhar</button>'
+      : o.status==='encerrada'?'<button class="btn" disabled style="flex:1">Inscrições encerradas</button>'
+      : '<button class="btn" data-ac="salvarOp" data-id="'+o.id+'">'+(S.salvos.includes(o.id)?ico('chek',16)+' Salva':'Salvar')+'</button>'+
+        '<button class="btn pri" data-ac="preAplicar" data-id="'+o.id+'" style="flex:1">Quero me candidatar</button>'
+  };
+}
+
+function drawerConfirmar(id){
+  const o=opo(id), e=est(S.eu), k=compat(o,e), d=doc(o.orient);
+  const linha=(r,v)=>'<div class="req ok"><span class="mk" aria-hidden="true">✓</span><span class="tx"><b>'+esc(r)+'</b><span class="st">'+esc(v)+'</span></span></div>';
+  return {
+    topo:'<div style="flex:1;min-width:0"><div class="ante">Revise antes de enviar</div><h2 style="margin-top:3px">'+esc(o.tit)+'</h2></div>',
+    corpo:'<div class="bloco"><span class="rot">'+esc(d.trat+' '+d.nome)+' vai receber</span>'+
+        '<div class="caixa">'+
+        linha('Você',e.nome+' · '+e.curso+' · '+e.periodo+'º período')+
+        linha('Desempenho','Média global '+fmt1(e.mg))+
+        linha('Interesses',e.interesses.join(', '))+
+        linha('Habilidades',e.habil.join(', '))+
+        linha('Trajetória',plural(e.hist.length,'atividade','atividades')+' de monitoria e extensão')+
+        linha('Disponibilidade',e.disp)+
+        linha('Lattes',e.lattes)+'</div></div>'+
+      '<div class="bloco"><span class="rot">Fica só com você</span>'+
+        '<p>Telefone, e-mail pessoal, suas outras inscrições e as vagas que você salvou.</p></div>'+
+      '<div class="bloco"><span class="rot">Compatibilidade enviada junto</span>'+barraCompat(k.pc,true)+'</div>',
+    pe:'<button class="btn" data-ac="abrirOp" data-id="'+o.id+'">'+ico('volt',16)+' Voltar</button>'+
+      '<button class="btn pri" data-ac="enviarCand" data-id="'+o.id+'" style="flex:1">Enviar candidatura</button>'
+  };
+}
+
+function drawerCand(id){
+  const c=S.cands.find(x=>x.id===id), o=opo(c.op), d=doc(o.orient);
+  const atual=c.res==='nao'?3:c.etapa;
+  const obsDe=i=>c.hist.find(x=>x.e===i)||null;
+  return {
+    topo:'<div style="flex:1;min-width:0"><div class="ante">Sua inscrição</div><h2 style="margin-top:3px">'+esc(o.tit)+'</h2>'+
+      '<div style="font-size:14px;color:var(--tinta-2);margin-top:4px">'+esc(d.trat+' '+d.nome)+' · '+esc(INST_CURTO[o.inst])+'</div></div>',
+    corpo:
+      (c.res==='nao'?'<div class="alerta r" style="margin-bottom:20px">'+ico('info',18)+
+        '<div><b>Dessa vez não deu.</b> O resultado não muda nada nas suas outras inscrições.</div></div>':
+       c.etapa===2?'<div class="alerta a" style="margin-bottom:20px">'+ico('even',18)+
+        '<div><b>Entrevista marcada.</b> '+esc(obsDe(2)?obsDe(2).o:'Confirme a data com o professor.')+'</div></div>':'')+
+      '<div class="bloco"><span class="rot">Etapas</span><div class="linha-t" style="margin-top:10px">'+ETAPAS.map((nome,i)=>{
+        const cls=i<atual?'feito':i===atual?'agora':'futuro';
+        const h=obsDe(i);
+        const rotulo=i===3&&c.res==='nao'?'Resultado: não selecionada':nome;
+        return '<div class="etapa '+cls+'"><span class="mrk" aria-hidden="true">'+(i<atual?'✓':'')+'</span>'+
+          '<div><div class="nm">'+esc(rotulo)+(i===atual&&c.res!=='nao'?'<span class="agora-tag">Agora</span>':'')+
+            '<span class="sr">'+(i<atual?', concluída':i===atual?', etapa atual':', ainda não começou')+'</span></div>'+
+          (h?'<div class="qd">'+dt(h.d)+'</div><div class="obs">'+esc(h.o)+'</div>':i>atual?'<div class="qd">Ainda não</div>':'')+
+          '</div></div>';
+      }).join('')+'</div></div>'+
+      '<div class="bloco"><span class="rot">Resumo da vaga</span><dl class="pares">'+
+        par('Programa',esc(o.prog),true)+par('Bolsa',o.bolsa?moeda(o.valor):'Voluntária')+
+        par('Carga',o.ch+'h<small>/sem</small>')+par('Enviada',dtCurto(c.em))+'</dl></div>',
+    pe:'<button class="btn" data-ac="abrirOp" data-id="'+o.id+'" style="flex:1">Ver a vaga</button>'+
+      (c.res==='nao'||c.etapa>=2?'':'<button class="btn perigo" data-ac="retirar" data-id="'+c.id+'">Desistir</button>')
+  };
+}
+
+function drawerEvento(id){
+  const v=EVENTOS.find(x=>x.id===id);
+  const insc=S.inscritoEm.includes(id), lot=v.inscritos>=v.vagas&&!insc;
+  const f=diasAte(v.data);
+  return {
+    topo:'<div style="flex:1;min-width:0;display:flex;gap:14px;align-items:flex-start">'+dataBloco(v.data)+
+      '<div style="min-width:0"><div class="linha-chips" style="margin-bottom:8px"><span class="chip m">'+esc(v.tipo)+'</span>'+
+      (v.online?'<span class="chip">Online</span>':'')+(insc?'<span class="chip v">'+ico('chek',13)+' Vou</span>':'')+'</div>'+
+      '<h2>'+esc(v.tit)+'</h2></div></div>',
+    corpo:'<dl class="pares" style="margin-bottom:18px">'+par('Horário',v.hora)+par('Vagas',v.inscritos+'<small>/'+v.vagas+'</small>')+
+      par('Falta',f===0?'Hoje':plural(f,'dia','dias'))+'</dl>'+
+      (lot?'<div class="alerta a" style="margin-bottom:20px">'+ico('aler',18)+'<div><b>Lotado.</b> Entre na lista de espera e avisamos se abrir vaga.</div></div>':'')+
+      '<div class="bloco"><span class="rot">Onde</span><p style="display:flex;gap:7px;align-items:flex-start">'+ico('loca',18)+'<span>'+esc(v.local)+'</span></p></div>'+
+      '<div class="bloco"><span class="rot">Quem organiza</span><p>'+esc(v.resp)+'</p></div>'+
+      '<div class="bloco"><span class="rot">Sobre</span><p>'+esc(v.desc)+'</p></div>',
+    pe:insc?'<button class="btn" data-ac="cancelarEv" data-id="'+id+'">Não vou mais</button>'+
+        '<button class="btn pri" data-ac="calendario" style="flex:1">'+ico('even',16)+' Pôr na agenda</button>'
+      :'<button class="btn pri" data-ac="inscreverEv" data-id="'+id+'" style="flex:1">'+(lot?'Entrar na lista de espera':'Confirmar presença')+'</button>'
+  };
+}
+
+function drawerProjeto(id){
+  const p=prj(id), d=doc(p.lider);
+  const vagas=S.ops.filter(o=>o.proj===id&&o.status!=='encerrada');
+  return {
+    topo:'<div style="flex:1;min-width:0"><div class="ante">'+esc(p.sigla)+' · '+esc(p.grupo)+'</div><h2 style="margin-top:3px">'+esc(p.nome)+'</h2></div>',
+    corpo:'<dl class="pares" style="margin-bottom:18px">'+par('Área',esc(p.area),true)+par('Unidade',esc(INST_CURTO[p.inst]),true)+
+      par('Pessoas',p.membros)+par('Desde',p.desde)+'</dl>'+
+      '<div class="bloco"><span class="rot">Resumo</span><p>'+esc(p.resumo)+'</p></div>'+
+      '<div class="bloco"><span class="rot">Coordenação</span>'+
+        '<div class="pessoa"><span class="perfil-av azul" aria-hidden="true">'+iniciais(d.nome)+'</span>'+
+        '<div style="min-width:0"><b>'+esc(d.trat+' '+d.nome)+'</b><span>'+esc(d.bio)+'</span></div></div></div>'+
+      '<div class="bloco"><span class="rot">Linhas de pesquisa</span><div class="tags" style="margin-top:0">'+
+        p.linhas.map(l=>'<span class="chip m">'+esc(l)+'</span>').join('')+'</div></div>'+
+      '<div class="bloco"><span class="rot">Vagas abertas</span>'+
+        (vagas.length?'<div class="lista">'+vagas.map(o=>'<button class="item" data-ac="abrirOp" data-id="'+o.id+'">'+
+          '<div class="pr"><div class="tt">'+esc(o.tit)+'</div><div class="sb">'+esc(o.prog)+' · '+(o.bolsa?moeda(o.valor)+'/mês':'Voluntária')+'</div></div>'+
+          '<div class="dr">'+ico('seta',16)+'</div></button>').join('')+'</div>'
+        :'<p>Nenhuma vaga aberta agora.</p>')+'</div>',
+    pe:'<button class="btn" data-ac="fecharDrawer" style="flex:1">Fechar</button>'
+  };
+}
+
+function drawerEstudante(eid,opid){
+  const e=est(eid), o=opo(opid||S.quadroOp), k=compat(o,e);
+  const c=S.cands.find(x=>x.est===eid&&x.op===o.id);
+  const at=c?colDe(c):0;
+  return {
+    topo:'<div style="flex:1;min-width:0;display:flex;gap:12px;align-items:center">'+
+      '<span class="perfil-av azul" style="width:52px;height:52px;font-size:17px">'+iniciais(e.nome)+'</span>'+
+      '<div style="min-width:0"><h2>'+esc(e.nome)+'</h2>'+
+      '<div style="font-size:14px;color:var(--tinta-2)">'+esc(e.curso)+' · '+e.periodo+'º período</div></div></div>',
+    corpo:'<dl class="pares" style="margin-bottom:18px">'+par('Média global',fmt1(e.mg))+par('Compatível',k.pc+'%')+
+      par('Etapa',esc(COLS[at]),true)+par('Disponível',esc(e.disp),true)+'</dl>'+
+      '<div class="bloco"><span class="rot">Requisitos da vaga</span><div class="caixa">'+
+        k.itens.map(i=>'<div class="req '+(i.ok?'ok':'nao')+'"><span class="mk" aria-hidden="true">'+(i.ok?'✓':'✕')+'</span>'+
+          '<span class="tx"><b>'+esc(i.rot)+'</b><span class="sr">'+(i.ok?': atende.':': não atende.')+'</span><span class="st">'+esc(i.det)+'</span></span></div>').join('')+
+        '</div></div>'+
+      '<div class="bloco"><span class="rot">Interesses</span><div class="tags" style="margin-top:0">'+
+        e.interesses.map(i=>'<span class="chip m">'+esc(i)+'</span>').join('')+'</div></div>'+
+      '<div class="bloco"><span class="rot">Habilidades</span><div class="tags" style="margin-top:0">'+
+        e.habil.map(h=>'<span class="chip">'+esc(h)+'</span>').join('')+'</div></div>'+
+      (e.hist&&e.hist.length?'<div class="bloco"><span class="rot">Trajetória</span><div style="margin-top:10px">'+
+        e.hist.map(x=>'<div class="exp"><span class="chip i">'+esc(x.tp)+'</span><h4>'+esc(x.t)+'</h4><div class="pd">'+esc(x.p)+'</div></div>').join('')+'</div></div>':''),
+    pe:c?'<label class="rot" for="movSel" style="flex:none">Mover para</label>'+
+      '<select id="movSel" class="sel-op" data-ac="moverSel" data-cid="'+c.id+'" style="flex:1;margin:0;width:auto">'+
+        COLS.map((n,i)=>'<option value="'+i+'"'+(i===at?' selected':'')+'>'+n+'</option>').join('')+'</select>'
+      :'<button class="btn" data-ac="fecharDrawer" style="flex:1">Fechar</button>'
+  };
+}
+
+function montarDrawer(){
+  const D=S.drawer; if(!D) return '';
+  const f={op:drawerOp,conf:drawerConfirmar,cand:drawerCand,ev:drawerEvento,proj:drawerProjeto}[D.t];
+  const c=D.t==='est'?drawerEstudante(D.id,D.op):D.t==='anot'?drawerAnot(D.id):f?f(D.id):null;
+  if(!c) return '';
+  return '<div class="veu" data-ac="fecharDrawer"></div>'+
+    '<aside class="drawer" role="dialog" aria-modal="true" aria-label="Detalhes" id="drawer">'+
+      '<span class="alca" aria-hidden="true"></span>'+
+      '<div class="drawer-topo">'+c.topo+
+        '<button class="ico-btn" data-ac="fecharDrawer" aria-label="Fechar">'+ico('fech',18)+'</button></div>'+
+      '<div class="drawer-corpo">'+c.corpo+'</div>'+
+      '<div class="drawer-pe">'+c.pe+'</div></aside>';
+}
+
+/* ============================================================
+   Estrutura e navegação
+   ============================================================ */
+const ROTAS={
+  estudante:[
+    {r:'inicio',n:'Início',i:'casa'},
+    {r:'oportunidades',n:'Vagas',i:'vaga'},
+    {r:'projetos',n:'Projetos',i:'proj'},
+    {r:'eventos',n:'Agenda',i:'even'},
+    {r:'candidaturas',n:'Inscrições',nl:'Minhas inscrições',i:'cand'},
+    {r:'perfil',n:'Perfil',i:'perf',oculto:true},
+    {r:'notificacoes',n:'Avisos',i:'sino',oculto:true},
+    {r:'anotacoes',n:'Anotações de IHC',i:'info',oculto:true}
+  ],
+  docente:[
+    {r:'painel',n:'Início',i:'casa'},
+    {r:'minhasops',n:'Vagas',nl:'Minhas vagas',i:'vaga'},
+    {r:'candidatos',n:'Candidatos',i:'gent'},
+    {r:'projetos',n:'Projetos',i:'proj'},
+    {r:'perfilDoc',n:'Perfil',i:'perf',oculto:true},
+    {r:'novaop',n:'Nova vaga',i:'mais',oculto:true},
+    {r:'anotacoes',n:'Anotações de IHC',i:'info',oculto:true}
+  ]
+};
+function rotaAtual(){const rs=ROTAS[S.papel];return rs.find(x=>x.r===S.rota)||rs[0];}
+function corpoDaRota(){
+  if(S.papel==='estudante'){
+    return ({inicio:telaInicio,oportunidades:telaOportunidades,projetos:telaProjetos,eventos:telaEventos,
+      candidaturas:telaCandidaturas,perfil:telaPerfil,notificacoes:telaNotificacoes,
+      anotacoes:telaAnotacoes}[S.rota]||telaInicio)();
+  }
+  return ({painel:telaPainel,minhasops:telaMinhasOps,candidatos:telaQuadro,projetos:telaProjetos,
+    perfilDoc:telaPerfilDocente,novaop:telaNovaOp,anotacoes:telaAnotacoes}[S.rota]||telaPainel)();
+}
+function barraHTML(){
+  const rs=ROTAS[S.papel].filter(x=>!x.oculto);
+  const naoLidas=S.notifs.filter(n=>!n.lida).length;
+  const eu=S.papel==='estudante'?est(S.eu):doc('d1');
+  const rPerfil=S.papel==='estudante'?'perfil':'perfilDoc';
+  const escuro=S.tema==='dark'||(S.tema===null&&matchMedia('(prefers-color-scheme:dark)').matches);
+  return '<header class="barra"><div class="barra-in">'+
+    '<button class="marca" data-ac="ir" data-r="'+rs[0].r+'" aria-label="Conecta UFG, início">'+
+      '<span class="selo">'+'<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">'+
+        '<path d="M13.5 5.6A5.6 5.6 0 1 0 13.5 14.4" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/></svg></span>'+
+      '<b>Conecta<small>UFG</small></b></button>'+
+    '<nav class="abas" aria-label="Seções">'+rs.map(x=>'<a href="#'+x.r+'" data-ac="ir" data-r="'+x.r+'"'+
+      (S.rota===x.r?' aria-current="page"':'')+'>'+ico(x.i,17)+'<span>'+x.n+'</span></a>').join('')+'</nav>'+
+    '<div class="barra-dir">'+
+      '<div class="papel" role="group" aria-label="Ver o protótipo como">'+
+        '<button data-ac="trocarPapel" data-p="estudante" aria-pressed="'+(S.papel==='estudante')+'">Estudante</button>'+
+        '<button data-ac="trocarPapel" data-p="docente" aria-pressed="'+(S.papel==='docente')+'">Orientador</button></div>'+
+      '<button class="btn peq'+(S.anotar?' pri':'')+'" data-ac="anotar" aria-pressed="'+(!!S.anotar)+'" '+
+        'title="Mostra sobre a interface os princípios e critérios de IHC aplicados">IHC</button>'+
+      '<button class="ico-btn" data-ac="tema" aria-label="'+(escuro?'Usar tema claro':'Usar tema escuro')+'">'+ico(escuro?'sol':'lua',18)+'</button>'+
+      (S.papel==='estudante'?'<button class="ico-btn" data-ac="ir" data-r="notificacoes" aria-label="Avisos'+
+        (naoLidas?', '+naoLidas+' novos':'')+'"'+(S.rota==='notificacoes'?' aria-current="page"':'')+'>'+ico('sino',18)+
+        (naoLidas?'<span class="bolha" aria-hidden="true">'+naoLidas+'</span>':'')+'</button>':'')+
+      '<button class="avatar-btn" data-ac="ir" data-r="'+rPerfil+'" aria-label="Meu perfil"'+
+        (S.rota===rPerfil?' aria-current="page"':'')+(S.papel==='docente'?' style="background:var(--marca-suave);color:var(--marca)"':'')+'>'+
+        iniciais(eu.nome)+'</button>'+
+    '</div></div></header>';
+}
+function mobNavHTML(){
+  const rs=ROTAS[S.papel].filter(x=>!x.oculto);
+  return '<nav class="mob-nav" aria-label="Navegação">'+rs.map(x=>
+    '<a href="#'+x.r+'" data-ac="ir" data-r="'+x.r+'"'+(S.rota===x.r?' aria-current="page"':'')+'>'+
+    '<span class="ic">'+ico(x.i,20)+'</span><span>'+esc(x.n)+'</span></a>').join('')+'</nav>';
+}
+function faixaAnotHTML(){
+  if(!S.anotar)return '';
+  const q=anotsVisiveis().length;
+  return '<div class="faixa-anot"><div class="faixa-in">'+ico('info',17)+
+    '<span><b>Modo de anotação ligado.</b> '+
+    (q?plural(q,'marcador nesta tela','marcadores nesta tela')+'. Clique em um deles para ler a justificativa.'
+      :'Esta tela não tem marcador. Vá para Início, Vagas ou abra uma vaga.')+'</span>'+
+    '<button data-ac="ir" data-r="anotacoes">Ver todas</button></div></div>';
+}
+function render(){
+  $('#raiz').innerHTML=barraHTML()+faixaAnotHTML()+
+    '<main class="folha" id="conteudo" tabindex="-1">'+corpoDaRota()+
+      '<p class="rodape">Protótipo acadêmico de IHC. Pessoas, vagas e eventos são fictícios. '+
+      'Os programas, as siglas e a média global seguem a nomenclatura da UFG. '+
+      'Sem vínculo oficial com a Universidade Federal de Goiás.</p></main>'+
+    mobNavHTML()+montarDrawer();
+  if(S.drawer){const d=$('#drawer');if(d){const f=d.querySelector('button,select,a,input');if(f)f.focus();}}
+  requestAnimationFrame(pintarMarcadores);
+}
+
+/* ============================================================
+   Marcadores de anotação
+   ============================================================ */
+function anotsVisiveis(){
+  return ANOTACOES.filter(a=>{
+    if(a.papel&&a.papel!==S.papel)return false;
+    if(a.drawer)return !!(S.drawer&&S.drawer.t===a.drawer);
+    if(a.rota)return !S.drawer&&a.rota===S.rota;
+    return false;
+  });
+}
+function pintarMarcadores(){
+  const velha=$('#camadaAnot'); if(velha)velha.remove();
+  if(!S.anotar)return;
+  document.querySelectorAll('.tem-anot').forEach(e=>e.classList.remove('tem-anot'));
+  const camada=document.createElement('div');
+  camada.className='camada-anot'; camada.id='camadaAnot';
+  camada.style.zIndex=S.drawer?60:45;   // a folha lateral está em 51
+  document.body.appendChild(camada);
+  anotsVisiveis().forEach(a=>{
+    const alvo=document.querySelectorAll(a.sel)[a.i||0];
+    if(!alvo)return;
+    alvo.classList.add('tem-anot');
+    const r=alvo.getBoundingClientRect();
+    const m=document.createElement('button');
+    m.type='button'; m.className='marcador';
+    m.dataset.ac='verAnot'; m.dataset.n=a.n;
+    m.textContent=a.n;
+    m.setAttribute('aria-label','Anotação '+a.n+': '+a.nome+'. '+a.cat+'.');
+    m.style.left=(r.left+window.scrollX-13)+'px';
+    m.style.top=(r.top+window.scrollY-13)+'px';
+    camada.appendChild(m);
+  });
+}
+let _ra;
+window.addEventListener('resize',()=>{clearTimeout(_ra);_ra=setTimeout(pintarMarcadores,160);});
+
+function telaAnotacoes(){
+  const porCat=c=>ANOTACOES.filter(a=>a.cat===c);
+  const onde=a=>a.drawer?('folha de '+({op:'detalhe da vaga',conf:'confirmação do envio',cand:'acompanhamento'}[a.drawer]||a.drawer))
+    :({inicio:'Início',oportunidades:'Vagas',perfil:'Perfil',novaop:'Nova vaga',candidatos:'Candidatos'}[a.rota]||a.rota);
+  return cab('Anotações de IHC',
+      'Cada marcador sobre a interface aponta um princípio, uma diretriz ou um critério aplicado no projeto. '+
+      'Ligue o modo no botão IHC da barra e os marcadores aparecem na tela correspondente.')+
+    CATS.map(c=>{
+      const lista=porCat(c); if(!lista.length)return '';
+      return '<div class="sec">'+secTopo(esc(c),lista.length)+'<div class="painel">'+
+        lista.map(a=>'<div class="anot-item"><span class="anot-n">'+a.n+'</span>'+
+          '<div style="min-width:0"><div style="font-weight:800;font-size:15.5px">'+esc(a.nome)+'</div>'+
+          '<div style="font-size:13px;color:var(--tinta-3);font-weight:700;margin:2px 0 5px">Tela: '+esc(onde(a))+'</div>'+
+          '<p style="font-size:14.5px;color:var(--tinta-2);line-height:1.55">'+esc(a.tx)+'</p></div></div>').join('')+
+        '</div></div>';
+    }).join('');
+}
+
+function drawerAnot(num){
+  const a=ANOTACOES.find(x=>String(x.n)===String(num));
+  if(!a)return null;
+  return {
+    topo:'<div style="flex:1;min-width:0;display:flex;gap:12px;align-items:center">'+
+      '<span class="anot-n" style="width:38px;height:38px;font-size:17px">'+a.n+'</span>'+
+      '<div style="min-width:0"><span class="anot-cat">'+esc(a.cat)+'</span>'+
+      '<h2 style="margin-top:6px">'+esc(a.nome)+'</h2></div></div>',
+    corpo:'<div class="bloco"><span class="rot">Como foi aplicado aqui</span><p>'+esc(a.tx)+'</p></div>'+
+      '<div class="bloco"><span class="rot">Origem</span><p>'+
+        esc(a.cat==='Gestalt'?'Princípios da Gestalt, Aula 2.'
+          :a.cat==='Princípio (Silva e Barbosa)'?'Princípios e diretrizes de Silva, B. e Barbosa, S., 2010, Aula 3.'
+          :a.cat==='Affordance'?'Conceito de affordance, Barbosa e Silva, 2010, capítulo 2.'
+          :'Critérios de qualidade de uso, Barbosa e Silva, 2010, capítulo 2.')+'</p></div>',
+    pe:'<button class="btn" data-ac="fecharDrawer">Fechar</button>'+
+      '<button class="btn pri" data-ac="ir" data-r="anotacoes" style="flex:1">Ver todas as anotações</button>'
+  };
+}
+
+/* ============================================================
+   Toasts com desfazer
+   ============================================================ */
+function toast(tx,tipo,desf){
+  const el=document.createElement('div');
+  el.className='toast'+(tipo?' '+tipo:'');
+  el.innerHTML=ico(tipo==='erro'?'aler':tipo==='ok'?'chek':'info',18)+'<span>'+esc(tx)+'</span>'+
+    (desf?'<button class="desf" data-ac="desfazer">Desfazer</button>':'');
+  $('#torre').appendChild(el);
+  if(desf)S.desfazer=desf;
+  setTimeout(()=>{el.style.transition='opacity .2s';el.style.opacity='0';
+    setTimeout(()=>el.remove(),220);if(S.desfazer===desf)S.desfazer=null;},desf?6500:3600);
+}
+
+/* ============================================================
+   Ações
+   ============================================================ */
+const COLS=['Inscritos','Em análise','Entrevista','Selecionados','Não selecionados'];
+function aplicarCol(c,i){
+  if(i===4){c.res='nao';c.etapa=3;}
+  else if(i===3){c.res='sim';c.etapa=3;}
+  else {c.res=null;c.etapa=i;}
+}
+function colDe(c){return c.res==='nao'?4:c.res==='sim'?3:c.etapa>=3?3:c.etapa;}
+function movido(c,para,de,antes){
+  const nome=primeiro(est(c.est).nome);
+  toast(nome+' foi para '+COLS[para]+'.','ok',
+    ()=>{c.etapa=antes.etapa;c.res=antes.res;render();toast(nome+' voltou para '+COLS[de]+'.');});
+}
+
+const ACOES={
+  ir(el){S.rota=el.dataset.r;S.drawer=null;render();
+    $('#conteudo').focus({preventScroll:true});window.scrollTo(0,0);},
+  tema(){const escuro=S.tema==='dark'||(S.tema===null&&matchMedia('(prefers-color-scheme:dark)').matches);
+    S.tema=escuro?'light':'dark';document.documentElement.setAttribute('data-theme',S.tema);render();},
+  trocarPapel(el){const p=el.dataset.p;if(!p||p===S.papel)return;
+    S.papel=p;S.rota=p==='estudante'?'inicio':'painel';S.drawer=null;render();window.scrollTo(0,0);
+    toast(p==='estudante'?'Agora você está vendo como Ana Oliveira, estudante.':'Agora você está vendo como o Prof. Dr. João Silva, orientador.','ok');},
+  togFiltros(){S.fAberto=!S.fAberto;render();},
+  anotar(){S.anotar=!S.anotar;render();
+    toast(S.anotar?'Modo de anotação ligado. Os marcadores mostram onde cada princípio foi aplicado.'
+                  :'Modo de anotação desligado.','ok');},
+  verAnot(el){S.drawer={t:'anot',id:el.dataset.n};render();},
+  /* Da busca do herói para a lista completa, levando o termo junto. */
+  irBusca(){const i=document.getElementById('bqi');if(i)S.q=i.value;
+    ACOES.ir({dataset:{r:'oportunidades'}});},
+  /* Atalhos: entram na lista com um filtro já aplicado, sem obrigar a abrir o painel. */
+  atalho(el){S.q='';S.filtros={tipo:[],bolsa:[],inst:[],status:[]};
+    S.filtros[el.dataset.c]=[el.dataset.v];S.fAberto=true;
+    ACOES.ir({dataset:{r:'oportunidades'}});
+    toast('Filtro aplicado: '+el.dataset.v+'.','ok');},
+  abrirOp(el){S.drawer={t:'op',id:el.dataset.id};render();},
+  abrirCand(el){S.drawer={t:'cand',id:el.dataset.id};render();},
+  abrirEv(el){S.drawer={t:'ev',id:el.dataset.id};render();},
+  abrirProj(el){S.drawer={t:'proj',id:el.dataset.id};render();},
+  abrirEst(el){S.drawer={t:'est',id:el.dataset.id,op:el.dataset.op};render();},
+  verCand(el){const c=S.cands.find(x=>x.id===el.dataset.cid);S.drawer={t:'est',id:c.est,op:c.op};render();},
+  fecharDrawer(){S.drawer=null;render();},
+  preAplicar(el){S.drawer={t:'conf',id:el.dataset.id};render();},
+  salvarOp(el){const id=el.dataset.id,i=S.salvos.indexOf(id);
+    if(i>=0){S.salvos.splice(i,1);toast('Vaga tirada dos salvos.');}
+    else{S.salvos.push(id);toast('Vaga salva.','ok');}
+    render();},
+  enviarCand(el){
+    const id=el.dataset.id;el.disabled=true;el.textContent='Enviando…';
+    setTimeout(()=>{
+      const nova={id:'c'+(Date.now()%100000),op:id,est:S.eu,em:'2026-09-29',etapa:0,res:null,
+        hist:[{e:0,d:'2026-09-29',o:'Candidatura enviada com o seu perfil do Conecta.'}]};
+      S.cands.unshift(nova);S.drawer={t:'cand',id:nova.id};render();
+      toast('Candidatura enviada! Acompanhe em Minhas inscrições.','ok');
+    },900);
+  },
+  retirar(el){
+    const id=el.dataset.id,i=S.cands.findIndex(c=>c.id===id),copia=S.cands[i];
+    S.cands.splice(i,1);S.drawer=null;render();
+    toast('Você desistiu da vaga.',null,()=>{S.cands.splice(i,0,copia);render();toast('Inscrição de volta.','ok');});
+  },
+  inscreverEv(el){const id=el.dataset.id;S.inscritoEm.push(id);render();
+    toast('Presença confirmada.','ok',()=>{S.inscritoEm=S.inscritoEm.filter(x=>x!==id);render();toast('Presença cancelada.');});},
+  cancelarEv(el){const id=el.dataset.id;S.inscritoEm=S.inscritoEm.filter(x=>x!==id);render();toast('Presença cancelada.');},
+  calendario(){toast('Evento adicionado à agenda (simulado no protótipo).','ok');},
+  lerTodas(){S.notifs.forEach(n=>n.lida=true);render();toast('Tudo marcado como lido.','ok');},
+  abrirNotif(el){
+    const n=S.notifs.find(x=>x.id===el.dataset.id);n.lida=true;
+    if(n.ir&&n.ir[0]==='c')S.drawer={t:'cand',id:n.ir};else if(n.ir)S.drawer={t:'op',id:n.ir};
+    render();},
+  limparF(){S.filtros={tipo:[],bolsa:[],inst:[],status:[]};render();toast('Filtros limpos.');},
+  limparQ(){S.q='';render();},
+  limparTudo(){S.q='';S.filtros={tipo:[],bolsa:[],inst:[],status:[]};render();},
+  editarPerfil(){toast('A edição de perfil fica fora deste recorte do protótipo.');},
+  importarLattes(){toast('Importação simulada: nenhuma publicação encontrada no Lattes.');},
+  novaOp(){S.papel='docente';S.rota='novaop';S.form={passo:0,dados:{},erros:{},tocado:{}};S.drawer=null;render();window.scrollTo(0,0);},
+  cancelarOp(){S.rota='painel';render();},
+  irPasso(el){const p=+el.dataset.p;
+    if(p>S.form.passo){for(let i=S.form.passo;i<p;i++){
+      CAMPOS_PASSO[i].forEach(k=>S.form.tocado[k]=true);
+      if(!passoValido(i)){S.form.passo=i;render();toast('Complete os campos marcados para seguir.','erro');return;}}}
+    S.form.passo=p;render();},
+  avancarPasso(){
+    const p=S.form.passo;
+    CAMPOS_PASSO[p].forEach(k=>S.form.tocado[k]=true);
+    if(!passoValido(p)){render();
+      const e=document.querySelector('.campo.erro input,.campo.erro select,.campo.erro textarea');if(e)e.focus();
+      toast('Complete os campos marcados para seguir.','erro');return;}
+    S.form.passo=p+1;render();window.scrollTo(0,0);},
+  voltarPasso(){S.form.passo=Math.max(0,S.form.passo-1);render();window.scrollTo(0,0);},
+  publicar(){
+    [0,1,2].forEach(i=>CAMPOS_PASSO[i].forEach(k=>S.form.tocado[k]=true));
+    const falta=[0,1,2].find(i=>!passoValido(i));
+    if(falta!=null){S.form.passo=falta;render();toast('Ainda não dá para publicar. Veja os campos marcados.','erro');return;}
+    const D=S.form.dados;
+    const nova={id:'o'+(Date.now()%100000),tit:D.tit.trim(),tipo:D.tipo,
+      prog:D.tipo==='Iniciação Científica'?(D.bolsa==='sim'?'PIBIC':'PIVIC'):
+        D.tipo==='Extensão'?(D.bolsa==='sim'?'PROBEC':'PROVEC'):D.tipo,
+      proj:D.proj||null,orient:'d1',inst:'INF',bolsa:D.bolsa==='sim',valor:D.bolsa==='sim'?+D.valor:0,
+      ch:+D.ch,vagas:+D.vagas,prazo:D.prazo,status:'aberta',
+      cursos:D.cursos.split(',').map(s=>s.trim()).filter(Boolean),perMin:+D.perMin,mgMin:+D.mgMin,
+      conhec:(D.conhec||'').split(',').map(s=>s.trim()).filter(Boolean),
+      areas:(D.conhec||'').split(',').map(s=>s.trim()).filter(Boolean).slice(0,2),
+      desc:D.desc.trim(),ativ:['Atividades combinadas com a orientação']};
+    S.ops.unshift(nova);OPORTUNIDADES.unshift(nova);
+    S.rota='minhasops';S.form={passo:0,dados:{},erros:{},tocado:{}};render();
+    toast('Vaga publicada. Os estudantes elegíveis já podem ver.','ok');},
+  trocaQuadro(el){S.quadroOp=el.value;render();},
+  mover(el){
+    const c=S.cands.find(x=>x.id===el.dataset.cid),para=+el.dataset.para;
+    if(para<0||para>4)return;
+    const de=colDe(c),antes={etapa:c.etapa,res:c.res};
+    aplicarCol(c,para);render();movido(c,para,de,antes);},
+  moverSel(el){
+    const c=S.cands.find(x=>x.id===el.dataset.cid),para=+el.value;
+    const de=colDe(c),antes={etapa:c.etapa,res:c.res};
+    aplicarCol(c,para);S.drawer=null;render();movido(c,para,de,antes);},
+  desfazer(){if(S.desfazer){const f=S.desfazer;S.desfazer=null;f();}},
+  quadroDe(el){S.quadroOp=el.dataset.id;S.rota='candidatos';S.drawer=null;render();window.scrollTo(0,0);}
+};
+/* ============================================================
+   Eventos: delegação única na raiz
+   ============================================================ */
+document.addEventListener('click',ev=>{
+  const el=ev.target.closest('[data-ac]');
+  if(!el)return;
+  const ac=el.dataset.ac;
+  if(el.tagName==='INPUT'||el.tagName==='SELECT')return;
+  if(!ACOES[ac])return;
+  ev.preventDefault();
+  ACOES[ac](el);
+});
+document.addEventListener('input',ev=>{
+  const el=ev.target.closest('[data-ac]');if(!el)return;
+  if(el.dataset.ac==='buscaInicio'){
+    /* Atualiza só a linha de resposta. Sem render, o cursor não salta. */
+    S.q=el.value;
+    const d=document.getElementById('bdica');
+    if(d)d.textContent=dicaBusca(S.q);
+    return;
+  }
+  if(el.dataset.ac==='busca'){
+    S.q=el.value;S.carregando=true;render();
+    clearTimeout(window._bt);
+    window._bt=setTimeout(()=>{S.carregando=false;render();
+      const i=$('#bq');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length);}},280);
+  }
+  if(el.dataset.ac==='fcampo'){
+    const k=el.dataset.k;
+    S.form.dados[k]=el.type==='radio'?el.value:el.value;
+    if(S.form.tocado[k]||el.type==='radio'||el.tagName==='SELECT'){
+      S.form.tocado[k]=true;
+      const pos=el.selectionStart;render();
+      const n=document.getElementById('f_'+k);
+      if(n&&n.focus){n.focus();if(pos!=null&&n.setSelectionRange)try{n.setSelectionRange(pos,pos)}catch(e){}}
+    }
+  }
+});
+document.addEventListener('change',ev=>{
+  const el=ev.target.closest('[data-ac]');if(!el)return;
+  const ac=el.dataset.ac;
+  if(ac==='filtro'){
+    const c=el.dataset.c, v=el.value, arr=S.filtros[c];
+    const i=arr.indexOf(v);
+    if(el.checked&&i<0)arr.push(v); else if(!el.checked&&i>=0)arr.splice(i,1);
+    render();
+  }
+  if(ac==='trocaQuadro')ACOES.trocaQuadro(el);
+  if(ac==='moverSel')ACOES.moverSel(el);
+  if(ac==='fcampo'){
+    const k=el.dataset.k;S.form.tocado[k]=true;S.form.dados[k]=el.value;render();
+  }
+});
+document.addEventListener('blur',ev=>{
+  const el=ev.target.closest?ev.target.closest('[data-ac="fcampo"]'):null;
+  if(!el)return;
+  const k=el.dataset.k;
+  if(!S.form.tocado[k]){S.form.tocado[k]=true;S.form.dados[k]=el.value;render();}
+},true);
+document.addEventListener('keydown',ev=>{
+  if(ev.key==='Enter'&&ev.target&&ev.target.id==='bqi'){
+    ev.preventDefault();S.q=ev.target.value;ACOES.ir({dataset:{r:'oportunidades'}});return;
+  }
+  if(ev.key==='Escape'){
+    if(S.drawer){S.drawer=null;render();}
+    else if(S.menu){S.menu=false;render();}
+  }
+  if(ev.key==='Tab'&&S.drawer){
+    const d=$('#drawer');if(!d)return;
+    const f=d.querySelectorAll('button,select,a[href],input,textarea,[tabindex]:not([tabindex="-1"])');
+    if(!f.length)return;
+    const pri=f[0], ult=f[f.length-1];
+    if(ev.shiftKey&&document.activeElement===pri){ev.preventDefault();ult.focus();}
+    else if(!ev.shiftKey&&document.activeElement===ult){ev.preventDefault();pri.focus();}
+  }
+});
+/* arrastar e soltar no quadro de candidatos */
+let arrastando=null;
+document.addEventListener('dragstart',ev=>{
+  const c=ev.target.closest&&ev.target.closest('.cand');if(!c)return;
+  arrastando=c.dataset.cid;c.classList.add('arrastando');
+  ev.dataTransfer.effectAllowed='move';
+  try{ev.dataTransfer.setData('text/plain',arrastando)}catch(e){}
+});
+document.addEventListener('dragend',()=>{
+  arrastando=null;
+  document.querySelectorAll('.arrastando,.alvo').forEach(x=>x.classList.remove('arrastando','alvo'));
+});
+document.addEventListener('dragover',ev=>{
+  const col=ev.target.closest&&ev.target.closest('.coluna');if(!col||!arrastando)return;
+  ev.preventDefault();ev.dataTransfer.dropEffect='move';
+  document.querySelectorAll('.alvo').forEach(x=>x.classList.remove('alvo'));
+  col.classList.add('alvo');
+});
+document.addEventListener('drop',ev=>{
+  const col=ev.target.closest&&ev.target.closest('.coluna');if(!col||!arrastando)return;
+  ev.preventDefault();
+  const c=S.cands.find(x=>x.id===arrastando);
+  const para=+col.dataset.col, de=colDe(c);
+  arrastando=null;
+  if(de===para){render();return;}
+  const antes={etapa:c.etapa,res:c.res};
+  aplicarCol(c,para);render();movido(c,para,de,antes);
+});
+window.addEventListener('hashchange',()=>{
+  const h=location.hash.replace('#','');
+  const todas=ROTAS[S.papel].map(x=>x.r);
+  if(todas.includes(h)&&h!==S.rota){S.rota=h;S.drawer=null;render();}
+});
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change',()=>{if(S.tema===null)render();});
+
+/* início */
+const hIni=location.hash.replace('#','');
+if(ROTAS.estudante.some(x=>x.r===hIni))S.rota=hIni;
+render();
+</script>
+
+</body></html>
