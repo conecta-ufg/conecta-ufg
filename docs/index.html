@@ -892,7 +892,7 @@ const ANOTACOES=[
  /* ---------- perfil ---------- */
  {n:20,cat:'Princípio (Silva e Barbosa)',nome:'Correspondência com as expectativas dos usuários',
   rota:'perfil',sel:'.tags',i:0,
-  tx:'O índice de desempenho aparece como média global, que é o termo que a UFG usa, e não como IRA ou CR. Falar a língua da instituição evita que o estudante precise traduzir.'},
+  tx:'O índice de desempenho aparece como média global, que é como ele figura no histórico escolar. Falar a língua da instituição evita que o estudante precise traduzir.'},
 
  /* ---------- formulário de nova vaga ---------- */
  {n:21,cat:'Princípio (Silva e Barbosa)',nome:'Projeto para erros',
@@ -1243,7 +1243,7 @@ function telaPerfil(){
     '<div style="min-width:0;flex:1"><h1>'+esc(e.nome)+'</h1>'+
       '<div class="cur">'+esc(e.curso)+' · '+e.periodo+'º período</div>'+
       '<div class="ins">'+esc(INST[e.inst])+'</div>'+
-      '<div class="tags"><span class="chip m" title="Média global: média das notas ponderada pela carga horária de cada disciplina, como a UFG calcula.">Média global '+fmt1(e.mg)+'</span>'+
+      '<div class="tags"><span class="chip m" title="Média global: média das notas ponderada pela carga horária de cada disciplina.">Média global '+fmt1(e.mg)+'</span>'+
         '<span class="chip v">'+ico('chek',13)+' Lattes verificado</span>'+
         '<span class="chip">'+esc(e.disp)+'</span></div></div>'+
     '<button class="btn" data-ac="editarPerfil">Editar perfil</button></div>'+
@@ -1470,7 +1470,7 @@ function telaNovaOp(){
     corpo=campo('cursos',inp('cursos','text','placeholder="Ciência da Computação, Engenharia de Software"'),'Separe por vírgula.')+
       '<div class="dupla">'+campo('perMin',inp('perMin','number','min="1" max="12" step="1" placeholder="4"'))+
       campo('mgMin',inp('mgMin','number','min="0" max="10" step="0.1" placeholder="7,5"'),
-        'De 0 a 10. Na UFG a média global pondera cada nota pela carga horária da disciplina.')+'</div>'+
+        'De 0 a 10. A média global pondera cada nota pela carga horária da disciplina.')+'</div>'+
       campo('conhec',inp('conhec','text','placeholder="Python, Aprendizado de máquina, Álgebra linear"'),
         'Separe por vírgula. Não impede a inscrição, só entra no cálculo de compatibilidade.');
   } else if(p===2){
@@ -1789,7 +1789,6 @@ function render(){
   $('#raiz').innerHTML=barraHTML()+faixaAnotHTML()+
     '<main class="folha" id="conteudo" tabindex="-1">'+corpoDaRota()+
       '<p class="rodape">Protótipo acadêmico de IHC. Pessoas, vagas e eventos são fictícios. '+
-      'Os programas, as siglas e a média global seguem a nomenclatura da UFG. '+
       'Sem vínculo oficial com a Universidade Federal de Goiás.</p></main>'+
     mobNavHTML()+montarDrawer();
   if(S.drawer){const d=$('#drawer');if(d){const f=d.querySelector('button,select,a,input');if(f)f.focus();}}
@@ -1825,8 +1824,8 @@ function pintarMarcadores(){
     m.dataset.ac='verAnot'; m.dataset.n=a.n;
     m.textContent=a.n;
     m.setAttribute('aria-label','Anotação '+a.n+': '+a.nome+'. '+a.cat+'.');
-    m.style.left=(r.left+window.scrollX-13)+'px';
-    m.style.top=(r.top+window.scrollY-13)+'px';
+    m.style.left=Math.max(3,r.left+window.scrollX-13)+'px';
+    m.style.top=Math.max(3,r.top+window.scrollY-13)+'px';
     camada.appendChild(m);
   });
 }
