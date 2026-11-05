@@ -67,19 +67,26 @@ Orientação: **Profa. Luciana de Oliveira Berreta**
 | Telas com os princípios indicados | [`prints/`](02-PF2-Guia-de-estilo-e-prototipo/prints/) |
 | Identidade visual e tokens | [`identidade-visual/`](02-PF2-Guia-de-estilo-e-prototipo/identidade-visual/) |
 
-### Etapa 3 — Avaliação
+### Etapa 3 — Avaliação do protótipo
 
-[`03-PF3-Avaliacao/`](03-PF3-Avaliacao/) · ainda não entregue
+| O que | Onde |
+|---|---|
+| Documento da PF3, com PF1 e PF2 junto | [`PF3_Conecta_UFG.docx`](03-PF3-Avaliacao/PF3_Conecta_UFG.docx) |
+| Método, tarefas e instrumentos | seção 10 do documento |
+| Resultados | a aplicar em sala |
 
 ### Etapa 4 — Entrega final
 
-[`04-PF4-Entrega-final/`](04-PF4-Entrega-final/) · ainda não entregue
+| O que | Onde |
+|---|---|
+| Documento completo, da PF1 à PF4 | [`PF4_Conecta_UFG.docx`](04-PF4-Entrega-final/PF4_Conecta_UFG.docx) |
+| Fontes e binários | [`docs/index.html`](docs/index.html) e as pastas de cada etapa |
 
 ## Organização das pastas
 
 | Pasta | O que é |
 |---|---|
-| `01-PF1-Projeto` a `04-PF4-Entrega-final` | Uma pasta por etapa de entrega, com o que aquela etapa pede |
+| `01-PF1-Projeto` a `04-PF4-Entrega-final` | Uma pasta por etapa. Cada uma guarda o documento no estado daquela entrega, e cada documento acumula as etapas anteriores |
 | `docs` | **O protótipo publicado.** É daqui que o GitHub Pages serve o endereço acima. Não apagar: o link sai do ar junto |
 
 ## Como ver o protótipo
