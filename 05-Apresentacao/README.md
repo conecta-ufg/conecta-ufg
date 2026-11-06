@@ -9,18 +9,19 @@ Deck do Projeto Final, na identidade visual do Conecta UFG.
 
 ## Como está organizado
 
-15 slides, percorrendo o produto e depois o processo de cada etapa.
+16 slides, percorrendo o produto e depois o processo de cada etapa.
 
 | Slides | Conteúdo |
 |---|---|
 | 1 a 5 | O problema com os dados da coleta, o produto e o diferencial |
-| 6 a 9 | Etapa 1: ciclo em estrela, coleta, requisitos e casos de uso |
-| 10 e 11 | Etapa 2: guia de estilo e os 29 marcadores sobre a interface |
-| 12 | O endereço do protótipo |
-| 13 e 14 | Etapa 3: as três técnicas de inspeção e as telas inspecionadas |
-| 15 | Encerramento |
+| 6 a 9 | Etapa 1: ciclo em estrela, coleta, requisitos com exemplos e casos de uso |
+| 10 | Abertura da Etapa 2 |
+| 11 e 12 | Guia de estilo e os 29 marcadores sobre a interface |
+| 13 | O endereço do protótipo |
+| 14 e 15 | Etapa 3: as três técnicas de inspeção e as telas inspecionadas |
+| 16 | Encerramento |
 
-O slide 14 tem três espaços reservados para os prints das telas da equipe
+O slide 15 tem três espaços reservados para os prints das telas da equipe
 avaliada, com o lugar da legenda já marcado.
 
 ## Tipografia
