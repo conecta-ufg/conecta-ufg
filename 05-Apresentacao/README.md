@@ -17,7 +17,7 @@ Deck do Projeto Final, na identidade visual do Conecta UFG.
 | 6 a 9 | Etapa 1: ciclo em estrela, coleta, requisitos com exemplos e casos de uso |
 | 10 | Abertura da Etapa 2 |
 | 11 e 12 | Guia de estilo e os 29 marcadores sobre a interface |
-| 13 | O endereço do protótipo |
+| 13 | O endereço do protótipo, clicável no modo de apresentação |
 | 14 e 15 | Etapa 3: as três técnicas de inspeção e as telas inspecionadas |
 | 16 | Encerramento |
 
