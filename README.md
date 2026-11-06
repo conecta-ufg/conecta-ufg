@@ -56,6 +56,7 @@ Orientação: **Profa. Luciana de Oliveira Berreta**
 | Diagrama de casos de uso | [`diagrama-de-casos-de-uso.png`](01-PF1-Projeto/diagramas/diagrama-de-casos-de-uso.png) |
 | Diagrama de atividades | [`diagrama-de-atividades.png`](01-PF1-Projeto/diagramas/diagrama-de-atividades.png) |
 | Questionários aplicados | [`instrumentos-de-coleta/`](01-PF1-Projeto/instrumentos-de-coleta/) |
+| Gráficos da apuração | [`resultados/`](01-PF1-Projeto/resultados/) |
 
 ### Etapa 2 — Guia de estilo e protótipo
 
@@ -66,6 +67,13 @@ Orientação: **Profa. Luciana de Oliveira Berreta**
 | Fonte do protótipo | [`docs/index.html`](docs/index.html) |
 | Telas com os princípios indicados | [`prints/`](02-PF2-Guia-de-estilo-e-prototipo/prints/) |
 | Identidade visual e tokens | [`identidade-visual/`](02-PF2-Guia-de-estilo-e-prototipo/identidade-visual/) |
+
+### Apresentação
+
+| O que | Onde |
+|---|---|
+| Slides do projeto | [`Apresentacao_Conecta_UFG.pptx`](05-Apresentacao/Apresentacao_Conecta_UFG.pptx) |
+| Versão em PDF | [`Apresentacao_Conecta_UFG.pdf`](05-Apresentacao/Apresentacao_Conecta_UFG.pdf) |
 
 ### Etapa 3 — Avaliação do protótipo
 
