@@ -9,7 +9,7 @@ Deck do Projeto Final, na identidade visual do Conecta UFG.
 
 ## Como está organizado
 
-22 slides, percorrendo o produto e depois o processo de cada etapa.
+21 slides, percorrendo o produto e depois o processo de cada etapa.
 
 | Slides | Conteúdo |
 |---|---|
@@ -18,11 +18,11 @@ Deck do Projeto Final, na identidade visual do Conecta UFG.
 | 10 | Abertura da Etapa 2 |
 | 11 e 12 | Guia de estilo e os 29 marcadores sobre a interface |
 | 13 | O endereço do protótipo, clicável no modo de apresentação |
-| 14 e 15 | Etapa 3: a inspeção semiótica e as quatro atividades do método |
-| 16 | As quatro telas do Trilha INF que foram inspecionadas |
-| 17 a 20 | Uma tela por slide: o que atende, o que pode melhorar e a sugestão |
-| 21 | Síntese da inspeção e a metamensagem reconstruída |
-| 22 | Encerramento |
+| 14 | Etapa 3: as três técnicas de inspeção |
+| 15 | As quatro telas do Trilha INF que foram inspecionadas |
+| 16 a 19 | Uma tela por slide, com os achados de cada técnica e a sugestão |
+| 20 | Consolidação: o que cada técnica encontrou |
+| 21 | Encerramento |
 
 ## Tipografia
 
