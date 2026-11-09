@@ -80,8 +80,9 @@ Orientação: **Profa. Luciana de Oliveira Berreta**
 | O que | Onde |
 |---|---|
 | Documento da PF3, com PF1 e PF2 junto | [`PF3_Conecta_UFG.docx`](03-PF3-Avaliacao/PF3_Conecta_UFG.docx) |
-| Método, tarefas e instrumentos | seção 10 do documento |
-| Resultados | a aplicar em sala |
+| Método e aplicação | seção 10 do documento |
+| Protótipo avaliado | Trilha INF, de outra equipe da turma |
+| Técnica | Inspeção semiótica, sobre quatro telas |
 
 ### Etapa 4 — Entrega final
 
