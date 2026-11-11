@@ -2,6 +2,10 @@
 
 Deck do Projeto Final, na identidade visual do Conecta UFG.
 
+**<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/" target="_blank" rel="noopener">▶ Ver o projeto em páginas</a>**: a parte visual de cada etapa, no navegador.
+
+<sub>Dica: o GitHub abre links na mesma aba. Use <kbd>Ctrl</kbd>+clique (<kbd>⌘</kbd>+clique no Mac) para abrir em nova aba e continuar aqui.</sub>
+
 | Arquivo | Para quê |
 |---|---|
 | [`Apresentacao_Conecta_UFG.pptx`](Apresentacao_Conecta_UFG.pptx) | Editável, para apresentar |

@@ -2,6 +2,10 @@
 
 Entrega do levantamento: quem usa, o que precisa e o que o sistema tem de fazer.
 
+**<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/pesquisa.html" target="_blank" rel="noopener">▶ Ver esta etapa como página</a>**: gráficos da coleta, mapa dos canais, requisitos, personas e diagramas.
+
+<sub>Dica: o GitHub abre links na mesma aba. Use <kbd>Ctrl</kbd>+clique (<kbd>⌘</kbd>+clique no Mac) para abrir em nova aba e continuar aqui.</sub>
+
 ## O que está aqui
 
 | Arquivo | Conteúdo |

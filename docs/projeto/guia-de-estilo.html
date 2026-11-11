@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guia de estilo · Conecta UFG</title>
+<meta name="description" content="Guia de estilo do Conecta UFG: cores nos dois temas, tipografia Nunito, espaçamento, componentes, padrões de tela e os 29 marcadores de IHC do protótipo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="assets/projeto.css">
+<script src="assets/projeto.js"></script>
+<style>
+/* ---- paleta ---- */
+.paleta{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.sw{background:var(--cartao);border-radius:var(--r-m);box-shadow:var(--sombra);overflow:hidden;display:flex;flex-direction:column}
+.sw .tiras{display:grid;grid-template-columns:1fr 1fr;height:84px}
+.sw .tiras span{display:flex;align-items:flex-end;padding:6px 8px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.sw .info{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.sw .token{font-weight:900;font-size:15px}
+.sw .uso{font-size:13.5px;color:var(--tinta-2);flex:1}
+.sw .hex{display:flex;gap:6px;flex-wrap:wrap}
+.sw .hex button{border:1px solid var(--linha);background:var(--cartao-2);border-radius:8px;padding:4px 8px;cursor:pointer;
+  font-family:var(--mono);font-size:12px;color:var(--tinta);min-height:30px}
+.sw .hex button:hover{border-color:var(--marca)}
+.sw .hex button[data-copiado]::after{content:" ✓";color:var(--ok);font-weight:900}
+/* ---- contraste ---- */
+.par{display:flex;align-items:center;gap:10px}
+.par i{display:grid;place-items:center;width:34px;height:26px;border-radius:6px;font-style:normal;font-weight:900;font-size:13px;flex:none;border:1px solid var(--linha)}
+/* ---- tipografia ---- */
+.tipo{display:grid;grid-template-columns:190px 1fr;gap:18px;align-items:baseline;padding:16px 20px;border-bottom:1px solid var(--linha)}
+.tipo:last-child{border-bottom:0}
+.tipo .meta b{display:block;font-size:13.5px;font-weight:800}
+.tipo .meta span{font-family:var(--mono);font-size:12px;color:var(--tinta-3)}
+.tipo .amostra{min-width:0;overflow-wrap:anywhere}
+@media (max-width:640px){.tipo{grid-template-columns:1fr;gap:4px}}
+/* ---- espaço e raio ---- */
+.escala{display:flex;flex-direction:column;gap:8px}
+.escala div{display:grid;grid-template-columns:56px 1fr;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;color:var(--tinta-2)}
+.escala span{height:14px;background:var(--marca);border-radius:3px}
+.raios{display:flex;flex-wrap:wrap;gap:18px}
+.raios figure{display:flex;flex-direction:column;align-items:center;gap:8px;width:96px;text-align:center}
+.raios .caixa{width:76px;height:76px;background:var(--marca-suave);border:2px solid var(--marca)}
+.raios b{font-size:13.5px;font-weight:800}
+.raios small{font-size:12.5px;color:var(--tinta-3);line-height:1.3}
+.sombras{display:flex;flex-wrap:wrap;gap:22px}
+.sombras div{width:220px;height:100px;border-radius:var(--r);background:var(--cartao);display:grid;place-items:center;text-align:center;font-size:13.5px;color:var(--tinta-2)}
+.sombras b{display:block;color:var(--tinta);font-size:15px}
+/* ---- grid ---- */
+.arranjo{display:grid;gap:6px;height:54px;margin-bottom:12px}
+.arranjo span{background:var(--marca-suave);border-radius:6px}
+.arranjo span.f{background:var(--cartao-2)}
+/* ---- animações ---- */
+.anim{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--linha)}
+.anim:last-child{border-bottom:0}
+.anim b{font-weight:800}
+.anim small{display:block;color:var(--tinta-2);font-size:14px}
+.palco{position:relative;width:180px;height:72px;border-radius:12px;background:var(--cartao-2);overflow:hidden;cursor:pointer;border:0;padding:0}
+.palco .el{position:absolute}
+.palco[data-tipo="folha"] .el{right:0;top:0;bottom:0;width:70px;background:var(--cartao);box-shadow:var(--sombra-forte);transform:translateX(100%)}
+.palco[data-tipo="folha"].on .el{transform:none;transition:transform .24s cubic-bezier(.2,.8,.2,1)}
+.palco[data-tipo="veu"] .el{inset:0;background:rgba(21,23,58,.45);opacity:0}
+.palco[data-tipo="veu"].on .el{opacity:1;transition:opacity .18s}
+.palco[data-tipo="aviso"] .el{left:20px;right:20px;bottom:10px;height:24px;border-radius:999px;background:var(--tinta);transform:translateY(46px)}
+.palco[data-tipo="aviso"].on .el{transform:none;transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.palco[data-tipo="cartao"] .el{left:30px;right:30px;top:16px;bottom:16px;border-radius:10px;background:var(--cartao);transition:transform .15s,box-shadow .15s;box-shadow:var(--sombra)}
+.palco[data-tipo="cartao"]:hover .el,.palco[data-tipo="cartao"]:focus-visible .el{transform:translateY(-3px);box-shadow:var(--sombra-forte)}
+.palco[data-tipo="esqueleto"] .el{left:16px;right:16px;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--linha),var(--cartao),var(--linha));background-size:200% 100%;animation:brilho 1.3s infinite linear}
+.palco[data-tipo="esqueleto"] .el:nth-child(1){top:16px}.palco[data-tipo="esqueleto"] .el:nth-child(2){top:34px;right:60px}.palco[data-tipo="esqueleto"] .el:nth-child(3){top:52px;right:90px}
+@keyframes brilho{from{background-position:200% 0}to{background-position:-200% 0}}
+.palco-tx{position:absolute;left:10px;top:8px;font-size:11px;font-weight:800;color:var(--tinta-3)}
+/* ---- componentes ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:0;
+  font-weight:800;font-size:15px;cursor:pointer;transition:background .15s}
+.btn.pri{background:var(--marca);color:var(--sobre-marca)}.btn.pri:hover{background:var(--marca-forte)}
+.btn.sec{background:var(--cartao-2);color:var(--tinta)}.btn.sec:hover{background:var(--linha)}
+.btn.fan{background:none;color:var(--tinta-2)}.btn.fan:hover{background:var(--cartao-2)}
+.btn.per{background:var(--erro-suave);color:var(--erro)}
+.btn[aria-busy="true"]{opacity:.75;cursor:progress}
+.niveis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.niveis .cartao{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+@media (max-width:900px){.niveis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.niveis{grid-template-columns:1fr}}
+.campo label{display:block;font-weight:800;font-size:14px}
+.campo .ajuda{color:var(--tinta-2);font-size:13.5px;margin:2px 0 6px}
+.campo input,.campo select{width:100%;min-height:44px;border-radius:var(--r-p);border:1.5px solid var(--linha);background:var(--cartao);
+  padding:0 14px;font:inherit;font-size:16px;color:var(--tinta)}
+.campo input:focus,.campo select:focus{outline:3px solid var(--marca);outline-offset:1px;border-color:var(--marca)}
+.campo input[aria-invalid="true"]{border-color:var(--erro)}
+.campo .erro{display:flex;gap:6px;align-items:center;color:var(--erro);font-weight:700;font-size:13.5px;margin-top:6px}
+.campo .opc{font-weight:600;color:var(--tinta-3)}
+.cx{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 8px;border-radius:10px;cursor:pointer}
+.cx:hover{background:var(--cartao-2)}
+.cx input{width:18px;height:18px;accent-color:var(--marca)}
+.cx span{flex:1}.cx small{color:var(--tinta-3);font-weight:800}
+.pilulas{display:flex;background:var(--cartao-2);border-radius:999px;padding:4px;gap:2px;flex-wrap:wrap}
+.pilulas label{flex:1;text-align:center;cursor:pointer}
+.pilulas input{position:absolute;opacity:0}
+.pilulas span{display:block;padding:9px 12px;border-radius:999px;font-weight:700;color:var(--tinta-2);min-height:40px}
+.pilulas input:checked+span{background:var(--cartao);color:var(--marca);font-weight:900;box-shadow:var(--sombra)}
+.pilulas input:focus-visible+span{outline:3px solid var(--marca)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--tinta);color:var(--fundo);border-radius:999px;
+  padding:10px 10px 10px 20px;display:flex;align-items:center;gap:14px;font-weight:700;box-shadow:var(--sombra-forte);z-index:60;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0)}
+.toast button{border:0;background:var(--marca-suave);color:var(--marca);font-weight:900;padding:8px 14px;border-radius:999px;cursor:pointer}
+/* ---- telas ---- */
+.galeria{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.galeria{grid-template-columns:1fr}}
+.celular{width:300px;max-width:100%;margin:0 auto;border-radius:38px;border:10px solid #15173A;background:#15173A;box-shadow:var(--sombra-forte);overflow:hidden}
+.celular .tela{height:600px;overflow-y:auto;border-radius:28px;background:#FFFFFF}
+.celular img{width:100%}
+.lado{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:center}
+@media (max-width:760px){.lado{grid-template-columns:1fr}}
+.marc-n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#B5106B;color:#FFFFFF;font-weight:900;font-size:13px}
+.logos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.logos div{border-radius:var(--r);padding:28px;display:grid;place-items:center;min-height:150px;box-shadow:var(--sombra)}
+.logos img{max-height:64px;width:auto}
+@media (max-width:760px){.logos{grid-template-columns:1fr}}
+.tipos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.tipos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tipos{grid-template-columns:1fr}}
+.wf{height:96px;border-radius:12px;background:var(--cartao-2);padding:8px;display:grid;gap:5px;margin-bottom:14px}
+.wf i{display:block;border-radius:4px;background:var(--cartao)}
+.wf i.m{background:var(--marca)}.wf i.s{background:var(--marca-suave)}.wf i.y{background:var(--ipe)}
+.passos{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px;color:var(--tinta-2)}
+.passos span{background:var(--cartao-2);border-radius:999px;padding:4px 11px;font-weight:700}
+.passos em{font-style:normal;color:var(--tinta-3)}
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="barra"><div class="barra-in">
+  <a class="marca" href="./"><span class="selo" aria-hidden="true">c</span><b>Conecta</b><small>UFG</small></a>
+  <nav class="abas" aria-label="Partes do projeto">
+    <a href="./">Visão geral</a>
+    <a href="pesquisa.html">Pesquisa · PF1</a>
+    <a href="guia-de-estilo.html" aria-current="page">Guia de estilo · PF2</a>
+    <a href="avaliacao.html">Avaliação · PF3</a>
+  </nav>
+  <div class="barra-dir">
+    <button class="ico-btn" id="btnTema" type="button" aria-label="Trocar tema"></button>
+    <a class="btn-proto" href="../">▶ <span>Protótipo</span></a>
+  </div>
+</div></header>
+
+<main id="conteudo">
+  <div class="heroi">
+    <span class="etapa">Etapa 2 · Guia de estilo</span>
+    <h1>O que já está decidido na interface</h1>
+    <p>Cores nos dois temas, tipografia, espaçamento, componentes e padrões de tela do Conecta UFG. Quando alguém for criar uma tela nova, é aqui que confere o que não precisa ser decidido outra vez.</p>
+    <div class="acoes">
+      <a href="../">▶ Abrir o protótipo</a>
+      <a class="sec" target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/blob/main/02-PF2-Guia-de-estilo-e-prototipo/identidade-visual/conecta-ufg.tokens.json">Tokens em JSON</a>
+    </div>
+  </div>
+
+  <nav class="sumario" aria-label="Seções desta página">
+    <a href="#ambiente">Ambiente de uso</a><a href="#marca">Marca</a><a href="#cores">Cores</a><a href="#contraste">Contraste</a>
+    <a href="#tipografia">Tipografia</a><a href="#espaco">Espaço e forma</a><a href="#grid">Grid e janelas</a><a href="#animacoes">Animações</a>
+    <a href="#componentes">Componentes</a><a href="#interacao">Interação</a><a href="#vocabulario">Vocabulário</a><a href="#padroes">Padrões de tela</a>
+    <a href="#telas">Telas</a><a href="#marcadores">Marcadores de IHC</a>
+  </nav>
+
+  <!-- ===================== AMBIENTE ===================== -->
+  <section class="secao" id="ambiente">
+    <header><span class="num">8.2 · Resultados de análise</span><h2>Onde o sistema é usado</h2>
+      <p>Os dois perfis usam o sistema em condições bem diferentes, e quase toda decisão deste guia sai dessa diferença.</p></header>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th></th><th>Estudante</th><th>Orientador</th></tr></thead>
+      <tbody>
+        <tr><td>Onde</td><td>No corredor, na fila do R.U., no ônibus. Em pé, com uma mão só.</td><td>No gabinete, sentado, em sessão concentrada.</td></tr>
+        <tr><td>Aparelho</td><td>Celular quase sempre. Computador só para tarefa longa.</td><td>Computador de mesa, tela larga.</td></tr>
+        <tr><td>Tempo</td><td>Minutos entre uma aula e outra, com interrupção frequente.</td><td>Blocos de meia hora, na semana da triagem.</td></tr>
+        <tr><td>Frequência</td><td>Intensa nos períodos de edital, rara no resto do ano.</td><td>Duas ou três vezes por semestre.</td></tr>
+        <tr><td>Disposição</td><td>Alta para aplicativo de consumo, baixa paciência com sistema acadêmico.</td><td>Nenhuma paciência para aprender sistema novo.</td></tr>
+      </tbody></table></div>
+    <p class="rotulo">Quatro compromissos que atravessam o guia</p>
+    <div class="grade g4">
+      <div class="cartao"><h4>Primeiro o celular</h4><p>Alvo de toque confortável e nada que dependa de passar o mouse por cima.</p></div>
+      <div class="cartao"><h4>Leitura em movimento</h4><p>Corpo de 15,5 px e contraste alto.</p></div>
+      <div class="cartao"><h4>Nada a aprender</h4><p>Arranjos que a pessoa já conhece.</p></div>
+      <div class="cartao"><h4>Interrupção barata</h4><p>O estado fica sempre visível, para retomar sem reconstruir nada.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== MARCA ===================== -->
+  <section class="secao" id="marca">
+    <header><span class="num">Identidade visual</span><h2>Marca</h2>
+      <p>O selo é um “c” sobre o azul-cobalto, com o ipê amarelo no canto. Há versões para fundo claro e para fundo escuro, e a logo do Instituto de Informática acompanha.</p></header>
+    <div class="logos">
+      <div style="background:#FFFFFF"><img src="img/marca/logo-conecta-ufg.png" alt="Logo Conecta UFG para fundo claro" width="324" height="94"></div>
+      <div style="background:#15173A"><img src="img/marca/logo_conecta_negativo.png" alt="Logo Conecta UFG para fundo escuro" width="324" height="94"></div>
+      <div style="background:#FFFFFF"><img src="img/marca/logo-conecta-ufg-selo.png" alt="Selo Conecta UFG" style="max-height:84px"></div>
+      <div style="background:#FFFFFF"><img src="img/marca/logo_inf_ufg.png" alt="Logo do Instituto de Informática da UFG"></div>
+      <div style="background:#15173A"><img src="img/marca/logo_inf_ufg_negativo.png" alt="Logo do Instituto de Informática da UFG para fundo escuro"></div>
+      <div style="background:var(--heroi)"><span class="selo" style="width:72px;height:72px;border-radius:22px;font-size:40px;background:#2A3CD4;color:#fff" aria-hidden="true">c</span><span class="sr">Selo desenhado em CSS, como na barra do protótipo</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== CORES ===================== -->
+  <section class="secao" id="cores">
+    <header><span class="num">8.3 · Elementos de interface</span><h2>Cores</h2>
+      <p>Uma cor de marca, uma de destaque e três de estado. Tudo o mais é neutro. Cada token tem um par no tema escuro: a metade esquerda de cada amostra é o tema claro, a direita é o escuro. Clique no valor para copiar.</p></header>
+
+    <p class="rotulo">Marca e destaque</p>
+    <div class="paleta" id="pal-marca"></div>
+    <p class="rotulo">Neutros</p>
+    <div class="paleta" id="pal-neutros"></div>
+    <p class="rotulo">Estado</p>
+    <div class="paleta" id="pal-estado"></div>
+
+    <p class="rotulo">Regras de uso</p>
+    <div class="grade g4">
+      <div class="cartao"><h4>Cor nunca vem sozinha</h4><p>Toda etiqueta colorida traz texto. Quem não distingue as cores continua entendendo a tela.</p></div>
+      <div class="cartao"><h4>4,5 : 1 no mínimo</h4><p>Contraste mínimo para texto, nos dois temas.</p></div>
+      <div class="cartao"><h4>Se tudo é azul, nada é azul</h4><p>A marca fica reservada para ação primária, seção atual e links.</p></div>
+      <div class="cartao"><h4>Ipê é atenção</h4><p>Etapa atual e prazo curto. Usá-lo como enfeite tira o peso de quando ele importa.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTRASTE ===================== -->
+  <section class="secao" id="contraste">
+    <header><span class="num">Acessibilidade · RNF01</span><h2>Contraste medido</h2>
+      <p>A razão de contraste é calculada nesta página, a partir dos próprios tokens, pela fórmula da WCAG 2.1. O mínimo para texto normal é 4,5 : 1. Para texto grande ou negrito acima de 18,7 px, é 3 : 1.</p></header>
+    <div class="tabela-wrap"><table id="tabContraste">
+      <thead><tr><th>Par</th><th>Onde aparece</th><th>Tema claro</th><th>Tema escuro</th></tr></thead>
+      <tbody></tbody></table></div>
+  </section>
+
+  <!-- ===================== TIPOGRAFIA ===================== -->
+  <section class="secao" id="tipografia">
+    <header><span class="num">8.3 · Tipografia</span><h2>Nunito, hierarquia por peso</h2>
+      <p>Uma família em toda a interface. A hierarquia é construída por peso, não por tamanho, e por isso o 900 de verdade da Nunito fazia diferença. Os números usam variante tabular, para a contagem não “dançar” ao mudar de 9 para 10. Nada é escrito abaixo de 12,5 px. Entrelinha de 1,5 no corpo e 1,2 nos títulos.</p></header>
+    <div class="cartao" style="padding:0">
+      <div class="tipo"><div class="meta"><b>Herói</b><span>40 px · 900 · −3%</span></div><div class="amostra" style="font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-.03em">Oi, Ana!</div></div>
+      <div class="tipo"><div class="meta"><b>Título de página</b><span>30 px · 900 · −2,5%</span></div><div class="amostra" style="font-size:30px;font-weight:900;line-height:1.15;letter-spacing:-.025em">Vagas</div></div>
+      <div class="tipo"><div class="meta"><b>Título de folha</b><span>22 px · 900 · −2%</span></div><div class="amostra" style="font-size:22px;font-weight:900;line-height:1.2;letter-spacing:-.02em">Iniciação Científica em Visão Computacional</div></div>
+      <div class="tipo"><div class="meta"><b>Título de seção</b><span>21 px · 900 · −2%</span></div><div class="amostra" style="font-size:21px;font-weight:900;line-height:1.2;letter-spacing:-.02em">Combinam com você</div></div>
+      <div class="tipo"><div class="meta"><b>Título de cartão</b><span>17 px · 800 · −1%</span></div><div class="amostra" style="font-size:17px;font-weight:800;line-height:1.3;letter-spacing:-.01em">Monitoria de Estrutura de Dados</div></div>
+      <div class="tipo"><div class="meta"><b>Corpo</b><span>15,5 px · 400 · 1,5</span></div><div class="amostra" style="font-size:15.5px">Ana sabe, em menos de um minuto, que é elegível e onde está fraca.</div></div>
+      <div class="tipo"><div class="meta"><b>Corpo forte</b><span>15,5 px · 800</span></div><div class="amostra" style="font-size:15.5px;font-weight:800">Prof. Dr. João Silva</div></div>
+      <div class="tipo"><div class="meta"><b>Apoio</b><span>14 px · 400</span></div><div class="amostra" style="font-size:14px;color:var(--tinta-2)">PIBIC · Prof. Dr. João Silva · Informática</div></div>
+      <div class="tipo"><div class="meta"><b>Dado</b><span>13,5 px · 700</span></div><div class="amostra" style="font-size:13.5px;font-weight:700">R$ 700/mês · 20h por semana · 2 vagas</div></div>
+      <div class="tipo"><div class="meta"><b>Chip</b><span>12,5 px · 800</span></div><div class="amostra chips"><span class="chip marca">Iniciação Científica</span><span class="chip ok">● Aberta</span><span class="chip aviso">● Faltam 6 dias</span></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== ESPAÇO E FORMA ===================== -->
+  <section class="secao" id="espaco">
+    <header><span class="num">8.3 · Disposição espacial</span><h2>Espaço, raio e sombra</h2>
+      <p>O espaçamento usa uma escala fechada, e nada fora dela. É o que faz telas diferentes parecerem do mesmo produto.</p></header>
+    <div class="grade g2">
+      <div class="cartao"><h4>Escala de espaçamento</h4><p>Em pixels.</p>
+        <div class="escala mt" id="escala"></div></div>
+      <div class="cartao"><h4>Raios</h4><p>Do campo à faixa do herói.</p>
+        <div class="raios mt">
+          <figure><div class="caixa" style="border-radius:10px"></div><b>10</b><small>pequeno · campo</small></figure>
+          <figure><div class="caixa" style="border-radius:14px"></div><b>14</b><small>médio · aviso</small></figure>
+          <figure><div class="caixa" style="border-radius:20px"></div><b>20</b><small>grande · cartão</small></figure>
+          <figure><div class="caixa" style="border-radius:26px"></div><b>26</b><small>folha</small></figure>
+          <figure><div class="caixa" style="border-radius:28px"></div><b>28</b><small>herói</small></figure>
+          <figure><div class="caixa" style="border-radius:999px;height:40px;margin:18px 0"></div><b>999</b><small>pílula · chip, botão</small></figure>
+        </div></div>
+    </div>
+    <p class="rotulo">Sombras</p>
+    <div class="sombras">
+      <div style="box-shadow:var(--sombra)"><span><b>sombra</b>cartão em repouso</span></div>
+      <div style="box-shadow:var(--sombra-forte)"><span><b>sombra-forte</b>folha e aviso flutuante</span></div>
+      <div style="box-shadow:0 0 0 1px var(--linha)"><span><b>linha</b>contorno de campo e divisória</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== GRID E JANELAS ===================== -->
+  <section class="secao" id="grid">
+    <header><span class="num">8.3 · Grid e janelas</span><h2>Grid e janelas</h2>
+      <p>Faixa central de até 1140 px, com 20 px de margem lateral no computador e 16 no celular. Acima dessa largura a linha de texto fica longa demais. O vão entre colunas é de 14 px.</p></header>
+    <div class="grade g3">
+      <div class="cartao"><div class="arranjo" style="grid-template-columns:1fr"><span></span></div><h4>1 coluna</h4><p>Celular, e listas em qualquer largura.</p></div>
+      <div class="cartao"><div class="arranjo" style="grid-template-columns:1fr 1fr"><span></span><span></span></div><h4>2 colunas</h4><p>Resultados de busca, projetos.</p></div>
+      <div class="cartao"><div class="arranjo" style="grid-template-columns:repeat(3,1fr)"><span></span><span></span><span></span></div><h4>3 colunas</h4><p>Recomendações e agenda.</p></div>
+      <div class="cartao"><div class="arranjo" style="grid-template-columns:repeat(4,1fr)"><span></span><span></span><span></span><span></span></div><h4>4 colunas</h4><p>Números do painel do orientador.</p></div>
+      <div class="cartao"><div class="arranjo" style="grid-template-columns:28% 1fr"><span class="f"></span><span></span></div><h4>Hub de busca</h4><p>250 px de filtros, o resto para resultados. Tela de vagas.</p></div>
+      <div class="cartao"><div class="arranjo" style="grid-template-columns:repeat(5,1fr)"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span></div><h4>Quadro por etapa</h4><p>Cinco colunas de 214 px, com rolagem horizontal. Candidatos.</p></div>
+    </div>
+    <div class="aviso-box info mt2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+      <div><b>Nenhuma janela nova</b><p>Informação secundária aparece em folha: no computador desliza pela direita com 560 px; no celular sobe de baixo até 92% da altura. Um véu escurece o fundo, <kbd>Esc</kbd> fecha e o foco fica preso dentro da folha enquanto ela estiver aberta.</p></div>
+    </div>
+    <p class="rotulo">Ícones</p>
+    <div class="texto"><p>Grade de 20 × 20, traço de 2 px, pontas arredondadas e sem preenchimento. O traço acompanha a cor do texto ao lado. <strong>Ícone não carrega significado sozinho</strong>: todo ícone vem com texto visível. As exceções são fechar, buscar e voltar, que levam rótulo invisível para leitor de tela.</p></div>
+  </section>
+
+  <!-- ===================== ANIMAÇÕES ===================== -->
+  <section class="secao" id="animacoes">
+    <header><span class="num">8.3 · Animações</span><h2>O movimento explica de onde a coisa veio</h2>
+      <p>A folha desliza da direita porque vem da direita. O aviso sobe porque entra por baixo. Nada que precise ser lido entra animado, nenhuma animação passa de 0,26 s, e todas viram praticamente zero quando o sistema pede menos movimento. Clique em cada quadro para reproduzir.</p></header>
+    <div class="cartao" style="padding:0">
+      <div class="anim"><div><b>Folha entrando · 0,24 s</b><small>Mostrar que é uma camada sobre a lista.</small></div><button class="palco" data-tipo="folha" aria-label="Reproduzir folha entrando"><span class="palco-tx">lista</span><span class="el"></span></button></div>
+      <div class="anim"><div><b>Véu aparecendo · 0,18 s</b><small>Separar a camada do fundo.</small></div><button class="palco" data-tipo="veu" aria-label="Reproduzir véu aparecendo"><span class="palco-tx">lista</span><span class="el"></span></button></div>
+      <div class="anim"><div><b>Aviso flutuante · 0,22 s</b><small>Chamar atenção sem roubar o foco.</small></div><button class="palco" data-tipo="aviso" aria-label="Reproduzir aviso flutuante"><span class="el"></span></button></div>
+      <div class="anim"><div><b>Cartão sob o ponteiro · 0,15 s</b><small>Confirmar que o cartão é clicável. Passe o ponteiro ou o foco.</small></div><button class="palco" data-tipo="cartao" aria-label="Cartão sob o ponteiro"><span class="el"></span></button></div>
+      <div class="anim"><div><b>Esqueleto de carga · 1,3 s em ciclo</b><small>Indicar que o conteúdo está vindo, com a forma dele.</small></div><div class="palco" data-tipo="esqueleto" role="img" aria-label="Esqueleto de carga"><span class="el"></span><span class="el"></span><span class="el"></span></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== COMPONENTES ===================== -->
+  <section class="secao" id="componentes">
+    <header><span class="num">8.5 · Elementos de ação</span><h2>Componentes</h2>
+      <p>Os exemplos abaixo funcionam: dá para preencher, marcar e acionar.</p></header>
+
+    <h3>Ativação: quatro níveis de botão</h3>
+    <div class="niveis">
+      <div class="cartao"><button class="btn pri" type="button" id="btnEnviar">Enviar candidatura</button><h4>Primário</h4><p>No máximo um por tela ou por folha. Clique para ver o estado de espera.</p></div>
+      <div class="cartao"><button class="btn sec" type="button">Salvar para depois</button><h4>Secundário</h4><p>Ações alternativas.</p></div>
+      <div class="cartao"><button class="btn fan" type="button">Cancelar</button><h4>Fantasma</h4><p>Cancelar, voltar, descartar.</p></div>
+      <div class="cartao"><button class="btn per" type="button" id="btnRetirar">Retirar candidatura</button><h4>Perigo</h4><p>Desistir, excluir, retirar. Clique: executa e oferece Desfazer.</p></div>
+    </div>
+    <div class="texto mt"><p>O rótulo nomeia a ação do ponto de vista de quem clica: <strong>Quero me candidatar</strong> e <strong>Enviar candidatura</strong>, nunca OK ou Confirmar soltos. A resposta aparece em até 0,4 s; quando demora mais, o próprio botão assume o estado de espera.</p></div>
+
+    <h3>Preenchimento de campos</h3>
+    <div class="grade g2">
+      <div class="cartao">
+        <div class="campo">
+          <label for="fMedia">Média global mínima</label>
+          <p class="ajuda" id="fMediaAj">De 0 a 10, com vírgula. A média global pondera cada nota pela carga horária.</p>
+          <input id="fMedia" inputmode="decimal" placeholder="7,5" aria-describedby="fMediaAj fMediaErr">
+          <p class="erro" id="fMediaErr" hidden><span aria-hidden="true">⚠</span> Use um valor entre 0 e 10.</p>
+        </div>
+        <div class="campo mt">
+          <label for="fLattes">Link do Lattes <span class="opc">(opcional)</span></label>
+          <p class="ajuda">Ajuda o orientador a conhecer sua trajetória.</p>
+          <input id="fLattes" placeholder="lattes.cnpq.br/0000000000000000">
+        </div>
+      </div>
+      <div class="cartao">
+        <h4>As regras</h4>
+        <ul class="texto mt" style="display:grid;gap:8px;list-style:disc;padding-left:18px">
+          <li>O <strong>rótulo fica acima</strong> e permanece visível depois de preenchido.</li>
+          <li>A <strong>ajuda vem entre o rótulo e o campo</strong>, porque precisa ser lida antes de escrever.</li>
+          <li>O texto dentro do campo é <strong>exemplo, nunca rótulo</strong>.</li>
+          <li>A validação acontece <strong>ao sair do campo</strong>, não a cada tecla. Digite 12 e saia do campo ao lado.</li>
+          <li>A mensagem de erro <strong>diz o que corrigir</strong>, fica junto do campo e não bloqueia a digitação.</li>
+          <li>Opcional é marcado como opcional. Obrigatório não leva asterisco, porque o padrão é obrigatório.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Seleção</h3>
+    <div class="grade g3">
+      <div class="cartao"><h4>Caixa de marcação</h4><p>Escolha múltipla, até oito opções visíveis, com a contagem ao lado.</p>
+        <div class="mt" role="group" aria-label="Tipo">
+          <label class="cx"><input type="checkbox" checked><span>Iniciação Científica</span><small>4</small></label>
+          <label class="cx"><input type="checkbox"><span>Extensão</span><small>3</small></label>
+          <label class="cx"><input type="checkbox"><span>Monitoria</span><small>2</small></label>
+          <label class="cx"><input type="checkbox"><span>TCC</span><small>1</small></label>
+        </div></div>
+      <div class="cartao"><h4>Opção em pílula</h4><p>Escolha exclusiva, até três opções curtas. A marcada muda fundo, cor e peso.</p>
+        <div class="pilulas mt" role="radiogroup" aria-label="Bolsa">
+          <label><input type="radio" name="bolsa" checked><span>Tanto faz</span></label>
+          <label><input type="radio" name="bolsa"><span>Com bolsa</span></label>
+          <label><input type="radio" name="bolsa"><span>Voluntária</span></label>
+        </div></div>
+      <div class="cartao"><h4>Lista suspensa</h4><p>Escolha exclusiva com cinco opções ou mais. A primeira entrada é um convite.</p>
+        <div class="campo mt"><label for="fUnid">Unidade</label>
+          <select id="fUnid"><option value="">Escolha a unidade</option><option>Informática</option><option>Matemática e Estatística</option><option>Engenharia Civil e Ambiental</option><option>Física</option><option>Química</option></select></div></div>
+    </div>
+
+    <h3>Etiquetas de estado</h3>
+    <div class="cartao"><div class="chips">
+      <span class="chip marca">Iniciação Científica</span><span class="chip ipe">Extensão</span><span class="chip">Monitoria</span>
+      <span class="chip ok">● Aberta</span><span class="chip ok">✓ Inscrita</span><span class="chip aviso">● Faltam 3 dias</span>
+      <span class="chip aviso">Lotada</span><span class="chip">Encerrada</span><span class="chip erro">Não selecionada</span><span class="chip ipe">Agora · Entrevista</span>
+    </div><p class="mt">Mesma pílula, mesmo raio, mesmo peso: só a cor muda, e o texto sempre diz o estado (Gestalt, similaridade · marcador 5).</p></div>
+  </section>
+
+  <!-- ===================== INTERAÇÃO ===================== -->
+  <section class="secao" id="interacao">
+    <header><span class="num">8.4 · Elementos de interação</span><h2>Quatro estilos de interação</h2>
+      <p>Cada um na tarefa em que rende mais. Linguagem de comando e linguagem natural ficaram de fora: a primeira exige memorizar sintaxe, a segunda torna imprevisível o resultado de uma busca que sustenta a decisão de se candidatar.</p></header>
+    <div class="grade g4">
+      <div class="cartao"><span class="chip marca">Busca por palavra-chave</span><p class="mt">Tela inicial e vagas. Quando a pessoa sabe o que procura, digitar é mais rápido do que percorrer menu.</p></div>
+      <div class="cartao"><span class="chip marca">Seleção em menu</span><p class="mt">Abas, filtros e listas. Quando ela não sabe o que procura, a lista mostra o que existe.</p></div>
+      <div class="cartao"><span class="chip marca">Formulário</span><p class="mt">Publicação de vaga e perfil. Muitos campos, validação por campo para evitar retrabalho.</p></div>
+      <div class="cartao"><span class="chip marca">Manipulação direta</span><p class="mt">Quadro de candidatos. O cartão que muda de coluna é a mesma metáfora da triagem real.</p></div>
+    </div>
+    <p class="rotulo">Todo caminho com ponteiro tem equivalente no teclado</p>
+    <div class="tabela-wrap"><table>
+      <tbody>
+        <tr><td><kbd>Tab</kbd> <kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Percorre os elementos na ordem de leitura</td></tr>
+        <tr><td><kbd>Enter</kbd></td><td>Abre a lista de resultados a partir da busca</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Fecha a folha e devolve o foco ao ponto de origem</td></tr>
+        <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Move o candidato entre colunas do quadro</td></tr>
+        <tr><td>Primeiro <kbd>Tab</kbd></td><td>Revela o atalho “Pular para o conteúdo”. Experimente nesta página.</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <!-- ===================== VOCABULÁRIO ===================== -->
+  <section class="secao" id="vocabulario">
+    <header><span class="num">8.6 · Vocabulário</span><h2>A língua da universidade, não a do mercado</h2>
+      <p>O LinkedIn serviu de referência de estrutura, não de linguagem.</p></header>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Usamos</th><th>Não usamos</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td>vaga, oportunidade</td><td><s>emprego, posição</s></td><td>Não é relação de trabalho, é formação acadêmica.</td></tr>
+        <tr><td>orientador</td><td><s>recrutador, gestor</s></td><td>O papel é de orientação, e o vínculo é acadêmico.</td></tr>
+        <tr><td>média global</td><td><s>nota, desempenho, pontuação</s></td><td>É como o índice aparece no histórico escolar.</td></tr>
+        <tr><td>inscrição, candidatura</td><td><s>aplicação</s></td><td>Anglicismo desnecessário; inscrição é o termo dos editais.</td></tr>
+        <tr><td>unidade</td><td><s>departamento, setor</s></td><td>Unidade acadêmica é a divisão que a universidade usa.</td></tr>
+        <tr><td>bolsa</td><td><s>salário, remuneração</s></td><td>Bolsa tem regime próprio e não gera vínculo.</td></tr>
+        <tr><td>você</td><td><s>o usuário, o aluno</s></td><td>A interface fala com a pessoa, não sobre ela.</td></tr>
+      </tbody></table></div>
+    <p class="rotulo">Siglas: sempre com o nome por extenso na folha de detalhe</p>
+    <div class="grade g3">
+      <div class="cartao"><span class="chip marca">PIBIC</span><p class="mt">Programa Institucional de Bolsas de Iniciação Científica, modalidade do PIP-UFG</p></div>
+      <div class="cartao"><span class="chip marca">PIVIC</span><p class="mt">Programa Institucional Voluntário de Iniciação Científica, modalidade do PIP-UFG</p></div>
+      <div class="cartao"><span class="chip marca">PIBITI</span><p class="mt">Programa Institucional de Bolsas de Iniciação em Desenvolvimento Tecnológico e Inovação, modalidade do PIP-UFG</p></div>
+      <div class="cartao"><span class="chip ipe">PROBEC</span><p class="mt">Programa de Bolsas de Extensão e Cultura, da Pró-Reitoria de Extensão e Cultura</p></div>
+      <div class="cartao"><span class="chip ipe">PROVEC</span><p class="mt">Programa de Voluntário de Extensão e Cultura, da Pró-Reitoria de Extensão e Cultura</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== PADRÕES ===================== -->
+  <section class="secao" id="padroes">
+    <header><span class="num">8.6 · Tipos de tela e diálogos</span><h2>Seis tipos de tela</h2>
+      <p>Toda tela do sistema é um destes seis. Tela que não couber em nenhum vira um tipo novo, registrado no guia.</p></header>
+    <div class="tipos">
+      <div class="cartao"><div class="wf" style="grid-template-rows:2fr 1fr 1fr"><i class="m"></i><i></i><i></i></div><h4>Painel inicial</h4><p>Herói com a ação principal e seções com atalho para a lista completa. Início do estudante, painel do orientador.</p></div>
+      <div class="cartao"><div class="wf" style="grid-template-columns:1fr 3fr;grid-template-rows:auto 1fr"><i class="s" style="grid-row:span 2"></i><i style="height:12px"></i><i></i></div><h4>Lista com filtros</h4><p>Filtros, busca, contagem e resultados em grade. Vagas.</p></div>
+      <div class="cartao"><div class="wf" style="grid-template-rows:repeat(4,1fr)"><i></i><i></i><i></i><i></i></div><h4>Lista simples</h4><p>Cabeçalho e itens em linha, com estado à direita. Inscrições, avisos, agenda.</p></div>
+      <div class="cartao"><div class="wf" style="grid-template-columns:1fr 1.1fr"><i style="opacity:.5"></i><span style="display:grid;gap:5px;grid-template-rows:auto 1fr auto"><i class="s" style="height:14px"></i><i></i><i class="m" style="height:14px"></i></span></div><h4>Folha de detalhe</h4><p>Etiquetas e título no topo, corpo em blocos, rodapé fixo com a ação. Vaga, candidatura, evento.</p></div>
+      <div class="cartao"><div class="wf" style="grid-template-rows:auto 1fr auto"><span style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px"><i class="m" style="height:6px"></i><i class="m" style="height:6px"></i><i style="height:6px"></i><i style="height:6px"></i></span><i></i><i class="m" style="height:14px;width:40%;justify-self:end"></i></div><h4>Formulário em passos</h4><p>Barra de progresso, um grupo de campos por passo, revisão no fim. Publicar vaga.</p></div>
+      <div class="cartao"><div class="wf" style="grid-template-columns:repeat(5,1fr)"><i class="s"></i><i class="s"></i><i class="y"></i><i class="s"></i><i class="s"></i></div><h4>Quadro por etapa</h4><p>Colunas nomeadas com cartões movíveis. Candidatos.</p></div>
+    </div>
+    <p class="rotulo">Sequências de diálogo</p>
+    <div class="cartao" style="display:grid;gap:16px">
+      <div><b>Confirmar envio</b><div class="passos mt"><span>Aciona</span><em>→</em><span>Vê o que vai e o que fica privado</span><em>→</em><span>Confirma</span><em>→</em><span>Novo estado na tela</span></div></div>
+      <div><b>Ação reversível</b><div class="passos mt"><span>Aciona</span><em>→</em><span>Sistema executa</span><em>→</em><span>Aviso com Desfazer por 6 s</span></div></div>
+      <div><b>Erro de preenchimento</b><div class="passos mt"><span>Campos marcados</span><em>→</em><span>Foco no primeiro</span><em>→</em><span>Explicação junto a cada um</span></div></div>
+      <div><b>Resultado vazio</b><div class="passos mt"><span>Ícone</span><em>+</em><span>O que aconteceu, numa frase</span><em>+</em><span>Botão com a saída</span></div></div>
+      <div><b>Carregando</b><div class="passos mt"><span>Esqueleto com a forma do conteúdo</span><em>·</em><span>nunca um girador sozinho</span></div></div>
+    </div>
+    <div class="aviso-box mt2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      <div><b>Toda ação tem volta</b><p>Ação destrutiva ou que alcança outra pessoa pede confirmação antes, ou executa e oferece Desfazer. Candidatar-se pede confirmação, porque envia dados a um terceiro. Mover candidato no quadro executa e oferece desfazer, porque é reversível e acontece dezenas de vezes seguidas.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== TELAS ===================== -->
+  <section class="secao" id="telas">
+    <header><span class="num">9 · Protótipo</span><h2>As telas, com e sem marcadores</h2>
+      <p>Capturas do protótipo navegável. Com os marcadores ligados (botão IHC no protótipo), cada número aponta um princípio, diretriz ou critério aplicado. Clique numa imagem para abrir em tamanho real.</p></header>
+    <div class="filtro" id="modoTelas" role="group" aria-label="Mostrar as telas">
+      <button type="button" data-modo="tela" aria-pressed="false">Sem marcadores</button>
+      <button type="button" data-modo="anot" aria-pressed="true">Com marcadores</button>
+    </div>
+    <div class="galeria">
+      <figure class="fig limite"><a href="img/pf2/anot_inicio.jpg" data-par="inicio"><img src="img/pf2/anot_inicio.jpg" alt="Tela inicial do estudante" loading="lazy" width="1400" height="2046"></a>
+        <figcaption><b>Início.</b> Herói com a busca, buscas prontas e seções em grade de três colunas. Marcadores 1 a 10 e 26.</figcaption></figure>
+      <figure class="fig limite"><a href="img/pf2/anot_vagas.jpg" data-par="vagas"><img src="img/pf2/anot_vagas.jpg" alt="Tela de vagas com filtros" loading="lazy" width="1400" height="1822"></a>
+        <figcaption><b>Vagas.</b> Hub de busca: filtros à esquerda com contagem, resultados ordenados por compatibilidade. Marcadores 11 a 15.</figcaption></figure>
+      <figure class="fig"><a href="img/pf2/anot_detalhe.jpg" data-par="detalhe"><img src="img/pf2/anot_detalhe.jpg" alt="Folha de detalhe da vaga" loading="lazy" width="1400" height="1258"></a>
+        <figcaption><b>Folha de detalhe.</b> O véu mantém a lista visível atrás. A compatibilidade é explicada requisito a requisito. Marcadores 16 e 28.</figcaption></figure>
+      <figure class="fig"><a href="img/pf2/anot_novavaga.jpg" data-par="novavaga"><img src="img/pf2/anot_novavaga.jpg" alt="Formulário de publicação de vaga" loading="lazy" width="1400" height="1203"></a>
+        <figcaption><b>Publicar vaga.</b> Quatro passos nomeados, rótulo acima e ajuda entre rótulo e campo. Marcadores 21 e 22.</figcaption></figure>
+      <figure class="fig"><a href="img/pf2/anot_candidatos.jpg" data-par="candidatos"><img src="img/pf2/anot_candidatos.jpg" alt="Quadro de candidatos por etapa" loading="lazy" width="1400" height="1007"></a>
+        <figcaption><b>Quadro de candidatos.</b> Destino comum, consistência entre cartões e Desfazer em todo movimento. Marcadores 23 a 25.</figcaption></figure>
+      <figure class="fig"><a href="img/pf2/anot_confirmar.jpg"><img src="img/pf2/anot_confirmar.jpg" alt="Confirmação de candidatura" loading="lazy" width="1400" height="1148"></a>
+        <figcaption><b>Confirmar candidatura.</b> Lista o que o orientador vai receber e o que fica privado. Marcador 17.</figcaption></figure>
+      <figure class="fig"><a href="img/pf2/anot_acompanhar.jpg"><img src="img/pf2/anot_acompanhar.jpg" alt="Acompanhamento da candidatura em linha do tempo" loading="lazy" width="1400" height="1148"></a>
+        <figcaption><b>Acompanhar.</b> Linha do tempo com a etapa atual destacada. Marcadores 18 e 19.</figcaption></figure>
+      <figure class="fig"><a href="img/pf2/anot_candidaturas.jpg"><img src="img/pf2/anot_candidaturas.jpg" alt="Lista de candidaturas" loading="lazy" width="1400" height="993"></a>
+        <figcaption><b>Inscrições.</b> Etapa, data de envio e última atualização para retomar sem reconstruir nada. Marcador 29.</figcaption></figure>
+      <figure class="fig limite"><a href="img/pf2/anot_perfil.jpg"><img src="img/pf2/anot_perfil.jpg" alt="Perfil acadêmico do estudante" loading="lazy" width="1400" height="1847"></a>
+        <figcaption><b>Perfil.</b> Média global como no histórico, alvos de toque de 44 px e foco visível. Marcadores 20 e 27.</figcaption></figure>
+      <figure class="fig limite"><a href="img/pf2/tela_escuro.jpg"><img src="img/pf2/tela_escuro.jpg" alt="Tela inicial no tema escuro" loading="lazy" width="1400" height="1988"></a>
+        <figcaption><b>Tema escuro.</b> Os tokens trocam de valor, a estrutura não muda.</figcaption></figure>
+    </div>
+    <div class="lado mt2">
+      <div class="celular"><div class="tela" tabindex="0" aria-label="Captura do protótipo no celular, role para ver"><img src="img/pf2/tela_celular.jpg" alt="Tela inicial inteira em largura de celular" loading="lazy" width="520" height="4513"></div></div>
+      <div class="texto"><h3 style="margin-top:0;color:var(--tinta)">No celular</h3>
+        <p>A grade passa a uma coluna, a navegação desce para a barra inferior e os alvos de toque mantêm a altura mínima de 44 px. Role dentro do aparelho para ver a tela inteira.</p>
+        <p>O protótipo é um arquivo único em HTML, CSS e JavaScript: a busca busca, os filtros se combinam e a compatibilidade é calculada. É isso que permite a uma pessoa <strong>completar uma tarefa</strong> nele, e não só olhar telas.</p>
+        <p><a href="img/pf2/anot_indice.jpg">Ver a tela de índice com os 29 marcadores →</a></p></div>
+    </div>
+  </section>
+
+  <!-- ===================== MARCADORES ===================== -->
+  <section class="secao" id="marcadores">
+    <header><span class="num">9.3 e 9.4 · Princípios e critérios</span><h2>Os 29 marcadores de IHC</h2>
+      <p>No protótipo, o botão <b>IHC</b> liga marcadores numerados sobre a interface; clicar num deles abre a justificativa e a fonte. O modo vem desligado por padrão, para não interferir na avaliação. Mostrando <b id="contMarc">29</b> marcadores.</p></header>
+    <div class="filtro" data-alvo="#listaMarc" data-attr="cat" data-contador="#contMarc" role="group" aria-label="Filtrar por categoria">
+      <button type="button" data-valor="*" aria-pressed="true">Todos · 29</button>
+      <button type="button" data-valor="gestalt" aria-pressed="false">Gestalt · 7</button>
+      <button type="button" data-valor="sb" aria-pressed="false">Silva e Barbosa · 13</button>
+      <button type="button" data-valor="usab" aria-pressed="false">Usabilidade · 4</button>
+      <button type="button" data-valor="acess" aria-pressed="false">Acessibilidade · 4</button>
+      <button type="button" data-valor="aff" aria-pressed="false">Affordance · 1</button>
+    </div>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Nº</th><th>Princípio ou critério</th><th>Categoria</th><th>Tela</th></tr></thead>
+      <tbody id="listaMarc"></tbody></table></div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <span>Conecta UFG · Projeto Final de Interação Humano-Computador · Instituto de Informática, UFG · 2026</span>
+  <span>Dados do protótipo são fictícios · <a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg">Repositório</a></span>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastTx"></span><button type="button" id="toastDesfazer">Desfazer</button></div>
+
+<script>
+/* Tokens: [nome, claro, escuro, uso] — mesmos valores de conecta-ufg.tokens.json */
+var PALETA = {
+  'pal-marca': [
+    ['marca','#2A3CD4','#8F9DFF','Ação primária, seção atual, links e fundo do herói'],
+    ['marca-forte','#1D2CA8','#AEB8FF','Botão primário sob o ponteiro'],
+    ['marca-suave','#E2E6FF','#252C6B','Fundo de etiqueta e de filtro marcado'],
+    ['herói','#2A3CD4','#232B78','Faixa de boas-vindas da tela inicial'],
+    ['ipê','#FFC21A','#FFCD45','Atenção: etapa atual, prazo curto'],
+    ['ipê-suave','#FFF1C7','#3A2E0B','Fundo das etiquetas de atenção'],
+    ['ipê-tinta','#7A5500','#FFD568','Texto sobre o ipê-suave']
+  ],
+  'pal-neutros': [
+    ['fundo','#F2F3F9','#0D0F21','Fundo da página'],
+    ['cartão','#FFFFFF','#171A34','Cartão, folha e barra'],
+    ['cartão-2','#E9EBF6','#21254A','Etiqueta neutra e coluna do quadro'],
+    ['linha','#DCDFEE','#2B2F57','Divisórias e contorno de campo'],
+    ['tinta','#15173A','#ECEDFF','Texto principal'],
+    ['tinta-2','#474B72','#B3B7DA','Texto de apoio'],
+    ['tinta-3','#72769B','#8488AE','Texto terciário e ícone inativo']
+  ],
+  'pal-estado': [
+    ['ok','#0C8657','#4BD29A','Inscrição aberta, requisito atendido'],
+    ['ok-suave','#DAF4E8','#0F2D22','Fundo da etiqueta de ok'],
+    ['aviso','#A85200','#FFA759','Prazo perto do fim, vaga lotada'],
+    ['aviso-suave','#FFE9D2','#3A2410','Fundo da etiqueta de aviso'],
+    ['erro','#CC2936','#FF7C86','Campo inválido, não selecionada'],
+    ['erro-suave','#FDE3E5','#3A1519','Fundo da etiqueta de erro']
+  ]
+};
+function lum(h){var c=[1,3,5].map(function(i){var v=parseInt(h.substr(i,2),16)/255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});return .2126*c[0]+.7152*c[1]+.0722*c[2]}
+function razao(a,b){var x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
+function textoSobre(h){return razao(h,'#15173A')>razao(h,'#FFFFFF')?'#15173A':'#FFFFFF'}
+
+Object.keys(PALETA).forEach(function(id){
+  var el=document.getElementById(id);
+  el.innerHTML=PALETA[id].map(function(t){
+    return '<div class="sw"><div class="tiras" aria-hidden="true"><span style="background:'+t[1]+';color:'+textoSobre(t[1])+'">claro</span><span style="background:'+t[2]+';color:'+textoSobre(t[2])+'">escuro</span></div>'+
+      '<div class="info"><span class="token">'+t[0]+'</span><span class="uso">'+t[3]+'</span><span class="hex">'+
+      '<button type="button" data-hex="'+t[1]+'" aria-label="Copiar '+t[1]+', tema claro">'+t[1]+'</button>'+
+      '<button type="button" data-hex="'+t[2]+'" aria-label="Copiar '+t[2]+', tema escuro">'+t[2]+'</button></span></div></div>';
+  }).join('');
+});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-hex]'); if(!b)return;
+  var v=b.getAttribute('data-hex');
+  var ok=function(){b.setAttribute('data-copiado','');setTimeout(function(){b.removeAttribute('data-copiado')},1400)};
+  if(navigator.clipboard)navigator.clipboard.writeText(v).then(ok,ok);else ok();
+});
+
+/* Contraste: [texto, fundo, onde, tamanho mínimo exigido] */
+var T={claro:{},escuro:{}};
+Object.keys(PALETA).forEach(function(id){PALETA[id].forEach(function(t){T.claro[t[0]]=t[1];T.escuro[t[0]]=t[2]})});
+T.claro['branco']='#FFFFFF';T.escuro['branco']='#FFFFFF';T.claro['herói-2']='#C9D0FF';T.escuro['herói-2']='#B9C1FF';
+T.claro['sobre-marca']='#FFFFFF';T.escuro['sobre-marca']='#0D0F21';
+var PARES=[
+  ['tinta','fundo','Texto principal na página',4.5],
+  ['tinta','cartão','Texto principal no cartão',4.5],
+  ['tinta-2','cartão','Texto de apoio',4.5],
+  ['tinta-3','cartão','Texto terciário',4.5],
+  ['marca','cartão','Link e seção atual',4.5],
+  ['sobre-marca','marca','Rótulo do botão primário',4.5],
+  ['marca','marca-suave','Etiqueta e filtro marcado',4.5],
+  ['branco','herói','Saudação no herói',4.5],
+  ['herói-2','herói','Texto de apoio no herói',4.5],
+  ['ipê-tinta','ipê-suave','Etiqueta de atenção',4.5],
+  ['ok','ok-suave','Etiqueta de ok',4.5],
+  ['aviso','aviso-suave','Etiqueta de aviso',4.5],
+  ['erro','erro-suave','Etiqueta de erro',4.5],
+  ['erro','cartão','Mensagem de erro no campo',4.5]
+];
+function celula(tema,p){
+  var fg=T[tema][p[0]],bg=T[tema][p[1]],r=razao(fg,bg),passa=r>=p[3];
+  return '<td><span class="par"><i style="background:'+bg+';color:'+fg+'">Aa</i><b style="color:var(--tinta)">'+r.toFixed(1).replace('.',',')+' : 1</b>'+
+    '<span class="chip '+(passa?'ok':'erro')+'">'+(passa?'✓ passa':'✗ abaixo')+'</span></span></td>';
+}
+document.querySelector('#tabContraste tbody').innerHTML=PARES.map(function(p){
+  return '<tr><td>'+p[0]+' <span style="color:var(--tinta-3);font-weight:400">sobre</span> '+p[1]+'</td><td>'+p[2]+'</td>'+celula('claro',p)+celula('escuro',p)+'</tr>';
+}).join('');
+
+/* Escala de espaçamento */
+document.getElementById('escala').innerHTML=[4,6,8,10,12,14,18,22,26,36].map(function(v){
+  return '<div><code>'+v+'</code><span style="width:'+(v*6)+'px;max-width:100%"></span></div>'}).join('');
+
+/* Animações */
+document.querySelectorAll('button.palco:not([data-tipo="cartao"])').forEach(function(p){
+  p.addEventListener('click',function(){p.classList.remove('on');void p.offsetWidth;p.classList.add('on');
+    clearTimeout(p._t);p._t=setTimeout(function(){p.classList.remove('on')},1400)});
+});
+
+/* Campo com validação ao sair */
+var fm=document.getElementById('fMedia'),fe=document.getElementById('fMediaErr');
+fm.addEventListener('blur',function(){
+  var v=fm.value.trim().replace(',','.'); var n=Number(v);
+  var ruim=v!==''&&(isNaN(n)||n<0||n>10);
+  fm.setAttribute('aria-invalid',ruim?'true':'false'); fe.hidden=!ruim;
+});
+
+/* Botões */
+var be=document.getElementById('btnEnviar');
+be.addEventListener('click',function(){if(be.getAttribute('aria-busy'))return;var t=be.textContent;be.setAttribute('aria-busy','true');be.textContent='Enviando…';
+  setTimeout(function(){be.removeAttribute('aria-busy');be.textContent=t;aviso('Candidatura enviada. Acompanhe em Inscrições.',false)},1200)});
+var toast=document.getElementById('toast'),tt=document.getElementById('toastTx'),td=document.getElementById('toastDesfazer'),tmr;
+function aviso(msg,desfazer){tt.textContent=msg;td.hidden=!desfazer;toast.classList.add('on');clearTimeout(tmr);tmr=setTimeout(function(){toast.classList.remove('on')},6000)}
+document.getElementById('btnRetirar').addEventListener('click',function(){aviso('Candidatura retirada.',true)});
+td.addEventListener('click',function(){aviso('Pronto, a candidatura voltou.',false)});
+
+/* Telas com e sem marcadores */
+document.getElementById('modoTelas').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;var m=b.getAttribute('data-modo');
+  this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+  document.querySelectorAll('[data-par]').forEach(function(a){
+    var s='img/pf2/'+m+'_'+a.getAttribute('data-par')+'.jpg';a.href=s;a.querySelector('img').src=s;});
+});
+
+/* Marcadores: [n, nome, categoria, tela] */
+var CAT={gestalt:['Gestalt','marca'],sb:['Silva e Barbosa','ipe'],usab:['Usabilidade','ok'],acess:['Acessibilidade','anot'],aff:['Affordance','']};
+var MARC=[
+ [1,'Visibilidade e reconhecimento','sb','Início'],[2,'Antecipação das necessidades do usuário','sb','Início'],
+ [3,'Eficácia e retorno imediato','usab','Início'],[4,'Proximidade','gestalt','Início'],[5,'Similaridade','gestalt','Início'],
+ [6,'Fecho','gestalt','Início'],[7,'Simetria','gestalt','Início'],[8,'Continuidade','gestalt','Início'],
+ [9,'Correspondência com as expectativas dos usuários','sb','Início'],[10,'Caminho para quem usa teclado','acess','Início'],
+ [11,'Simplicidade nas estruturas das tarefas','sb','Vagas'],[12,'Promoção da eficiência do usuário','sb','Vagas'],
+ [13,'Equilíbrio entre controle e liberdade do usuário','sb','Vagas'],[14,'Convite ao uso','aff','Vagas'],
+ [15,'Facilidade de aprendizado','usab','Vagas'],[16,'Conteúdo relevante e expressão adequada','sb','Detalhe da vaga'],
+ [17,'Segurança no uso','usab','Confirmar candidatura'],[18,'Continuidade','gestalt','Acompanhar'],
+ [19,'Visibilidade e reconhecimento','sb','Acompanhar'],[20,'Correspondência com as expectativas dos usuários','sb','Perfil'],
+ [21,'Projeto para erros','sb','Publicar vaga'],[22,'Simplicidade nas estruturas das tarefas','sb','Publicar vaga'],
+ [23,'Destino comum','gestalt','Candidatos'],[24,'Consistência e padronização','sb','Candidatos'],
+ [25,'Equilíbrio entre controle e liberdade do usuário','sb','Candidatos'],[26,'Contraste e preferência de tema','acess','Início'],
+ [27,'Alvo de toque e foco visível','acess','Perfil'],[28,'Folha lateral anunciada ao leitor de tela','acess','Detalhe da vaga'],
+ [29,'Facilidade de recordação','usab','Inscrições']
+];
+document.getElementById('listaMarc').innerHTML=MARC.map(function(m){var c=CAT[m[2]];
+  return '<tr data-cat="'+m[2]+'"><td><span class="marc-n">'+m[0]+'</span></td><td style="color:var(--tinta);font-weight:800">'+m[1]+'</td><td><span class="chip '+c[1]+'">'+c[0]+'</span></td><td>'+m[3]+'</td></tr>'}).join('');
+</script>
+</body>
+</html>

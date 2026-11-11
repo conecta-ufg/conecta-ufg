@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avaliação · Conecta UFG</title>
+<meta name="description" content="Etapa 3 do Conecta UFG: inspeção do protótipo Trilha INF com avaliação heurística, percurso cognitivo e inspeção semiótica, e a consolidação dos nove problemas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="assets/projeto.css">
+<script src="assets/projeto.js"></script>
+<style>
+.tecnica{display:flex;flex-direction:column;gap:10px}
+.tecnica .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--marca-suave);color:var(--marca)}
+.tecnica .ic svg{width:22px;height:22px}
+.tecnica .crit{margin-top:auto;padding-top:10px;border-top:1px solid var(--linha);font-size:14px;color:var(--tinta-2)}
+.tecnica .crit b{color:var(--tinta)}
+.heur{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:900px){.heur{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.heur .cartao{padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.heur .h{font-family:var(--mono);font-weight:700;color:var(--marca);font-size:13px}
+.heur b{font-size:14.5px;line-height:1.3}
+.heur .pts{display:flex;gap:4px;margin-top:auto;padding-top:6px;align-items:center;font-size:12.5px;color:var(--tinta-3);font-weight:800}
+.heur .pts i{width:12px;height:12px;border-radius:3px;background:var(--marca)}
+.heur .ok-h{color:var(--ok)}
+.grav{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:8px;font-weight:900;font-size:14px;padding:0 6px}
+.grav.g1{background:var(--cartao-2);color:var(--tinta-2)}
+.grav.g2{background:var(--aviso-suave);color:var(--aviso)}
+.escala-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.escala-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.escala-g div{border-radius:var(--r-m);padding:12px 14px;background:var(--cartao);box-shadow:var(--sombra);font-size:14px;color:var(--tinta-2)}
+.escala-g b{display:block;color:var(--tinta);font-size:15px}
+.escala-g .usado{outline:2px solid var(--marca)}
+.sn{display:inline-grid;place-items:center;width:30px;height:28px;border-radius:7px;font-weight:900;font-size:13px}
+.sn.s{background:var(--ok-suave);color:var(--ok)}
+.sn.n{background:var(--erro-suave);color:var(--erro)}
+.sn.x{background:var(--cartao-2);color:var(--tinta-3)}
+.perc td{vertical-align:middle}
+.perc td.normal{vertical-align:top}
+.tarefa{background:var(--marca-suave)!important}
+.tarefa td{color:var(--marca)!important;font-weight:900!important}
+.tela-insp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:start}
+@media (max-width:860px){.tela-insp{grid-template-columns:1fr}}
+.tela-insp figure img{max-height:640px;width:auto;margin:0 auto}
+.tela-insp figure a{background:#FFFFFF;padding:12px}
+.comunica{font-size:17px;font-weight:800;line-height:1.4;border-left:4px solid var(--marca);padding-left:14px}
+.colunas2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media (max-width:560px){.colunas2{grid-template-columns:1fr}}
+.colunas2 ul{display:grid;gap:8px}
+.colunas2 li{display:flex;gap:8px;font-size:14.5px;color:var(--tinta-2)}
+.colunas2 li::before{flex:none;font-weight:900}
+.colunas2 .bom li::before{content:"✓";color:var(--ok)}
+.colunas2 .melhor li::before{content:"→";color:var(--aviso)}
+.colunas2 h5{font-size:12.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin:0 0 8px}
+.colunas2 .bom h5{color:var(--ok)}.colunas2 .melhor h5{color:var(--aviso)}
+.sug{margin-top:14px;padding:12px 14px;border-radius:var(--r-p);background:var(--cartao-2);font-size:14.5px;color:var(--tinta-2)}
+.sug b{color:var(--tinta)}
+.cons td.t{text-align:center}
+.pt{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--marca)}
+.pt.v{background:none;border:2px solid var(--linha)}
+.meta{font-size:18px;font-weight:700;line-height:1.55;color:var(--tinta);font-style:italic}
+.classe{display:flex;flex-direction:column;gap:8px}
+.classe .chip{align-self:flex-start}
+.classe .nivel{height:8px;border-radius:999px;background:var(--cartao-2);overflow:hidden}
+.classe .nivel span{display:block;height:100%;border-radius:999px}
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="barra"><div class="barra-in">
+  <a class="marca" href="./"><span class="selo" aria-hidden="true">c</span><b>Conecta</b><small>UFG</small></a>
+  <nav class="abas" aria-label="Partes do projeto">
+    <a href="./">Visão geral</a>
+    <a href="pesquisa.html">Pesquisa · PF1</a>
+    <a href="guia-de-estilo.html">Guia de estilo · PF2</a>
+    <a href="avaliacao.html" aria-current="page">Avaliação · PF3</a>
+  </nav>
+  <div class="barra-dir">
+    <button class="ico-btn" id="btnTema" type="button" aria-label="Trocar tema"></button>
+    <a class="btn-proto" href="../">▶ <span>Protótipo</span></a>
+  </div>
+</div></header>
+
+<main id="conteudo">
+  <div class="heroi">
+    <span class="etapa">Etapa 3 · Avaliação</span>
+    <h1>Três técnicas de inspeção sobre o protótipo de outra equipe</h1>
+    <p>O objeto avaliado é o Trilha INF, protótipo da PF2 de outra equipe da turma. Quatro telas principais, três tarefas e nove problemas consolidados, todos de gravidade 1 ou 2.</p>
+    <div class="acoes"><a href="#consolidacao">Ir para a consolidação</a><a class="sec" target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/03-PF3-Avaliacao">Pasta da etapa</a></div>
+  </div>
+
+  <nav class="sumario" aria-label="Seções desta página">
+    <a href="#metodo">Método</a><a href="#heuristica">Avaliação heurística</a><a href="#percurso">Percurso cognitivo</a>
+    <a href="#semiotica">Inspeção semiótica</a><a href="#consolidacao">Consolidação</a><a href="#retorno">De volta ao Conecta UFG</a>
+  </nav>
+
+  <!-- ===================== MÉTODO ===================== -->
+  <section class="secao" id="metodo">
+    <header><span class="num">10.1 · Método</span><h2>Inspeção, com as três técnicas da disciplina</h2>
+      <p>Avaliar o protótipo de outra equipe significa não ter acesso aos usuários que aquele produto pretende atender, o que inviabiliza os métodos de observação. As três técnicas cobrem dimensões diferentes, e juntas dão um retrato mais completo do que qualquer uma isolada.</p></header>
+    <div class="grade g3">
+      <div class="cartao tecnica"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span>
+        <h4>Avaliação heurística</h4><p>Problemas que prejudicam a usabilidade, confrontando a interface com as dez diretrizes de Nielsen.</p>
+        <span class="crit">Critério: <b>usabilidade</b></span></div>
+      <div class="cartao tecnica"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a4 4 0 0 0 0-8h-2a4 4 0 0 1 0-8h6"/></svg></span>
+        <h4>Percurso cognitivo</h4><p>Se a própria interface guia o usuário pela sequência de ações esperada, sem conhecimento prévio.</p>
+        <span class="crit">Critério: <b>facilidade de aprendizado</b></span></div>
+      <div class="cartao tecnica"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+        <h4>Inspeção semiótica</h4><p>A qualidade da metacomunicação do designer, codificada nos signos da interface.</p>
+        <span class="crit">Critério: <b>comunicabilidade</b></span></div>
+    </div>
+    <div class="tabela-wrap mt"><table>
+      <tbody>
+        <tr><td>Objeto</td><td>Trilha INF, recebido como 16 telas exportadas (T01 a T14, duas com variante).</td></tr>
+        <tr><td>Recorte</td><td>Boas-vindas (T01), painel (T05), matriz e detalhe da disciplina (T06 e T07), grade de horário e conflito (T11 e T12). No percurso, também a configuração inicial (T02 a T04).</td></tr>
+        <tr><td>Avaliadores</td><td>Aline Lima Martins Coelho, Gabriel Borges Garcia, Murilo Henrique Barbosa Silva e Odiney Souza da Paixão. Estudantes com formação em IHC pela disciplina, sem participação no projeto avaliado.</td></tr>
+        <tr><td>Data</td><td>8 e 9 de novembro de 2026</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <!-- ===================== HEURÍSTICA ===================== -->
+  <section class="secao" id="heuristica">
+    <header><span class="num">10.2 · Avaliação heurística</span><h2>Dez diretrizes, dez problemas</h2>
+      <p>Cada quadrado é um problema registrado contra aquela diretriz. Onde não há problema, aparece o que a interface faz bem.</p></header>
+    <div class="heur" id="heur"></div>
+
+    <p class="rotulo">Escala de gravidade</p>
+    <div class="escala-g">
+      <div class="usado"><b><span class="grav g1">1</span> Cosmético</b>Corrige se sobrar tempo</div>
+      <div class="usado"><b><span class="grav g2">2</span> Pequeno</b>Prioridade baixa</div>
+      <div><b>3 · Grande</b>Prioridade alta. Nenhum encontrado.</div>
+      <div><b>4 · Catastrófico</b>Corrige antes de tudo. Nenhum encontrado.</div>
+    </div>
+
+    <h3>Problemas encontrados</h3>
+    <div class="filtro" data-alvo="#tabHeur" data-attr="g" role="group" aria-label="Filtrar por gravidade">
+      <button type="button" data-valor="*" aria-pressed="true">Todos · 10</button>
+      <button type="button" data-valor="2" aria-pressed="false">Gravidade 2 · 5</button>
+      <button type="button" data-valor="1" aria-pressed="false">Gravidade 1 · 5</button>
+    </div>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Nº</th><th>Tela</th><th>Problema</th><th>Diretriz</th><th>Local</th><th>Grav.</th><th>Sugestão</th></tr></thead>
+      <tbody id="tabHeur"></tbody></table></div>
+  </section>
+
+  <!-- ===================== PERCURSO ===================== -->
+  <section class="secao" id="percurso">
+    <header><span class="num">10.3 · Percurso cognitivo</span><h2>Três tarefas, quatro perguntas por passo</h2>
+      <p>Perfil considerado: estudante de um curso do INF que conhece o próprio curso e já usa o SIGAA, mas não domina o PPC e o RGCG, e abre o Trilha INF pela primeira vez.</p></header>
+    <div class="grade g4">
+      <div class="cartao"><span class="chip marca">P1</span><p class="mt">O usuário tentaria atingir o efeito correto?</p></div>
+      <div class="cartao"><span class="chip marca">P2</span><p class="mt">Perceberia que a ação correta está disponível?</p></div>
+      <div class="cartao"><span class="chip marca">P3</span><p class="mt">Associaria a ação correta ao efeito pretendido?</p></div>
+      <div class="cartao"><span class="chip marca">P4</span><p class="mt">Perceberia que está progredindo?</p></div>
+    </div>
+    <div class="tabela-wrap mt"><table class="perc">
+      <thead><tr><th>Passo</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>O que apareceu</th></tr></thead>
+      <tbody id="tabPerc"></tbody></table></div>
+    <div class="aviso-box info mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <div><b>As duas falhas são de ações que existem, mas não estão à vista</b><p>P2 falhou na correção de Física I e na busca por Física III. Nas três tarefas, a intenção (P1) e a associação entre ação e efeito (P3) foram atendidas. O usuário precisa aprender durante o uso que a matriz rola para o lado e onde corrigir as exceções da marcação.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== SEMIÓTICA ===================== -->
+  <section class="secao" id="semiotica">
+    <header><span class="num">10.4 · Inspeção semiótica</span><h2>O que o designer diz por meio da interface</h2>
+      <p>Três classes de signo, reconstruídas tela a tela. Os cenários partem das personas do próprio Trilha INF: uma estudante de Ciência da Computação que reprovou em Física I, e Rafael, de Engenharia de Software, montando o plano do semestre.</p></header>
+    <div class="grade g3">
+      <div class="cartao classe"><span class="chip ok">Comunicam com força</span><h4>Metalinguísticos</h4><p>Ajuda, dicas e mensagens. Explicam regras, citam a fonte e deixam claros os limites do app. São o ponto alto do protótipo.</p></div>
+      <div class="cartao classe"><span class="chip ok">Coerentes</span><h4>Dinâmicos</h4><p>A folha de detalhe e o aviso de conflito respondem à ação, explicam o que aconteceu e oferecem saída.</p></div>
+      <div class="cartao classe"><span class="chip aviso">Onde há divergência</span><h4>Estáticos</h4><p>Rótulos e disposição. Siglas que pedem conhecimento prévio e barras que contradizem os números que acompanham.</p></div>
+    </div>
+
+    <div id="telasInsp"></div>
+
+    <h3>Metamensagem reconstruída</h3>
+    <div class="cartao"><p class="meta">“Você é estudante de um curso do INF e quer entender em que ponto do curso está, sem montar isso à mão a partir do PPC e do SIGAA. Prefere fazer isso pelo celular, em poucos minutos e sem informar sua senha do SIGAA. Este é o sistema que projetamos para você: ele junta o que você cursou, o que está liberado e o que falta, explica as regras com a fonte e ajuda a planejar o próximo semestre. Confira sempre no SIGAA, porque o Trilha não é oficial.”</p></div>
+  </section>
+
+  <!-- ===================== CONSOLIDAÇÃO ===================== -->
+  <section class="secao" id="consolidacao">
+    <header><span class="num">10.5 · Consolidação</span><h2>Nove problemas, e quem revelou cada um</h2>
+      <p>O mesmo ponto pode aparecer em mais de uma técnica. A consolidação junta os achados numa lista só e evita contar o mesmo problema duas vezes. Nenhum impede concluir as tarefas dos cenários.</p></header>
+    <div class="tabela-wrap"><table class="cons">
+      <thead><tr><th>Nº</th><th>Problema</th><th>Heurística</th><th>Percurso</th><th>Semiótica</th><th>Grav.</th><th>Recomendação</th></tr></thead>
+      <tbody id="tabCons"></tbody></table></div>
+    <div class="grade g3 mt">
+      <div class="cartao"><h4>A heurística mostrou a extensão</h4><p>As barras falham também na carga horária (T08), o que torna o problema sistemático, e há texto cortado na tela Mais (T14). Também registrou o que atende, como os atalhos de teclado.</p></div>
+      <div class="cartao"><h4>O percurso achou o que está escondido</h4><p>A correção da reprovação sem a lista à vista (T04) e a falta da tela seguinte a “Ver outra turma”. Confirmou que Física III não é encontrada sem rolagem.</p></div>
+      <div class="cartao"><h4>A semiótica explicou o conjunto</h4><p>Os signos metalinguísticos são o ponto forte; as divergências ficam nos estáticos, onde siglas e barras contradizem a promessa de explicar as regras.</p></div>
+    </div>
+    <div class="aviso-box info mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+      <div><b>Entregue aos autores do Trilha INF</b><p>O relato segue com objetivos, escopo, técnicas, perfil dos avaliadores e cada problema com local, diretriz, gravidade e sugestão. A inspeção identifica problemas potenciais; confirmar quais afetam usuários reais exige um método de observação.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== RETORNO ===================== -->
+  <section class="secao" id="retorno">
+    <header><span class="num">11.3 · O que a avaliação devolveu</span><h2>Os mesmos achados, como roteiro para o Conecta UFG</h2>
+      <p>Quem acabou de encontrar nove problemas num produto alheio tem o critério fresco para procurar os mesmos no seu. A conferência foi feita sobre a versão publicada do protótipo.</p></header>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Achado no Trilha INF</th><th>Situação</th><th>Como está no Conecta UFG</th></tr></thead>
+      <tbody>
+        <tr><td>C1 · Barra que não acompanha o valor</td><td><span class="chip">Não se aplica</span></td><td>O protótipo não representa quantidade por comprimento de barra. A compatibilidade é mostrada requisito a requisito, em lista.</td></tr>
+        <tr><td>C2 · Conteúdo fora da área visível</td><td><span class="chip ok">Verificado</span></td><td>No quadro de triagem, as colunas têm largura mínima fixa, e parte da seguinte fica à vista anunciando que há mais. O quadro também é percorrível por teclado.</td></tr>
+        <tr><td>C4 · Siglas sem explicação</td><td><span class="chip ok">Atendido</span></td><td>PIBIC, PIVIC, PIBITI, PROBEC e PROVEC têm o nome por extenso na folha de detalhe.</td></tr>
+        <tr><td>C5 · Ação sem dizer a consequência</td><td><span class="chip ok">Atendido</span></td><td>A confirmação lista o que será enviado e o que fica privado, e toda ação destrutiva oferece Desfazer.</td></tr>
+        <tr><td>C7 · Formulário sem passo atual</td><td><span class="chip ok">Atendido</span></td><td>A publicação de vaga mostra os quatro passos nomeados, com o atual destacado. Marcador 22.</td></tr>
+      </tbody></table></div>
+    <div class="aviso-box mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg>
+      <div><b>Verificação da própria equipe, não resultado de avaliação</b><p>A conferência foi feita por quem construiu o produto, que é exatamente o viés que os métodos existem para evitar. O retorno sobre o Conecta UFG depende da equipe que inspecionou o nosso protótipo, e ainda está pendente.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <span>Conecta UFG · Projeto Final de Interação Humano-Computador · Instituto de Informática, UFG · 2026</span>
+  <span>Telas do Trilha INF reproduzidas para fins de avaliação acadêmica · <a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg">Repositório</a></span>
+</footer>
+
+<script>
+/* Heurísticas: [id, nome, problemas, ponto positivo] */
+var HEUR=[
+ ['H1','Visibilidade do estado do sistema',[1,5,7],'A aba atual fica destacada e os alertas citam a fonte.'],
+ ['H2','Correspondência com o mundo real',[6,10],''],
+ ['H3','Controle e liberdade',[],'O aviso de conflito oferece uma saída recomendada e outra alternativa.'],
+ ['H4','Consistência e padronização',[9],''],
+ ['H5','Reconhecimento, não memorização',[3,4,8],''],
+ ['H6','Flexibilidade e eficiência',[],'No computador, 1 a 4 trocam de aba e Esc fecha a janela.'],
+ ['H7','Estético e minimalista',[],'Nenhum problema registrado.'],
+ ['H8','Prevenção de erros',[2],''],
+ ['H9','Reconhecer e recuperar de erros',[],'A mensagem de conflito diz o problema e sugere solução.'],
+ ['H10','Ajuda e documentação',[],'A tela “Fontes, dados e sobre” explica de onde vêm as regras.']
+];
+document.getElementById('heur').innerHTML=HEUR.map(function(h){
+  var n=h[2].length;
+  return '<div class="cartao"><span class="h">'+h[0]+'</span><b>'+h[1]+'</b>'+
+    (n?'<span class="pts" title="Problemas '+h[2].join(', ')+'">'+h[2].map(function(){return '<i></i>'}).join('')+'&nbsp;'+n+' problema'+(n>1?'s':'')+' · nº '+h[2].join(', ')+'</span>'
+      :'<span class="pts ok-h">✓ '+h[3]+'</span>')+'</div>';
+}).join('');
+
+/* Problemas da heurística */
+var PROB=[
+ [1,'T05 e T08','As barras de progresso têm o mesmo comprimento para valores diferentes (59%, 63% e 60% num painel; 8%, 10% e 0% no outro). A barra contradiz o número ao lado.','H1','Sistemático',2,'Fazer o comprimento acompanhar o valor.'],
+ [2,'T12','O cartão de Governança e Gestão de Serviços de Software não indica que choca com Engenharia de Software Experimental. O conflito só aparece depois de “Adicionar”.','H8','Pontual',2,'Marcar no cartão, antes da ação, que a turma choca com outra.'],
+ [3,'T06','Física III e os períodos seguintes ficam fora da área visível, sem sinal de rolagem lateral. As linhas de pré-requisito são finas e passam atrás dos cartões.','H5','Pontual',2,'Indicar a rolagem e destacar as linhas da disciplina tocada.'],
+ [4,'T11','A grade mostra ESE e GSI sem o nome da disciplina.','H5','Pontual',2,'Mostrar o nome ao tocar ou numa legenda abaixo da grade.'],
+ [5,'T12','“Adicionar mesmo assim” não informa o que acontece depois.','H1','Pontual',2,'Completar a mensagem com a consequência.'],
+ [6,'T01, T02 e T05','PPC e IP aparecem sem explicação na primeira ocorrência.','H2','Ocasional',1,'Escrever por extenso na primeira menção.'],
+ [7,'T02 a T04','A configuração inicial não mostra em que passo a pessoa está, embora a T01 prometa cerca de cinco minutos.','H1','Ocasional',1,'Mostrar “Passo 1 de 3”.'],
+ [8,'T05 e T14','Rótulos cortados: “Média Global do Estu…” e “como apagar se…”.','H5','Ocasional',1,'Encurtar os rótulos.'],
+ [9,'T06','A barra de título “Matriz” aparece embaixo, e não no topo como nas outras telas.','H4','Pontual',1,'Levar a barra de título para o topo.'],
+ [10,'T07','“Editar situação” não diz o que será editado.','H2','Pontual',1,'Usar “Corrigir situação desta disciplina”.']
+];
+document.getElementById('tabHeur').innerHTML=PROB.map(function(p){
+  return '<tr data-g="'+p[5]+'"><td>'+p[0]+'</td><td style="white-space:nowrap">'+p[1]+'</td><td>'+p[2]+'</td><td><span class="chip marca">'+p[3]+'</span></td><td>'+p[4]+'</td><td><span class="grav g'+p[5]+'">'+p[5]+'</span></td><td>'+p[6]+'</td></tr>';
+}).join('');
+
+/* Percurso: tarefa ou [passo, p1..p4, nota] */
+var PERC=[
+ 'T1 · Configurar o app e ver quanto do curso falta',
+ ['Tocar em “Começar”','S','S','S','S','Nenhum problema. A tela diz o que o app faz e quanto tempo leva.'],
+ ['Escolher curso e ano, “Continuar”','S','S','S','S','Nenhum problema. O aviso do PPC aplicado confirma a escolha.'],
+ ['Tocar em “Marcar na mão”','S','S','S','S','Nenhum problema. O texto de apoio explica a opção.'],
+ ['Escolher o período e “Marcar”','S','S','S','S','A lista visível vai do 5º ao 7º. Indicar se há opções acima ou abaixo.'],
+ ['Corrigir a reprovação de Física I','S','N','S','S','A instrução aparece, mas a lista onde tocar não está à vista.'],
+ ['“Concluir e ver meu painel”','S','S','S','S','O botão de concluir tem menos destaque que “Marcar”, já usado.'],
+ 'T2 · Descobrir por que Física III não está liberada',
+ ['Tocar em “Matriz”','S','S','S','S','Nenhum problema. A navegação combina ícone e texto.'],
+ ['Localizar Física III','S','N','S','N','Fica no 3º período, fora da área visível, e nada indica que a matriz rola.'],
+ ['Tocar em Física III e ler o motivo','S','S','S','S','Nenhum problema. A folha explica o que trava e como pedir a liberação.'],
+ 'T3 · Adicionar ao plano a turma de Governança e Gestão de Serviços de Software',
+ ['“Planejar” e abrir “Matrícula”','S','S','S','S','Nenhum problema. A aba atual fica destacada.'],
+ ['Tocar em “Adicionar”','S','S','S','S','O conflito só aparece depois do toque. Avisar o choque no cartão.'],
+ ['Tocar em “Ver outra turma”','S','S','S','–','Não avaliado: o protótipo não tem a tela seguinte.']
+];
+function sn(v){var c=v==='S'?'s':v==='N'?'n':'x',t=v==='S'?'sim':v==='N'?'não':'não avaliado';return '<td><span class="sn '+c+'" title="'+t+'">'+v+'</span><span class="sr">'+t+'</span></td>'}
+document.getElementById('tabPerc').innerHTML=PERC.map(function(r){
+  if(typeof r==='string')return '<tr class="tarefa"><td colspan="6">'+r+'</td></tr>';
+  return '<tr><td>'+r[0]+'</td>'+sn(r[1])+sn(r[2])+sn(r[3])+sn(r[4])+'<td class="normal">'+r[5]+'</td></tr>';
+}).join('');
+
+/* Telas da inspeção semiótica */
+var TELAS=[
+ {img:'t01',w:726,h:1606,tit:'Tela 1 · Boas-vindas (T01)',cls:'Estático e metalinguístico',
+  diz:'Você é estudante do INF e quer ver num lugar só o que já cursou, o que está liberado e o que falta. Em uns cinco minutos, você informa seu curso e o que já fez.',
+  bom:['O objetivo fica claro no título e no primeiro parágrafo.','Diz quanto tempo a configuração leva, o que ajuda a decidir começar.','O aviso de privacidade e de que o app não é oficial vem antes de qualquer dado.'],
+  mel:['PPC e SIGAA aparecem sem explicação, e quem está no 1º período pode não conhecer o PPC.','A tela promete cinco minutos, mas T02 a T04 não mostram em que passo a pessoa está.'],
+  sug:'Escrever a sigla por extenso na primeira menção, como “PPC (Projeto Pedagógico do Curso)”, e mostrar “Passo 1 de 3”.'},
+ {img:'t05',w:1200,h:1285,tit:'Tela 2 · Painel (T05)',cls:'Estático',
+  diz:'Este é o seu progresso: quanto do curso você já cumpriu, seus índices e o que falta em cada tipo de carga horária.',
+  bom:['Números grandes e rótulos curtos permitem leitura rápida.','A etiqueta “CC | PPC 2017” deixa claro de qual regra o cálculo parte.','O alerta amarelo antecipa a liberação de pré-requisito e cita a fonte (RGCG, art. 64).','A navegação combina ícone e texto, com a aba atual destacada.'],
+  mel:['As barras têm o mesmo tamanho para 59%, 63% e 60%, e para 8%, 10% e 0%. A barra diz uma coisa e o número, outra.','O rótulo do MGE aparece cortado.','No IP, o apoio é “Valor de exemplo” e a sigla fica sem explicação.'],
+  sug:'Fazer a barra acompanhar o valor, encurtar o rótulo do MGE (“Média global”) e dizer o que o IP significa.'},
+ {img:'t06',w:1200,h:1285,tit:'Tela 3 · Matriz e detalhe da disciplina (T06 e T07)',cls:'Estático, dinâmico e metalinguístico',
+  diz:'Este é o mapa do seu curso. Cada disciplina mostra a sua situação; toque numa delas para ver o que ela exige e o que ela libera.',
+  bom:['Cada situação é comunicada por cor, ícone, contorno e palavra ao mesmo tempo.','A dica “Toque numa disciplina” indica a próxima ação.','A folha explica por que está travada, o que exige e como pedir a liberação, com a fonte.','Fluxo e Lista oferecem duas formas de ler a mesma informação.'],
+  mel:['As linhas de pré-requisito são finas, claras e passam atrás dos cartões.','A segunda coluna está cortada, sem sinal de que há mais períodos ao lado.','A barra de título aparece embaixo, e não no topo.','“Editar situação” não diz o que será editado.'],
+  sug:'Destacar as linhas da disciplina tocada, indicar a rolagem lateral, levar o título para o topo e usar “Corrigir situação desta disciplina”.'},
+ {img:'t11',w:1200,h:1285,tit:'Tela 4 · Grade de horário e conflito (T11 e T12)',cls:'Estático, dinâmico e metalinguístico',
+  diz:'Monte seu plano do próximo semestre. Se duas turmas baterem no mesmo horário, o sistema avisa e você decide.',
+  bom:['O aviso aparece no momento da ação, numa folha, sem tirar a pessoa do contexto.','Diz onde está o conflito (quarta, 8h) e com qual disciplina.','Duas saídas: a recomendada em destaque e a alternativa, e a decisão fica com a pessoa.','A grade se apoia num referente conhecido: “como na tabela impressa”.'],
+  mel:['“Adicionar mesmo assim” não diz o que acontece depois.','ESE e GSI aparecem sem o nome da disciplina.'],
+  sug:'Completar a mensagem (“As duas ficam no plano, marcadas na grade como conflito”) e mostrar o nome ao tocar na sigla.'}
+];
+document.getElementById('telasInsp').innerHTML=TELAS.map(function(t){
+  return '<h3>'+t.tit+'</h3><div class="tela-insp"><figure class="fig"><a href="img/pf3/'+t.img+'.jpg"><img src="img/pf3/'+t.img+'.jpg" alt="'+t.tit+' do protótipo Trilha INF" loading="lazy" width="'+t.w+'" height="'+t.h+'"></a><figcaption><b>Classes de signo:</b> '+t.cls+'.</figcaption></figure>'+
+    '<div class="cartao"><p class="rotulo" style="margin-top:0">O que a tela comunica</p><p class="comunica">'+t.diz+'</p>'+
+    '<div class="colunas2"><div class="bom"><h5>Atende</h5><ul>'+t.bom.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'+
+    '<div class="melhor"><h5>Pode melhorar</h5><ul>'+t.mel.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div></div>'+
+    '<p class="sug"><b>Sugestão.</b> '+t.sug+'</p></div></div>';
+}).join('');
+
+/* Consolidação: [id, problema, heur, perc, semi, grav, recomendação] */
+var CONS=[
+ ['C1','Barras de progresso que não acompanham o valor (T05 e T08)','H1','','✓',2,'Fazer a barra acompanhar o valor.'],
+ ['C2','Física III fora da área visível e linhas de pré-requisito difíceis de seguir (T06)','H5','T2','✓',2,'Indicar a rolagem lateral e destacar as linhas.'],
+ ['C3','Conflito de horário só depois de “Adicionar” (T12)','H8','T3','',2,'Avisar o choque no cartão da turma.'],
+ ['C4','Siglas sem explicação: PPC, IP, ESE e GSI (T01, T02, T05 e T11)','H2 · H5','','✓',2,'Por extenso na primeira menção, ou o nome ao tocar.'],
+ ['C5','“Adicionar mesmo assim” sem a consequência (T12)','H1','','✓',2,'Completar a mensagem com o que acontece depois.'],
+ ['C6','Correção da reprovação sem a lista à vista (T04)','','T1','',2,'Mostrar as disciplinas marcadas logo abaixo de “Marcar”.'],
+ ['C7','Configuração sem o passo atual (T02 a T04)','H1','','✓',1,'Mostrar “Passo 1 de 3”.'],
+ ['C8','Rótulos cortados e título da matriz fora do lugar (T05, T06 e T14)','H4 · H5','','✓',1,'Encurtar os rótulos e levar o título para o topo.'],
+ ['C9','“Editar situação” sem dizer o que edita (T07)','H2','','✓',1,'Usar “Corrigir situação desta disciplina”.']
+];
+function marca(v){return v?'<td class="t"><span class="pt" aria-hidden="true"></span> <span style="font-size:12.5px;font-weight:800;color:var(--tinta)">'+(v==='✓'?'':v)+'</span><span class="sr">revelou</span></td>':'<td class="t"><span class="pt v" aria-hidden="true"></span><span class="sr">não revelou</span></td>'}
+document.getElementById('tabCons').innerHTML=CONS.map(function(c){
+  return '<tr><td>'+c[0]+'</td><td style="color:var(--tinta)">'+c[1]+'</td>'+marca(c[2])+marca(c[3])+marca(c[4])+'<td><span class="grav g'+c[5]+'">'+c[5]+'</span></td><td>'+c[6]+'</td></tr>';
+}).join('');
+</script>
+</body>
+</html>

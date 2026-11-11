@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conecta UFG · O projeto</title>
+<meta name="description" content="Projeto Final de IHC do Conecta UFG: protótipo navegável, pesquisa e requisitos, guia de estilo, avaliação e fechamento, etapa por etapa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="assets/projeto.css">
+<script src="assets/projeto.js"></script>
+<style>
+.logo-topo{height:56px;width:auto;margin-bottom:18px}
+.etapas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.etapas{grid-template-columns:1fr}}
+.etapa-c{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s;position:relative}
+.etapa-c:hover{transform:translateY(-3px);box-shadow:var(--sombra-forte)}
+.etapa-c .n{font-size:13px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--marca)}
+.etapa-c h3{font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.2}
+.etapa-c .num-l{display:flex;gap:18px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--linha)}
+.etapa-c .num-l div{font-size:13.5px;color:var(--tinta-2)}
+.etapa-c .num-l b{display:block;font-size:24px;font-weight:900;color:var(--tinta);letter-spacing:-.02em;line-height:1.1}
+.etapa-c .ir{font-weight:800;color:var(--marca);font-size:14.5px}
+.proto{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
+@media (max-width:860px){.proto{grid-template-columns:1fr}}
+.proto img{border-radius:14px;box-shadow:var(--sombra-forte)}
+.voltas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.voltas{grid-template-columns:1fr}}
+.equipe td:first-child{white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="barra"><div class="barra-in">
+  <a class="marca" href="./" aria-current="page"><span class="selo" aria-hidden="true">c</span><b>Conecta</b><small>UFG</small></a>
+  <nav class="abas" aria-label="Partes do projeto">
+    <a href="./" aria-current="page">Visão geral</a>
+    <a href="pesquisa.html">Pesquisa · PF1</a>
+    <a href="guia-de-estilo.html">Guia de estilo · PF2</a>
+    <a href="avaliacao.html">Avaliação · PF3</a>
+  </nav>
+  <div class="barra-dir">
+    <button class="ico-btn" id="btnTema" type="button" aria-label="Trocar tema"></button>
+    <a class="btn-proto" href="../">▶ <span>Protótipo</span></a>
+  </div>
+</div></header>
+
+<main id="conteudo">
+  <div class="heroi">
+    <span class="etapa">Projeto Final · Interação Humano-Computador · INF/UFG</span>
+    <h1>Portal de oportunidades acadêmicas para a graduação da UFG</h1>
+    <p>Iniciação científica, extensão, monitoria e TCC num lugar só. O estudante vê, requisito por requisito, se é elegível e o que falta: a compatibilidade explicada.</p>
+    <div class="acoes">
+      <a href="../">▶ Abrir o protótipo navegável</a>
+      <a class="sec" target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg">Repositório</a>
+    </div>
+  </div>
+
+  <section class="secao" id="etapas">
+    <header><span class="num">O projeto em páginas</span><h2>Uma página por etapa</h2>
+      <p>O documento escrito acumula as etapas num arquivo só. Estas páginas mostram a parte visual de cada uma: gráficos, telas, cores e tabelas que ficam melhores na tela do que no papel.</p></header>
+    <div class="etapas">
+      <a class="cartao etapa-c" href="pesquisa.html">
+        <span class="n">Etapa 1 · PF1</span><h3>Pesquisa e requisitos</h3>
+        <p>Ciclo em estrela, o que 13 estudantes responderam, o mapa dos canais de divulgação, requisitos rastreados, personas e cenários.</p>
+        <div class="num-l"><div><b>85%</b>já procuraram vaga e não acharam</div><div><b>21</b>requisitos funcionais</div><div><b>3</b>personas</div></div>
+        <span class="ir">Ver a pesquisa →</span></a>
+      <a class="cartao etapa-c" href="guia-de-estilo.html">
+        <span class="n">Etapa 2 · PF2</span><h3>Guia de estilo e protótipo</h3>
+        <p>Paleta nos dois temas com o contraste medido, tipografia Nunito, componentes funcionando, padrões de tela e as telas com e sem marcadores.</p>
+        <div class="num-l"><div><b>20</b>tokens de cor, cada um com par escuro</div><div><b>29</b>marcadores de IHC</div><div><b>6</b>tipos de tela</div></div>
+        <span class="ir">Ver o guia de estilo →</span></a>
+      <a class="cartao etapa-c" href="avaliacao.html">
+        <span class="n">Etapa 3 · PF3</span><h3>Avaliação do protótipo</h3>
+        <p>Inspeção do Trilha INF, de outra equipe, com avaliação heurística, percurso cognitivo e inspeção semiótica, tela a tela.</p>
+        <div class="num-l"><div><b>3</b>técnicas</div><div><b>10</b>problemas heurísticos</div><div><b>9</b>consolidados</div></div>
+        <span class="ir">Ver a avaliação →</span></a>
+      <a class="cartao etapa-c" href="#fechamento">
+        <span class="n">Etapa 4 · PF4</span><h3>Entrega final</h3>
+        <p>O percurso pelo ciclo em estrela, os limites do que foi feito e o trabalho futuro. Está logo abaixo, nesta página.</p>
+        <div class="num-l"><div><b>2</b>voltas pelo ciclo</div><div><b>58</b>páginas no documento</div><div><b>21</b>slides</div></div>
+        <span class="ir">Ver o fechamento ↓</span></a>
+    </div>
+  </section>
+
+  <section class="secao" id="prototipo">
+    <header><span class="num">O artefato principal</span><h2>Um protótipo em que se completa a tarefa</h2></header>
+    <div class="proto">
+      <a href="../"><img src="img/pf2/tela_inicio.jpg" alt="Tela inicial do protótipo Conecta UFG" width="1400" height="1988" style="max-height:440px;width:100%;object-fit:cover;object-position:top"></a>
+      <div class="texto">
+        <p>HTML, CSS e JavaScript num arquivo só, sem instalação: a busca busca, os filtros se combinam e a compatibilidade é calculada. Isso permite <strong>descobrir uma vaga, verificar a elegibilidade, candidatar-se e acompanhar</strong>, que é o que uma avaliação com usuários precisa observar.</p>
+        <p>O seletor <strong>Estudante / Orientador</strong>, no topo, troca o papel. O botão <strong>IHC</strong> liga os 29 marcadores que apontam cada princípio aplicado; ele vem desligado para não interferir na avaliação.</p>
+        <p class="mt"><a class="btn-proto" href="../" style="display:inline-flex">▶ Abrir o protótipo</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="fechamento">
+    <header><span class="num">Etapa 4 · Fechamento</span><h2>Duas voltas pelo ciclo em estrela</h2>
+      <p>A primeira volta começou pela prototipação, sem dado de usuário. A avaliação daquela versão expôs o que havia sido suposto e levou de volta à análise. A segunda partiu dos requisitos e terminou na Etapa 3.</p></header>
+    <div class="voltas">
+      <div class="cartao"><span class="chip marca">Primeira volta</span><h4 class="mt">Entrou pela prototipação</h4><p>A inspeção por princípios de IHC gerou a tela de confirmação e a compatibilidade explicada item a item. O confronto com os canais reais trouxe o prazo para filtro de primeira ordem.</p></div>
+      <div class="cartao"><span class="chip marca">Segunda volta</span><h4 class="mt">Entrou pela especificação de requisitos</h4><p>A anotação dos 29 marcadores obrigou a justificar cada decisão da interface, e a Etapa 3 exercitou as três técnicas de inspeção sobre um produto de fora.</p></div>
+    </div>
+    <div class="aviso-box info mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+      <div><b>A avaliação no centro teve efeito prático</b><p>A confirmação antes do envio e a explicação dos requisitos um a um nasceram de avaliação. Nenhuma das duas estava na hipótese com que o projeto começou.</p></div>
+    </div>
+
+    <h3>Limites do que foi feito</h3>
+    <div class="grade g3">
+      <div class="cartao"><h4>Sem dado real</h4><p>Pessoas, vagas e eventos são fictícios. A integração com matrícula e Lattes está especificada (RNF09), não implementada.</p></div>
+      <div class="cartao"><h4>Sem implementação</h4><p>O projeto se encerra na prototipação, como registrado no processo de design.</p></div>
+      <div class="cartao"><h4>Inspeção sem usuários</h4><p>Os métodos da Etapa 3 apontam problemas potenciais. Confirmar quais afetam usuários reais exige observação.</p></div>
+      <div class="cartao"><h4>Recorte parcial</h4><p>Das 16 telas do Trilha INF, quatro foram inspecionadas, com duas de apoio.</p></div>
+      <div class="cartao"><h4>Coleta com docentes não fechou</h4><p>O instrumento B não recebeu respostas; os requisitos derivados dele seguem provisórios.</p></div>
+      <div class="cartao"><h4>Acessibilidade sem teste com pessoas</h4><p>O verificável no artefato está feito e anotado (marcadores 10, 26, 27 e 28), mas nenhuma pessoa com deficiência usou o protótipo.</p></div>
+    </div>
+
+    <h3>Trabalho futuro</h3>
+    <div class="grade g4">
+      <div class="cartao"><h4>Integração institucional</h4><p>Curso, período e média global direto da base de matrícula.</p></div>
+      <div class="cartao"><h4>Avaliação com usuários</h4><p>Observação sobre as mesmas tarefas, para confirmar o que a inspeção previu.</p></div>
+      <div class="cartao"><h4>Notificação por e-mail</h4><p>Hoje o aviso de mudança de etapa só existe dentro do sistema.</p></div>
+      <div class="cartao"><h4>Painel da coordenação</h4><p>O ator secundário dos casos de uso ainda não tem tela própria.</p></div>
+    </div>
+  </section>
+
+  <section class="secao" id="arquivos">
+    <header><span class="num">Fontes e binários</span><h2>Onde está cada coisa</h2></header>
+    <div class="tabela-wrap"><table>
+      <tbody>
+        <tr><td>Documento completo, PF1 a PF4</td><td><a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/04-PF4-Entrega-final">04-PF4-Entrega-final/PF4_Conecta_UFG.docx</a></td></tr>
+        <tr><td>Código-fonte do protótipo</td><td><a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/blob/main/docs/index.html">docs/index.html</a>, arquivo único</td></tr>
+        <tr><td>Tokens de design</td><td><a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/02-PF2-Guia-de-estilo-e-prototipo/identidade-visual">identidade-visual/conecta-ufg.tokens.json</a></td></tr>
+        <tr><td>Telas capturadas, originais</td><td><a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/02-PF2-Guia-de-estilo-e-prototipo/prints">02-PF2-Guia-de-estilo-e-prototipo/prints</a></td></tr>
+        <tr><td>Diagramas e questionários</td><td><a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/01-PF1-Projeto">01-PF1-Projeto</a></td></tr>
+        <tr><td>Apresentação</td><td><a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/05-Apresentacao">05-Apresentacao</a>, em .pptx e .pdf</td></tr>
+      </tbody></table></div>
+
+    <h3>Equipe</h3>
+    <div class="tabela-wrap"><table class="equipe">
+      <thead><tr><th>Integrante</th><th>Frente de trabalho</th></tr></thead>
+      <tbody>
+        <tr><td>Odiney Souza da Paixão</td><td>Prototipação e projeto de interação</td></tr>
+        <tr><td>Aline Lima Martins Coelho</td><td>Pesquisa com usuários</td></tr>
+        <tr><td>Murilo Henrique Barbosa Silva</td><td>Análise e especificação de requisitos</td></tr>
+        <tr><td>Gabriel Borges Garcia</td><td>Avaliação e representações de usuário</td></tr>
+        <tr><td>Profa. Luciana de Oliveira Berreta</td><td>Orientação</td></tr>
+      </tbody></table></div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <span>Conecta UFG · Projeto Final de Interação Humano-Computador · Instituto de Informática, UFG · 2026</span>
+  <span>Projeto acadêmico, sem vínculo oficial com a UFG · <a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg">Repositório</a></span>
+</footer>
+</body>
+</html>

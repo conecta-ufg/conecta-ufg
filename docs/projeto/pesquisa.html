@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pesquisa e requisitos · Conecta UFG</title>
+<meta name="description" content="Etapa 1 do Conecta UFG: processo de design, resultados do questionário com estudantes, análise dos canais, requisitos, perfis, personas, cenários e diagramas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="assets/projeto.css">
+<script src="assets/projeto.js"></script>
+<style>
+.req{display:flex;flex-direction:column;gap:8px}
+.req .id{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--marca)}
+.req p{color:var(--tinta);font-size:15px}
+.req .orig{font-size:13px;color:var(--tinta-3)}
+.compat{display:grid;gap:8px;margin-top:12px}
+.compat li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--tinta-2)}
+.compat li b{color:var(--tinta)}
+.compat .ic{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px}
+.compat .sim{background:var(--ok-suave);color:var(--ok)}
+.compat .nao{background:var(--erro-suave);color:var(--erro)}
+.persona{display:flex;flex-direction:column;gap:12px}
+.persona .topo{display:flex;gap:12px;align-items:center}
+.persona .av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#15173A;flex:none}
+.persona blockquote{font-size:17px;font-weight:800;line-height:1.35;color:var(--tinta);border-left:4px solid var(--ipe);padding-left:12px}
+.persona dl{margin:0;display:grid;gap:8px}
+.persona dt{font-size:12.5px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--tinta-3)}
+.persona dd{margin:0;color:var(--tinta-2);font-size:14.5px}
+.mapa td.c{text-align:center;font-weight:800;font-size:13.5px;white-space:nowrap}
+.mapa .bom{background:var(--ok-suave);color:var(--ok)}
+.mapa .med{background:var(--ipe-suave);color:var(--ipe-tinta)}
+.mapa .ruim{background:var(--erro-suave);color:var(--erro)}
+.trilha{display:grid;gap:0;counter-reset:p}
+.trilha li{display:grid;grid-template-columns:44px 1fr;gap:14px;position:relative;padding-bottom:18px}
+.trilha li::before{counter-increment:p;content:counter(p) "º";width:44px;height:44px;border-radius:50%;background:var(--marca);color:var(--sobre-marca);
+  display:grid;place-items:center;font-weight:900;z-index:1}
+.trilha li::after{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:var(--linha)}
+.trilha li:last-child::after{display:none}
+.trilha li.futuro::before{background:var(--cartao-2);color:var(--tinta-2)}
+.trilha h4{font-size:16px;font-weight:800;margin-top:2px}
+.trilha p{color:var(--tinta-2);font-size:14.5px;margin-top:4px}
+.trilha .av{display:block;margin-top:6px;font-size:14px;color:var(--tinta)}
+.trilha .av b{color:var(--marca)}
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="barra"><div class="barra-in">
+  <a class="marca" href="./"><span class="selo" aria-hidden="true">c</span><b>Conecta</b><small>UFG</small></a>
+  <nav class="abas" aria-label="Partes do projeto">
+    <a href="./">Visão geral</a>
+    <a href="pesquisa.html" aria-current="page">Pesquisa · PF1</a>
+    <a href="guia-de-estilo.html">Guia de estilo · PF2</a>
+    <a href="avaliacao.html">Avaliação · PF3</a>
+  </nav>
+  <div class="barra-dir">
+    <button class="ico-btn" id="btnTema" type="button" aria-label="Trocar tema"></button>
+    <a class="btn-proto" href="../">▶ <span>Protótipo</span></a>
+  </div>
+</div></header>
+
+<main id="conteudo">
+  <div class="heroi">
+    <span class="etapa">Etapa 1 · Projeto</span>
+    <h1>Quem usa, o que precisa e o que o sistema tem de fazer</h1>
+    <p>Processo de design, coleta com estudantes, análise dos canais de divulgação, 21 requisitos funcionais (um deles saído da coleta) e 10 não funcionais com a origem declarada, perfis, personas, cenários e os dois modelos de dados.</p>
+    <div class="acoes">
+      <a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/01-PF1-Projeto">Pasta da etapa no repositório</a>
+    </div>
+  </div>
+
+  <nav class="sumario" aria-label="Seções desta página">
+    <a href="#produto">O produto</a><a href="#processo">Processo</a><a href="#coleta">Coleta</a><a href="#canais">Canais</a>
+    <a href="#requisitos">Requisitos</a><a href="#perfis">Perfis</a><a href="#personas">Personas</a><a href="#cenarios">Cenários</a><a href="#modelos">Modelos</a>
+  </nav>
+
+  <!-- ===================== PRODUTO ===================== -->
+  <section class="secao" id="produto">
+    <header><span class="num">1 · Título e descrição</span><h2>Menos rede social, mais conexão acadêmica</h2>
+      <p>Iniciação científica, extensão, monitoria e TCC num lugar só. Hoje essa informação está espalhada entre o SIGAA, o site da Pró-Reitoria, murais, grupos de mensagem e indicação pessoal.</p></header>
+    <div class="grade g2">
+      <div class="cartao">
+        <span class="chip ipe">O diferencial</span>
+        <h4 class="mt">Compatibilidade explicada</h4>
+        <p>Em vez de um percentual fechado, o estudante vê cada requisito marcado como atendido ou não, com o motivo escrito. Ele sabe se é elegível e sabe o que falta.</p>
+        <ul class="compat" aria-label="Exemplo: requisitos da vaga para a Ana">
+          <li><span class="ic sim" aria-hidden="true">✓</span><span><b>Curso aceito.</b> Ciência da Computação está na lista.</span></li>
+          <li><span class="ic sim" aria-hidden="true">✓</span><span><b>Período mínimo 4º.</b> Ela está no 5º.</span></li>
+          <li><span class="ic sim" aria-hidden="true">✓</span><span><b>Média global mínima 7,5.</b> A dela é 8,7.</span></li>
+          <li><span class="ic sim" aria-hidden="true">✓</span><span><b>Áreas de interesse.</b> Coincidem com inteligência artificial.</span></li>
+          <li><span class="ic nao" aria-hidden="true">✕</span><span><b>Conhecimentos desejados.</b> Álgebra linear não está declarada no perfil.</span></li>
+        </ul>
+      </div>
+      <div class="grade" style="align-content:start">
+        <div class="cartao"><h4>Para o estudante</h4><p>Acesso igual às vagas, sem depender de estar no círculo certo, e a resposta para a pergunta “vale a pena me candidatar?”.</p></div>
+        <div class="cartao"><h4>Para o docente</h4><p>Publicar uma vez e receber candidaturas organizadas, com perfil padronizado e compatibilidade já calculada.</p></div>
+        <div class="cartao"><h4>Para a instituição</h4><p>Um processo hoje informal, que não deixa registro, passa a ter dado medido em vez de estimado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESSO ===================== -->
+  <section class="secao" id="processo">
+    <header><span class="num">4 · Processo de design</span><h2>Ciclo de vida em estrela</h2>
+      <p>A avaliação ocupa o centro e liga todas as atividades, então cada suposição é testada antes de virar decisão. E o ciclo não prescreve ordem: o projeto começou por um protótipo exploratório, com o LinkedIn como referência de estrutura, e isso é uma entrada legítima.</p></header>
+    <div class="grade g2">
+      <figure class="fig"><a href="img/pf1/ciclo-de-vida-em-estrela.jpg"><img src="img/pf1/ciclo-de-vida-em-estrela.jpg" alt="Diagrama do ciclo de vida em estrela, com a avaliação no centro e a etapa do projeto em que cada atividade é entregue" loading="lazy" width="1800" height="1458"></a>
+        <figcaption><b>Figura 1.</b> Ciclo em estrela, com a etapa em que cada atividade é entregue.</figcaption></figure>
+      <ol class="trilha" aria-label="Percurso seguido">
+        <li><div><h4>Prototipação</h4><p>Protótipo navegável com os dois perfis, busca, filtros, candidatura e quadro de seleção.</p>
+          <span class="av"><b>Avaliação →</b> inspeção por Silva e Barbosa e Gestalt. Nasceram a confirmação de candidatura e a explicação item a item.</span></div></li>
+        <li><div><h4>Análise de tarefas, usuário e funções</h4><p>Dois questionários e o mapeamento dos canais em uso.</p>
+          <span class="av"><b>Avaliação →</b> prazo e situação da inscrição viraram filtros de primeira ordem.</span></div></li>
+        <li><div><h4>Especificação de requisitos</h4><p>Requisitos, perfis, personas, cenários e modelos de dados.</p>
+          <span class="av"><b>Avaliação →</b> rastreabilidade: cada requisito aponta sua origem.</span></div></li>
+        <li><div><h4>Projeto conceitual</h4><p>Guia de estilo e revisão do protótipo. Etapa 2.</p></div></li>
+        <li><div><h4>Prototipação, segunda volta</h4><p>Protótipo derivado dos requisitos, não da hipótese. Etapa 2.</p></div></li>
+        <li><div><h4>Avaliação</h4><p>Três técnicas de inspeção. Etapa 3.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== COLETA ===================== -->
+  <section class="secao" id="coleta">
+    <header><span class="num">5.1.1 · Questionário</span><h2>O que 13 estudantes responderam</h2>
+      <p>Engenharia de Software, Sistemas de Informação, Ciência da Computação e Ciências Sociais, a maioria no 8º período. Dez dos treze já participaram de iniciação científica, extensão ou projeto de pesquisa.</p></header>
+
+    <div class="cartao destaque">
+      <div class="grande">11<small> de 13</small></div>
+      <div><h4>já procuraram uma vaga de iniciação científica e não encontraram</h4>
+        <p>São 85% dos respondentes, incluindo a maioria dos que hoje já estão num projeto. A procura falha mesmo para quem acabou entrando, o que indica que a entrada se dá por outro caminho que não a busca.</p></div>
+    </div>
+
+    <div class="grade g2 mt">
+      <div class="cartao grafico">
+        <h4>Como ficou sabendo da oportunidade</h4><p class="sub">Os 10 que já participaram</p>
+        <div class="barras" data-total="10" data-dados='[["Professor",5,1],["Indicação de colega",2,1],["Mural de anúncios",1,0],["Grupo de WhatsApp",1,0],["Período de escola",1,0],["Site",0,0]]'></div>
+        <p class="mt" style="font-size:14px">A entrada depende de contato pessoal. <b style="color:var(--tinta)">O site não apareceu nenhuma vez.</b></p>
+      </div>
+      <div class="cartao grafico">
+        <h4>Onde procura oportunidades hoje</h4><p class="sub">13 respondentes, seleção múltipla</p>
+        <div class="barras" data-total="13" data-dados='[["E-mail",5,1],["Grupos de WhatsApp",5,1],["Não procuro",4,1],["Indicação pessoal",4,1],["SIGAA",3,1],["Site da universidade",3,1]]'></div>
+        <p class="mt" style="font-size:14px">Os canais efêmeros superam os institucionais. <b style="color:var(--tinta)">Quatro simplesmente não procuram.</b></p>
+      </div>
+      <div class="cartao grafico">
+        <h4>“Sei quais editais de bolsa existem na UFG e como funcionam.”</h4><p class="sub">Escala de 1 a 5 · mediana 2 · discordam 8 de 13 (62%)</p>
+        <div class="colunas" data-dados='[4,4,3,1,1]' data-fortes="0,1" role="img" aria-label="Respostas: nota 1, 4 pessoas; nota 2, 4; nota 3, 3; nota 4, 1; nota 5, 1"></div>
+        <div class="eixo" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="eixo-leg" aria-hidden="true"><span>discordo totalmente</span><span>concordo totalmente</span></div>
+      </div>
+      <div class="cartao grafico">
+        <h4>“Falta de informação centralizada é um obstáculo para eu entrar na pesquisa.”</h4><p class="sub">Escala de 1 a 5 · mediana 4 · concordam 10 de 13 (77%)</p>
+        <div class="colunas" data-dados='[1,1,1,5,5]' data-fortes="3,4" role="img" aria-label="Respostas: nota 1, 1 pessoa; nota 2, 1; nota 3, 1; nota 4, 5; nota 5, 5"></div>
+        <div class="eixo" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="eixo-leg" aria-hidden="true"><span>discordo totalmente</span><span>concordo totalmente</span></div>
+      </div>
+    </div>
+    <div class="aviso-box info mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+      <div><b>A leitura conjunta sustenta o produto</b><p>A maioria não conhece os editais e a maioria aponta a falta de centralização como obstáculo. O problema não está na vontade de participar, e sim no acesso à informação.</p></div>
+    </div>
+
+    <h3>O que desmotiva, nas palavras deles</h3>
+    <div class="grade g3">
+      <div class="cartao"><span class="chip marca">5 menções</span><h4 class="mt">Não saber onde encontrar</h4><p>“não sei onde encontrar, sempre quis fazer mas não é fácil”</p></div>
+      <div class="cartao"><span class="chip marca">3 menções</span><h4 class="mt">Dependência de rede pessoal</h4><p>“o processo é muito dependente de networking, sem canais centralizados para que eu possa me candidatar”</p></div>
+      <div class="cartao"><span class="chip marca">3 menções</span><h4 class="mt">Casar interesse com orientador</h4><p>“Encontrar projetos em aberto de acordo com meus interesses e saber com qual professor conversar”</p></div>
+      <div class="cartao"><span class="chip">2 menções</span><h4 class="mt">Conciliar com estágio e horários</h4><p>“Falta de oportunidades de conciliar com o estágio”</p></div>
+      <div class="cartao"><span class="chip">1 menção</span><h4 class="mt">Ausência de bolsa</h4><p>“Ausência de bolsas”</p></div>
+      <div class="cartao"><span class="chip">1 menção</span><h4 class="mt">Falta de retorno após candidatura</h4><p>“a gente procura um projeto e não é chamado, isso é muito frustrante”</p></div>
+    </div>
+    <p class="texto mt">Na funcionalidade mais desejada, nove responderam: cinco pediram uma lista única e padronizada de vagas, três pediram filtro por área ou tema e três pediram ver as linhas de pesquisa dos professores com o contato. As categorias se somam porque algumas respostas citam mais de uma.</p>
+
+    <h3>O que a coleta mudou nos requisitos</h3>
+    <div class="grade g3">
+      <div class="cartao"><span class="chip ok">Confirmados</span><p class="mt">RF04, RF05 e RF06, pela lista única e pelo filtro por área; RF11, RF12 e RF15, pela falta de retorno; RF18, pelas linhas de pesquisa dos professores.</p></div>
+      <div class="cartao"><span class="chip marca">Reforçados</span><p class="mt">RF07 e RF08. Casar interesse com orientador apareceu três vezes, e é o que a compatibilidade explicada resolve.</p></div>
+      <div class="cartao"><span class="chip ipe">Novo · RF21</span><p class="mt">Filtrar vagas pela carga horária compatível com a disponibilidade do perfil. Conciliar com estágio apareceu duas vezes e não estava previsto.</p></div>
+    </div>
+    <div class="aviso-box mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg>
+      <div><b>Instrumento B, docentes: sem respostas até o fechamento</b><p>O questionário circulou pelos mesmos canais e não alcançou os docentes, o que é coerente com o problema: os canais atuais falham nos dois sentidos. RF02, RF03, RF07, RF09, RF13, RF14 e RF15 seguem provisórios, sustentados pela análise de canais.</p></div>
+    </div>
+    <p class="texto mt">Os dois questionários completos estão em <a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg/tree/main/01-PF1-Projeto/instrumentos-de-coleta">instrumentos-de-coleta</a>. A planilha de respostas não é publicada: uma resposta traz um nome num campo aberto.</p>
+  </section>
+
+  <!-- ===================== CANAIS ===================== -->
+  <section class="secao" id="canais">
+    <header><span class="num">5.1.2 · Análise dos canais</span><h2>Nenhum canal combina alcance, permanência e busca</h2>
+      <p>A segunda técnica serve de contraprova do questionário: em vez do que as pessoas dizem que fazem, examina os meios pelos quais uma vaga circula de fato, em seis atributos.</p></header>
+    <div class="tabela-wrap"><table class="mapa">
+      <thead><tr><th>Canal</th><th>Alcance</th><th>Permanência</th><th>Busca</th><th>Padrão</th><th>Candidatura</th><th>Registro</th></tr></thead>
+      <tbody id="tabCanais"></tbody></table></div>
+    <div class="grade g3 mt">
+      <div class="cartao"><h4>Alcance amplo não tem busca; busca boa não tem alcance</h4><p>Daí RF04 a RF06.</p></div>
+      <div class="cartao"><h4>Nenhum canal padroniza a vaga</h4><p>O edital fala em regra geral; a mensagem fala em vaga concreta, em formato livre. Daí RF03 e RNF02.</p></div>
+      <div class="cartao"><h4>Ninguém sabe se é elegível antes</h4><p>O estudante descobre depois de se candidatar, ou nunca. Daí RF07 e RF08, o centro do produto.</p></div>
+    </div>
+    <div class="aviso-box info mt">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <div><b>O mapeamento corrigiu o protótipo</b><p>A primeira versão tratava prazo como detalhe. O exame dos canais mostrou que perder prazo é o modo de falha mais comum: o aviso circula no grupo e é visto depois do encerramento. Prazo virou filtro de primeira ordem, o RF20.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================== REQUISITOS ===================== -->
+  <section class="secao" id="requisitos">
+    <header><span class="num">5.2 · Requisitos</span><h2>Requisitos com a origem declarada</h2>
+      <p>Cada requisito aponta de onde veio: uma questão do questionário, a análise de canais ou a avaliação do protótipo. Mostrando <b id="contReq">21</b> requisitos funcionais.</p></header>
+    <div class="filtro" data-alvo="#listaRF" data-attr="o" data-contador="#contReq" role="group" aria-label="Filtrar por origem">
+      <button type="button" data-valor="*" aria-pressed="true">Todos</button>
+      <button type="button" data-valor="quest" aria-pressed="false">Questionário</button>
+      <button type="button" data-valor="canais" aria-pressed="false">Análise de canais</button>
+      <button type="button" data-valor="aval" aria-pressed="false">Avaliação do protótipo</button>
+      <button type="button" data-valor="prov" aria-pressed="false">Provisórios</button>
+    </div>
+    <div class="grade g3" id="listaRF"></div>
+
+    <h3>Não funcionais</h3>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>ID</th><th>Requisito</th><th>Como verificar</th></tr></thead>
+      <tbody>
+        <tr><td><code>RNF01</code></td><td>Acessibilidade: contraste mínimo de 4,5:1, navegação completa por teclado, foco visível, rótulo em todo controle e nenhuma informação só por cor.</td><td>Inspeção de conformidade e navegação sem mouse</td></tr>
+        <tr><td><code>RNF02</code></td><td>Vocabulário acadêmico em toda a interface, sem jargão corporativo de recrutamento.</td><td>Revisão de todos os rótulos</td></tr>
+        <tr><td><code>RNF03</code></td><td>Funcionar em computador, tablet e celular, sem rolagem horizontal.</td><td>Teste nas três faixas de largura</td></tr>
+        <tr><td><code>RNF04</code></td><td>Toda ação relevante produz retorno visível e descritivo.</td><td>Inventário de ações e retornos</td></tr>
+        <tr><td><code>RNF05</code></td><td>Toda ação destrutiva é reversível ou pede confirmação.</td><td>Inventário de ações destrutivas</td></tr>
+        <tr><td><code>RNF06</code></td><td>Validação com mensagem específica junto ao campo, dizendo o que corrigir, sem bloquear a digitação.</td><td>Teste com dados inválidos</td></tr>
+        <tr><td><code>RNF07</code></td><td>Retorno em até 400 ms para ações locais; progresso para operações longas.</td><td>Medição no protótipo</td></tr>
+        <tr><td><code>RNF08</code></td><td>Privacidade: só os dados declarados na confirmação vão ao orientador.</td><td>Comparação entre declarado e enviado</td></tr>
+        <tr><td><code>RNF09</code></td><td>Prever integração com as bases de matrícula e com o Lattes, sem redigitação.</td><td>Especificação de interface de dados</td></tr>
+        <tr><td><code>RNF10</code></td><td>Concluir a primeira candidatura sem treinamento nem material de apoio.</td><td>Observação na avaliação</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <!-- ===================== PERFIS ===================== -->
+  <section class="secao" id="perfis">
+    <header><span class="num">5.3.1 · Perfis de usuário</span><h2>Dois perfis, duas rotinas</h2>
+      <p>Perfis, personas e cenários são preliminares: hipóteses de trabalho que orientaram os questionários e são confrontadas com as respostas.</p></header>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th></th><th>Estudante de graduação</th><th>Docente orientador</th></tr></thead>
+      <tbody>
+        <tr><td>Faixa típica</td><td>17 a 30 anos, do 1º ao 10º período</td><td>30 a 65 anos, com doutorado</td></tr>
+        <tr><td>Vínculo</td><td>Matrícula ativa na graduação</td><td>Docente efetivo ou substituto, com projeto ou grupo</td></tr>
+        <tr><td>Frequência</td><td>Intensa em janeiro e julho, nos editais; esporádica no resto do ano</td><td>Pontual: abertura da vaga e semana de triagem</td></tr>
+        <tr><td>Competência digital</td><td>Alta em aplicativos de consumo; baixa em sistemas acadêmicos</td><td>Variável; alta resistência a sistema que exija aprendizado</td></tr>
+        <tr><td>Dispositivo</td><td>Celular, e computador para tarefas longas</td><td>Computador de mesa, no gabinete</td></tr>
+        <tr><td>Motivação</td><td>Entrar na pesquisa, conseguir bolsa, compor currículo</td><td>Preencher a vaga com alguém adequado, no mínimo de tempo</td></tr>
+        <tr><td>Obstáculo</td><td>Não saber onde procurar nem se é elegível</td><td>Não alcançar além do próprio círculo e gastar tempo na triagem</td></tr>
+      </tbody></table></div>
+  </section>
+
+  <!-- ===================== PERSONAS ===================== -->
+  <section class="secao" id="personas">
+    <header><span class="num">5.3.2 · Personas</span><h2>Três personas</h2></header>
+    <div class="grade g3">
+      <article class="cartao persona">
+        <div class="topo"><span class="av" style="background:#C9D0FF" aria-hidden="true">AO</span><div><h4>Ana Oliveira</h4><p style="font-size:14px">A estudante que nunca entrou</p></div></div>
+        <blockquote>“Eu até queria, mas nunca sei se estou dentro do que eles pedem.”</blockquote>
+        <dl>
+          <div><dt>Perfil</dt><dd>21 anos, Ciência da Computação, 5º período. Média global 8,7. 40 minutos de ônibus até o campus.</dd></div>
+          <div><dt>Como age hoje</dt><dd>Pergunta a colegas, olha o grupo da turma, abre o site da PRPI quando lembra. Já leu um edital inteiro e terminou sem saber qual professor tinha vaga.</dd></div>
+          <div><dt>O que a trava</dt><dd>Não sabe se a média basta, e tem receio de escrever a um professor desconhecido e receber silêncio.</dd></div>
+          <div><dt>O que precisa</dt><dd>Ver as vagas num lugar só e saber, antes de se candidatar, se preenche os requisitos.</dd></div>
+        </dl>
+      </article>
+      <article class="cartao persona">
+        <div class="topo"><span class="av" style="background:#FFF1C7" aria-hidden="true">MT</span><div><h4>Marcos Teixeira</h4><p style="font-size:14px">O estudante fora do círculo</p></div></div>
+        <blockquote>“Quando eu fico sabendo, já acabou.”</blockquote>
+        <dl>
+          <div><dt>Perfil</dt><dd>24 anos, Engenharia Ambiental, 8º período. Média global 7,4. Veio do interior, trabalha meio período.</dd></div>
+          <div><dt>Como age hoje</dt><dd>Não está nos grupos certos e não tem tempo de circular pelos corredores dos murais. Descobre as coisas tarde.</dd></div>
+          <div><dt>O que o trava</dt><dd>A informação depende de rede de contato, e a dele é pequena. Já perdeu prazo duas vezes.</dd></div>
+          <div><dt>O que precisa</dt><dd>Saber das vagas quando abrem, filtrar as que têm bolsa e ser avisado quando um prazo estiver fechando.</dd></div>
+        </dl>
+      </article>
+      <article class="cartao persona">
+        <div class="topo"><span class="av" style="background:#DAF4E8" aria-hidden="true">JS</span><div><h4>Prof. Dr. João Silva</h4><p style="font-size:14px">O orientador sem tempo</p></div></div>
+        <blockquote>“Eu acabo chamando quem já conheço, porque é o que dá para avaliar rápido.”</blockquote>
+        <dl>
+          <div><dt>Perfil</dt><dd>47 anos, doutor em Ciência da Computação, coordena o Grupo de Inteligência Computacional.</dd></div>
+          <div><dt>Como age hoje</dt><dd>Avisa nas turmas, manda no grupo do laboratório, pede indicação. Recebe currículos por e-mail, em formatos diferentes.</dd></div>
+          <div><dt>O que o trava</dt><dd>A triagem consome tempo, e o alcance fica restrito a quem já o conhece.</dd></div>
+          <div><dt>O que precisa</dt><dd>Publicar uma vez, receber candidaturas comparáveis e decidir com o perfil já confrontado com os requisitos.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== CENÁRIOS ===================== -->
+  <section class="secao" id="cenarios">
+    <header><span class="num">5.3.3 · Cenários</span><h2>O mesmo problema, antes e depois</h2></header>
+    <details class="dobra"><summary><span class="chip erro">Problema</span> A busca que não chega a lugar nenhum</summary>
+      <div class="corpo"><p>É uma terça-feira de março. Ana sai da aula das 10h e lembra que o colega comentou que o período de inscrição do PIBIC estava aberto. Abre o SIGAA no celular: encontra matrícula, notas e histórico, e nada sobre iniciação científica. Tenta o site da Pró-Reitoria, baixa o edital em PDF, lê três páginas sobre prazos, cotas e critérios do programa, e fecha o arquivo sem saber qual professor tem vaga aberta. À noite pergunta no grupo da turma; alguém ouviu falar de uma vaga no laboratório de IA, mas não sabe com quem. Ana pensa em escrever ao professor de aprendizado de máquina, hesita, e não escreve. Duas semanas depois descobre que a vaga foi preenchida.</p></div></details>
+    <details class="dobra"><summary><span class="chip erro">Problema</span> A divulgação que não alcança</summary>
+      <div class="corpo"><p>O professor João recebe a confirmação de duas bolsas PIBIC e tem quinze dias até o fim do prazo de indicação. Avisa nas turmas, manda mensagem no grupo do laboratório e pede indicações. Recebe cinco e-mails, três de estudantes que já trabalharam com ele, com currículos em formatos diferentes. Para comparar, abre um arquivo por vez. Escolhe dois, ambos do seu círculo. Semanas depois, descobre que um deles não tinha a base de álgebra linear que o projeto exigia, informação que não estava em lugar nenhum do que recebeu.</p></div></details>
+    <details class="dobra" open><summary><span class="chip ok">Projetado</span> O mesmo problema com o Conecta UFG</summary>
+      <div class="corpo"><p>Ana entra com a conta institucional. A tela inicial mostra três oportunidades ordenadas por compatibilidade; a primeira é uma iniciação científica em visão computacional. Ela abre e vê a lista de requisitos: curso, período, média global e áreas atendidos; conhecimentos desejados não atendido, porque não declarou álgebra linear.</p>
+        <p class="mt">Em menos de um minuto ela sabe que é elegível e onde está fraca. Acrescenta a disciplina ao perfil, clica em aplicar, vê exatamente o que vai ao professor e confirma. A candidatura aparece na linha do tempo como “enviada”.</p>
+        <p class="mt">Do outro lado, João abre o quadro da vaga, vê os candidatos por etapa com curso, período, média global e compatibilidade, abre o perfil de Ana com os requisitos já confrontados e move o cartão para entrevista. O sistema registra a data e atualiza a linha do tempo dela.</p></div></details>
+  </section>
+
+  <!-- ===================== MODELOS ===================== -->
+  <section class="secao" id="modelos">
+    <header><span class="num">5.4 · Modelos de dados</span><h2>Casos de uso e atividades</h2></header>
+    <div class="grade g2">
+      <figure class="fig"><a href="img/pf1/diagrama-de-casos-de-uso.jpg"><img src="img/pf1/diagrama-de-casos-de-uso.jpg" alt="Diagrama de casos de uso do Conecta UFG" loading="lazy" width="1800" height="1154"></a>
+        <figcaption><b>Casos de uso.</b> Estudante e orientador são atores primários; a coordenação de pesquisa consulta resultados sem operar a seleção. Onze casos de uso cobrem RF01 a RF19; o RF20, alerta de prazo, é comportamento do sistema.</figcaption></figure>
+      <figure class="fig limite"><a href="img/pf1/diagrama-de-atividades.jpg"><img src="img/pf1/diagrama-de-atividades.jpg" alt="Diagrama de atividades do fluxo de candidatura em raias: estudante, sistema e orientador" loading="lazy" width="1800" height="2485"></a>
+        <figcaption><b>Atividades.</b> Da descoberta da vaga ao resultado. A decisão sobre requisito eliminatório vem antes do envio, e nenhuma candidatura termina sem retorno ao estudante.</figcaption></figure>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <span>Conecta UFG · Projeto Final de Interação Humano-Computador · Instituto de Informática, UFG · 2026</span>
+  <span>Personas e dados do protótipo são fictícios · <a target="_blank" rel="noopener" href="https://github.com/conecta-ufg/conecta-ufg">Repositório</a></span>
+</footer>
+
+<script>
+/* Barras horizontais: [rótulo, valor, destaque] */
+document.querySelectorAll('.barras').forEach(function(el){
+  var total=+el.getAttribute('data-total'),d=JSON.parse(el.getAttribute('data-dados')),max=Math.max.apply(null,d.map(function(x){return x[1]}));
+  el.setAttribute('role','list');
+  el.innerHTML=d.map(function(x){var pct=Math.round(x[1]/total*100);
+    var tip=x[0]+': '+x[1]+' de '+total+' ('+pct+'%)';
+    return '<span class="nome" role="listitem">'+x[0]+'</span><span class="trilho" title="'+tip+'"><span class="barra-v'+(x[2]?'':' fraca')+'" style="width:calc('+(max?x[1]/max:0)+' * (100% - 70px))"></span><span class="val">'+x[1]+' <span style="color:var(--tinta-3);font-weight:700">('+pct+'%)</span></span><span class="sr">'+tip+'</span></span>';
+  }).join('');
+});
+/* Colunas de escala 1 a 5 */
+document.querySelectorAll('.colunas').forEach(function(el){
+  var d=JSON.parse(el.getAttribute('data-dados')),f=el.getAttribute('data-fortes').split(',').map(Number),max=Math.max.apply(null,d);
+  el.innerHTML=d.map(function(v,i){return '<div class="col'+(f.indexOf(i)>-1?' forte':'')+'" title="Nota '+(i+1)+': '+v+' pessoa'+(v===1?'':'s')+'"><b>'+v+'</b><span style="height:'+(v/max*100)+'%"></span></div>'}).join('');
+});
+/* Mapa dos canais: classe por valor */
+var CANAIS=[
+ ['Site da UFG e da PRPI','Amplo','Alta','Fraca','Edital','Externa','Sim'],
+ ['SIGAA','Amplo','Alta','Não há','Não há','Não há','Parcial'],
+ ['Murais físicos','Prédio','Média','Não há','Livre','Externa','Não'],
+ ['WhatsApp e Telegram','Grupo','Baixa','Fraca','Livre','Mensagem','Não'],
+ ['E-mail a turmas','Turma','Média','Fraca','Livre','Resposta','Caixa pessoal'],
+ ['Redes do laboratório','Seguidores','Baixa','Fraca','Livre','Mensagem','Não'],
+ ['Comunicação em sala','Turma','Nenhuma','Não há','Oral','Presencial','Não'],
+ ['Indicação pessoal','Círculo','Nenhuma','Não há','Oral','Direta','Não']
+];
+var BOM=['Amplo','Alta','Sim','Edital'],MED=['Média','Fraca','Parcial','Prédio','Turma','Grupo','Seguidores','Caixa pessoal','Externa','Mensagem','Resposta','Direta','Presencial'];
+document.getElementById('tabCanais').innerHTML=CANAIS.map(function(c){
+  return '<tr><td>'+c[0]+'</td>'+c.slice(1).map(function(v){var k=BOM.indexOf(v)>-1?'bom':MED.indexOf(v)>-1?'med':'ruim';return '<td class="c '+k+'">'+v+'</td>'}).join('')+'</tr>';
+}).join('');
+/* Requisitos funcionais: [id, texto, origem, tags] */
+var RF=[
+ ['RF01','Autenticar por conta institucional, identificando vínculo e papel.','Canais: B9 depende de identidade verificada','canais'],
+ ['RF02','Manter o perfil acadêmico: curso, período, média global, interesses, habilidades, trajetória, disponibilidade e Lattes.','B10; análise de canais','quest canais prov'],
+ ['RF03','Publicar oportunidade com campos padronizados, de título e tipo a média mínima, bolsa, carga horária, vagas e prazo.','Canais: ausência de padronização','canais prov'],
+ ['RF04','Listar as oportunidades abertas num único lugar, de qualquer unidade.','A4; A5; canais','quest canais'],
+ ['RF05','Filtrar por tipo, remuneração, unidade e situação da inscrição, com filtros combináveis.','Canais: ausência de busca','canais'],
+ ['RF06','Buscar por texto livre em título, área, orientador e conhecimentos.','Canais: ausência de busca','canais'],
+ ['RF07','Calcular a compatibilidade entre o perfil e os requisitos da vaga.','A8; B9','quest prov'],
+ ['RF08','Exibir os requisitos item a item, atendido ou não, com o motivo, e destacar os eliminatórios.','A8; canais; avaliação do protótipo','quest canais aval'],
+ ['RF09','Candidatar-se com o perfil já cadastrado, sem reenviar documentos.','B5; B10','quest prov'],
+ ['RF10','Mostrar, antes do envio, o que vai ao orientador e o que fica privado.','Avaliação do protótipo','aval'],
+ ['RF11','Andamento da candidatura em linha do tempo, com etapa atual, data e observação.','A8, confirmado pela coleta','quest'],
+ ['RF12','Notificar o estudante a cada mudança de etapa.','A8, confirmado pela coleta','quest'],
+ ['RF13','Organizar os candidatos em quadro por etapa.','B5','quest prov'],
+ ['RF14','Abrir o perfil completo do candidato com os requisitos já confrontados.','B9; B10','quest prov'],
+ ['RF15','Registrar o resultado da seleção e disponibilizá-lo ao candidato.','A8; B5','quest prov'],
+ ['RF16','Retirar a candidatura enquanto não houver resultado.','Avaliação do protótipo','aval'],
+ ['RF17','Listar eventos acadêmicos abertos à graduação e permitir inscrição.','Escopo do produto',''],
+ ['RF18','Listar projetos e grupos de pesquisa, com as vagas de cada um.','A3; escopo','quest'],
+ ['RF19','Salvar uma oportunidade para decidir depois.','Avaliação do protótipo','aval'],
+ ['RF20','Sinalizar prazo próximo do encerramento e filtrar por essa condição.','Canais: perda de prazo','canais'],
+ ['RF21','Filtrar vagas pela carga horária compatível com a disponibilidade do perfil.','Novo, saído da coleta (A8)','quest']
+];
+document.getElementById('listaRF').innerHTML=RF.map(function(r){
+  var prov=r[3].indexOf('prov')>-1;
+  return '<div class="cartao req" data-o="'+r[3]+'"><span class="chips"><span class="id">'+r[0]+'</span>'+(prov?'<span class="chip aviso">provisório</span>':'')+(r[0]==='RF21'?'<span class="chip ipe">novo</span>':'')+'</span><p>'+r[1]+'</p><span class="orig">Origem: '+r[2]+'</span></div>';
+}).join('');
+</script>
+</body>
+</html>

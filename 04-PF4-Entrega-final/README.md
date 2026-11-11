@@ -3,6 +3,10 @@
 Versão final do projeto escrito e do protótipo, reunindo de forma integrada
 tudo o que as etapas anteriores produziram.
 
+**<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/" target="_blank" rel="noopener">▶ Ver o projeto em páginas</a>**: visão geral, fechamento e links para cada etapa.
+
+<sub>Dica: o GitHub abre links na mesma aba. Use <kbd>Ctrl</kbd>+clique (<kbd>⌘</kbd>+clique no Mac) para abrir em nova aba e continuar aqui.</sub>
+
 ## O documento
 
 [`PF4_Conecta_UFG.docx`](PF4_Conecta_UFG.docx) é o documento completo, com 58

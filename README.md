@@ -7,9 +7,18 @@
 Projeto Final da disciplina de **Interação Humano-Computador**
 Instituto de Informática · Universidade Federal de Goiás
 
-**[▶ Abrir o protótipo navegável](https://conecta-ufg.github.io/conecta-ufg/)**
+**<a href="https://conecta-ufg.github.io/conecta-ufg/" target="_blank" rel="noopener">▶ Abrir o protótipo navegável</a>**
+
+<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/" target="_blank" rel="noopener">O projeto em páginas</a> ·
+<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/pesquisa.html" target="_blank" rel="noopener">Pesquisa</a> ·
+<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/guia-de-estilo.html" target="_blank" rel="noopener">Guia de estilo</a> ·
+<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/avaliacao.html" target="_blank" rel="noopener">Avaliação</a>
 
 </div>
+
+> O GitHub mostra HTML como código-fonte. Para ver as páginas renderizadas, use os
+> links acima: elas são servidas pelo GitHub Pages a partir de `docs/`.
+> O GitHub abre links na mesma aba; use <kbd>Ctrl</kbd>+clique (<kbd>⌘</kbd>+clique no Mac) para abrir em nova aba e continuar no repositório.
 
 ---
 
@@ -97,6 +106,7 @@ Orientação: **Profa. Luciana de Oliveira Berreta**
 |---|---|
 | `01-PF1-Projeto` a `04-PF4-Entrega-final` | Uma pasta por etapa. Cada uma guarda o documento no estado daquela entrega, e cada documento acumula as etapas anteriores |
 | `docs` | **O protótipo publicado.** É daqui que o GitHub Pages serve o endereço acima. Não apagar: o link sai do ar junto |
+| `docs/projeto` | **As páginas visuais de cada etapa** (pesquisa, guia de estilo, avaliação e visão geral), com CSS e JS compartilhados em `assets/` e cópias das imagens otimizadas para a web em `img/`. Os originais continuam na pasta de cada etapa |
 
 ## Como ver o protótipo
 

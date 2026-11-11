@@ -3,6 +3,10 @@
 Entrega do projeto da interface: o guia de estilo e o protótipo navegável, com
 os princípios e critérios de IHC indicados sobre as telas.
 
+**<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/guia-de-estilo.html" target="_blank" rel="noopener">▶ Ver o guia de estilo como página</a>**: paleta nos dois temas com contraste medido, tipografia, componentes, padrões de tela e os 29 marcadores.
+
+<sub>Dica: o GitHub abre links na mesma aba. Use <kbd>Ctrl</kbd>+clique (<kbd>⌘</kbd>+clique no Mac) para abrir em nova aba e continuar aqui.</sub>
+
 ## O documento
 
 [`PF2_Conecta_UFG.docx`](PF2_Conecta_UFG.docx) reune a Etapa 1 e a Etapa 2 num

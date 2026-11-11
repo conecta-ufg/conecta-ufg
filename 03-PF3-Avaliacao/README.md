@@ -3,6 +3,10 @@
 Inspeção do protótipo de **outra equipe da turma**, o Trilha INF, com as **três
 técnicas** do método.
 
+**<a href="https://conecta-ufg.github.io/conecta-ufg/projeto/avaliacao.html" target="_blank" rel="noopener">▶ Ver esta etapa como página</a>**: as três técnicas, tela a tela, e a consolidação.
+
+<sub>Dica: o GitHub abre links na mesma aba. Use <kbd>Ctrl</kbd>+clique (<kbd>⌘</kbd>+clique no Mac) para abrir em nova aba e continuar aqui.</sub>
+
 ## O documento
 
 [`PF3_Conecta_UFG.docx`](PF3_Conecta_UFG.docx) acumula as etapas anteriores. As
